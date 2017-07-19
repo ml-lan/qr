@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  
+ <servlet>
+    <servlet-name>GetPhoneRamdomNoServlet</servlet-name>
+    <servlet-class>com.oracle.servlet.GetPhoneRamdomNoServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>RepassServlet</servlet-name>
+    <servlet-class>com.oracle.servlet.RepassServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserLoginServlet</servlet-name>
+    <servlet-class>com.oracle.servlet.UserLoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddDictionaryServlet</servlet-name>
+    <servlet-class>com.oracle.servlet.AddDictionaryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetDictionaryServlet</servlet-name>
+    <servlet-class>com.oracle.servlet.GetDictionaryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetTeacherDataServlet</servlet-name>
+    <servlet-class>com.oracle.servlet.GetTeacherDataServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>TeacherAddServlet</servlet-name>
+    <servlet-class>com.oracle.servlet.TeacherAddServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>GetPhoneRamdomNoServlet</servlet-name>
+    <url-pattern>/servlet/GetPhoneRamdomNoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RepassServlet</servlet-name>
+    <url-pattern>/servlet/RepassServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserLoginServlet</servlet-name>
+    <url-pattern>/servlet/UserLoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddDictionaryServlet</servlet-name>
+    <url-pattern>/servlet/AddDictionaryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetDictionaryServlet</servlet-name>
+    <url-pattern>/servlet/GetDictionaryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetTeacherDataServlet</servlet-name>
+    <url-pattern>/servlet/GetTeacherDataServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TeacherAddServlet</servlet-name>
+    <url-pattern>/servlet/TeacherAddServlet</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
