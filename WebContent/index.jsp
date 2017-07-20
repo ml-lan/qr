@@ -1,22 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%> 
+<%@ include file="include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 <title>二维码签到系统</title>
-<link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=basePath%>css/dhtmlxmessage_dhx_skyblue.css">
-<link rel="stylesheet" href="<%=basePath%>css/style.css">
-<link rel="stylesheet" href="<%=basePath%>css/animate.min.css">
 </head>
 <body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 				<div class="navbar-header">
@@ -40,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class="container" id="con_table">
 	<div class="col-lg-4 col-sm-4 col-xs-4 col-lg-offset-4 col-sm-offset-4 col-xs-offset-4">
-		<form action="<%=basePath%>servlet/UserLoginServlet" method="post">
+		<form action="${CTX_PATH}/servlet/UserLoginServlet" method="post">
 				<table  id="table1" class="table table-bordered">
 					<tr>
 						<td style="vertical-align: middle;"> <span class="glyphicon glyphicon-user"> </span> 用户名</td>
@@ -71,13 +63,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input class="btn btn-danger btn-danger" type="submit" value="立即登录" />
 						</td>
 					</tr>
-					
 					 
 				</table>
 			</form>
 				
 				
-				 <table  style="display: none;" id="table2" class="table table-bordered">
+			<table  style="display: none;" id="table2" class="table table-bordered">
 					<tr>
 						<td style="vertical-align: middle;">手机号码：</td>
 						<td><input class="form-control" type="text" id="txtPhone" /></td>
@@ -85,12 +76,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  			
 					<tr>
 						<td colspan="2" align="center">
-							<input type="button" onclick="to3()" class="btn btn-info" value="下一步" />
+							<input type="button" onclick="next_step()" class="btn btn-info" value="下一步" />
 						</td>
 					</tr>
-				</table>
+			</table>
 				
-				<table  style="display: none;"  id="table3" class="table">
+			<table  style="display: none;"  id="table3" class="table">
 					<tr>
 						<td style="vertical-align: middle;">验证码：</td>
 						<td><input class="form-control" type="text" name="" id="" value="" /></td>
@@ -100,9 +91,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input type="button" class="btn btn-info" onclick="change('#table3','#table4')" value="下一步" />
 						</td>
 					</tr>
-				</table>
+			</table>
 				
-				<table style="display: none;" id="table4" class="table">
+			<table style="display: none;" id="table4" class="table">
 					<tr>
 						<td style="vertical-align: middle;">新密码：</td>
 						<td><input class="form-control" type="text" name="" id="pass1" value="" /></td>
@@ -116,8 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input type="button" class="btn btn-info" onclick="repassf()" value="完成" />
 						</td>
 					</tr>
-				</table> 
-
+			</table> 
 	</div>
 </div>
 
@@ -131,22 +121,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div> 
 </footer>
 
-
-<script type="text/javascript" src="<%=basePath%>js/jquery-1.12.3.min.js" ></script>
-<script type="text/javascript" src="<%=basePath%>js/dhtmlxmessage.js"></script>
-<script type="text/javascript" src="<%=basePath%>js/index.js"></script>
 <script type="text/javascript">
-function to3() {
+
+$(function(){
+	startTime();//时间函数
+})
+function startTime()
+{
+	var date = new Date();
+	var d=date.getDate();
+	var mon=date.getMonth() + 1;
+	var y=date.getFullYear();
+	var h=date.getHours();
+	var m=date.getMinutes();
+	var s=date.getSeconds();
+	m=checkTime(m)
+	s=checkTime(s)
+	$("#time_show").html(y+"年"+mon+"月"+d+"  "+h+":"+m+":"+s);
+	t=setTimeout('startTime()',1000);//设定定时器，循环执行 
+}
+
+function checkTime(i)
+{
+	if (i<10) 
+	{
+	  	i="0" + i
+	}
+	return i
+}
+function change(selector1,selector2){
+	$(selector1).css({
+		"display":"none"
+	});
+	$(selector2).css({
+		"display":"table"
+	});
+}
+
+
+function next_step() {
 
 	//需要校验用户数输入的手机号码是否ok
 	var phoneval = $("#txtPhone").val();
 	$.ajax({     
-			     type : "POST", //提交方式
-			     url : "<%=basePath%>servlet/GetPhoneRamdomNoServlet",//路径
-			     data : {
-			      "phoneno" : phoneval
-			     },//数据，这里使用的是Json格式进行传输
-			     success : function(result) {//返回数据根据结果进行相应的处理
+			   type : "POST", //提交方式
+			   url : "${CTX_PATH}/servlet/GetPhoneRamdomNoServlet",//路径
+			   data : {
+				   	"phoneno" : phoneval
+			     	  },//数据，这里使用的是Json格式进行传输
+			   success : function(result) {//返回数据根据结果进行相应的处理
  			      		//根据后台返回的结果 做相应的逻辑处理
 						if(result=='01') {
 							dhtmlx.message({
@@ -173,54 +196,14 @@ function to3() {
 
 }
 
-//确认修改密码按钮的点击事件处理函数
-		function repassf(){
-		
-			var phoneval = $("#txtPhone").val();
-			//jquery简化ajax的发送
-			//
-			$.ajax({     
-			     type : "POST", //提交方式
-			     url : "<%=basePath%>servlet/RepassServlet",//路径
-			     data : {
-			      	"phoneno" : phoneval,
-			       	"pass1"   : $("#pass1").val(),
-			        "pass2"   : $("#pass2").val()
-			     },
-			     success : function(result) {//返回数据根据结果进行相应的处理
- 			      		//根据后台返回的结果 做相应的逻辑处理
-						if(result=='修改密码成功') {
-							dhtmlx.message({
-								text: result,
-								expire: 3000
-							});
-							//返回到登陆的div上
-							$("#table4").fadeOut(500);
-							$("#table1").fadeIn(500);
-							
-						}else {
-							dhtmlx.message({
-								type: "error", 
-								text: result,
-								expire: 5000
-							});
- 						
- 						}
- 			     }
-		    }); 
-		    //============ajax end
-		
-		}
-		
-		
-		var msg='<%=request.getAttribute("msg")%>';
-		if(msg!='null'){//如果有消息
-			dhtmlx.message({
-				text: msg,   
-				expire: 3000
-			});
-		}
+var msg='<%=request.getAttribute("msg")%>';
 
+if(msg!='null'){//如果有消息
+		dhtmlx.message({
+			text: msg,   
+			expire: 3000
+		});
+}
 </script>
 </body>
 </html>

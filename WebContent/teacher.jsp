@@ -187,9 +187,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div> 
 </footer>
 
-<script type="text/javascript" src="<%=basePath%>js/jquery-1.12.3.min.js" ></script>
-<script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>js/dhtmlxmessage.js"></script>
-<script type="text/javascript" src="<%=basePath%>js/index.js"></script>
+<script type="text/javascript">
+//为班级考勤和设置链接增加点击事件的处理
+$("#a_kq").click(function(){
+	
+	$(".col-lg-3").find(".active").removeClass("active");
+	
+	$(this).addClass("active");
+	
+	$("#div_set").fadeOut(500,function(){
+		$("#div_qd").fadeIn(500);//显示设置区域
+	});
+});
+
+$("#a_set").click(function(){
+	
+	//先去处已经获得焦点的标签的样式
+	//$(".active")表示获取拥有active样式的元素对象
+	//removeclass意思是移除这个对象的active样式
+	$(".col-lg-3").find(".active").removeClass("active");
+	//this代表当前
+	//this是指向当前正在使用的那个对象的一个引用
+	$(this).addClass("active");
+	
+	$("#div_qd").fadeOut(500,function(){
+		$("#div_set").fadeIn(500);//显示设置区域
+	});
+	
+});
+
+
+</script>
 </body>
 </html>

@@ -201,7 +201,59 @@
 			4444444444444444
 		</div>
 <script type="text/javascript" src="js/jquery-1.12.3.min.js" ></script>
-<script type="text/javascript" src="js/index.js"></script>
+
 <script type="text/javascript" src="js/bootstrap.min.js" ></script>
+
+<script type="text/javascript">
+
+/*studentPhone.jsp */
+function showHomePage(div_id){
+	$("#"+div_id).fadeOut(100,function(){
+		$("#btnDiv").fadeIn(500); 
+	});
+	
+	
+}
+
+//为按钮增加点击的事件处理
+$("#btn1").click(function() {
+	$("#btnDiv").fadeOut(500, function() {
+		$("#div_qd").fadeIn(500,function(){
+			alert('您还未登陆，请先登陆');
+			alert('程序模拟已经登陆的情况');
+			
+		});
+	});
+
+});
+
+$("#btn2").click(function() {
+	$("#btnDiv").fadeOut(500, function() {
+		$("#div_sqqj").fadeIn(500);
+	});
+});
+
+$("#btn3").click(function() {
+	$("#btnDiv").fadeOut(500, function() {
+		$("#div_ckkq").fadeIn(500);
+	});
+});
+
+$("#btn4").click(function() {
+	$("#btnDiv").fadeOut(500, function() {
+		$("#div_xgxx").fadeIn(500);
+	});
+});
+
+function sendQJMessage() {
+
+	alert('提交成功');
+	$("#div_sqqj").fadeOut(500, function() {
+		$("#btnDiv").fadeIn(500);
+	});
+
+}
+
+</script>
 </body>
 </html>
