@@ -8,17 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xaut.entity.Dictionary;
-import com.xaut.entity.Teacher;
-import com.xaut.service.DictionaryService;
-import com.xaut.service.TeacherService;
+import com.xaut.entity.QDRecord;
+import com.xaut.service.QDRecordService;
 
-public class TeacherAddServlet extends HttpServlet {
+public class QDServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public TeacherAddServlet() {
+	public QDServlet() {
 		super();
 	}
 
@@ -68,37 +66,22 @@ public class TeacherAddServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("utf-8");
+ 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		// 取得用户输入的值
-		String tname = request.getParameter("tname");
-		String tsex = request.getParameter("tsex");
-		String tphone = request.getParameter("tphone");
-		String tpass = request.getParameter("tpass");
+		String sno = request.getParameter("sno");
+		 
+		String stime=request.getSession().getAttribute("startTime").toString();
+		
 
-		String[] tclass = request.getParameterValues("tclass");
+		QDRecordService qs = new com.xaut.service.QDRecordService();
+		QDRecord q = new QDRecord();
+		q.setQstarttime1(stime);
+		q.setStudentno(Integer.parseInt(sno)); 
 
-		Teacher t = new Teacher();
-		t.setTname(tname);
-		t.setTpassword(tpass);
-		t.setTphone(tphone);
-		t.setTsex(Integer.parseInt(tsex));
+		qs.saveRecord(q);
 
-		TeacherService ts = new TeacherService();
-		ts.saveTeacher(t, tclass);
-
-		request.setAttribute("msg", "添加老师成功");
-		request.setAttribute("flag", "2");
-
-		// 需要在转向到leader.jsp页面之前，首先把leader.jsp页面中需要查询的数据查询出来
-		// 调用 字典业务逻辑类 中查询的方法
-		DictionaryService ds = new DictionaryService();
-		java.util.List<Dictionary> list = ds.queryAll();
-		// 并且将查询的结果存放在某一个范围中
-		request.setAttribute("data", list);
-
-		request.getRequestDispatcher("/leader.jsp").forward(request, response);
-
+		response.getWriter().println("今日签到成功");
+		System.out.println(sno + " 签到成功");
 	}
 
 	/**

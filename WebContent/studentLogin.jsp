@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="include.jsp" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 <title>二维码签到系统学生手机端</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -43,7 +43,7 @@
 		
 
 
-		<div class="jumbotron " style="margin-top: 50px;">
+<div class="jumbotron " style="margin-top: 50px;">
 			<div class="container">
 				
 				<h1>二维码签到系统</h1>
@@ -52,23 +52,23 @@
 					<span class="badge">15</span>
 				</div>
 			</div>
-
-		</div>
+</div>
 
 		
-		<div class="container">
+<div class="container">
+	<form action="${CTX_PATH}/servlet/StudentLoginServlet" method="post">
 			<table class="table">
 				<tr>
 					<td style="vertical-align: middle;">手机号码:</td>
 					<td>
-						<input type="text" class="form-control" name="" id="" value="" />
+						<input type="text" class="form-control" name="sphone" id="" value="" />
 					</td>
 				</tr>
 		
 				<tr>
 					<td style="vertical-align: middle;">登陆密码:</td>
 					<td>
-						<input type="password"  class="form-control" name="" id="" value="" />
+						<input type="password"  class="form-control" name="spass" id="" value="" />
 					</td>
 				</tr>
 				
@@ -83,13 +83,18 @@
 					
 					</td>
 					<td align="center">
-						<input type="button" name="" id="" class="btn btn-danger btn-block" value="登录" />
+						<input type="submit" name="" id="" class="btn btn-danger btn-block" value="登录" />
 					</td>
 				</tr>
 			</table>
-		</div>
-		 
-<script type="text/javascript" src="js/jquery-1.12.3.min.js" ></script>
-<script type="text/javascript" src="js/bootstrap.min.js" ></script>		 
+	</form>
+</div>
+<script type="text/javascript">
+	
+var msg='<%=request.getAttribute("msg")%>'; 
+if(msg!='null'){//如果有消息
+	alert(msg);
+}  
+</script> 
 </body>
 </html>

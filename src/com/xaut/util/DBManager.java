@@ -15,7 +15,8 @@ public class DBManager {
 
 	private static final String DRIVERCLASS = "com.mysql.jdbc.Driver";
 	//?useUnicode=true&characterEncoding=UTF-8
-	private static final String URL = "jdbc:mysql://127.0.0.1:3306/erwei?useUnicode=true&characterEncoding=UTF-8";
+	//private static final String URL = "jdbc:mysql://118.89.150.221:3306/QRcode?useUnicode=true&characterEncoding=UTF-8";
+	private static final String URL = "jdbc:mysql://127.0.01:3306/erwei?useUnicode=true&characterEncoding=UTF-8";
 	private static final String NAME = "root";
 	private static final String PASS = "root";
 

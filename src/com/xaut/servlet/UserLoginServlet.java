@@ -98,7 +98,7 @@ public class UserLoginServlet extends HttpServlet {
 				request.setAttribute("data", list);
 				//请求转发或者重定向到leader.jsp页面上
 				//请求转发才可以获取request范围中的值
-				request.getRequestDispatcher("../leader.jsp").forward(request, response);
+				request.getRequestDispatcher("/leader.jsp").forward(request, response);
 				
 				//response.sendRedirect("../leader.html");
 			} catch (Exception e) {
@@ -118,8 +118,10 @@ public class UserLoginServlet extends HttpServlet {
 			TeacherService ts=new TeacherService();
 			try {
 				ts.teacherLogin(sname, spass);
+				request.setAttribute("teacherId", ts.teacherLogin(sname, spass).getTid());
 				//转发到欢迎老师登录的界面
-				response.sendRedirect("../teacher.jsp");
+				request.getRequestDispatcher("/teacher.jsp").forward(request,
+						response);
 			} catch (Exception e) {
 				// 需要将错误的消息反馈给 客户端
 				// 首先将消息储存在某一个范围中 request

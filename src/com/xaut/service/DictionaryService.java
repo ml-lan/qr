@@ -2,6 +2,7 @@ package com.xaut.service;
 
 import java.util.List;
 import java.util.Map;
+
 import com.xaut.dao.DictionaryDao;
 import com.xaut.entity.Dictionary;
 
@@ -29,8 +30,7 @@ public class DictionaryService {
 		ddao.save(d);
 
 	}
-	
-	
+
 	public List<String> getYuan() {
 		return ddao.getYuan();
 	}
@@ -57,4 +57,5 @@ public class DictionaryService {
 	public  Map<String, Dictionary>  getBJAll() {
 		return ddao.getBJAll();
 	}
+
 }

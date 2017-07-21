@@ -8,6 +8,40 @@ public class QDRecord {
 	private Date qdate;// ` datetime DEFAULT NULL,
 	private Date qtime;// ` time DEFAULT NULL,
 	private Date qstarttime;// ` time DEFAULT NULL,
+	
+	
+	
+	private String qdate1;// ` datetime DEFAULT NULL,
+	private String qtime1;// ` time DEFAULT NULL,
+	private String qstarttime1;// ` time DEFAULT NULL,
+	
+	
+	
+	
+
+	public String getQdate1() {
+		return qdate1;
+	}
+
+	public void setQdate1(String qdate1) {
+		this.qdate1 = qdate1;
+	}
+
+	public String getQtime1() {
+		return qtime1;
+	}
+
+	public void setQtime1(String qtime1) {
+		this.qtime1 = qtime1;
+	}
+
+	public String getQstarttime1() {
+		return qstarttime1;
+	}
+
+	public void setQstarttime1(String qstarttime1) {
+		this.qstarttime1 = qstarttime1;
+	}
 
 	public int getQid() {
 		return qid;

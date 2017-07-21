@@ -3,13 +3,11 @@ package com.xaut.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.xaut.dao.TeacherDao;
-
-import com.xaut.entity.Teacher;
-
 import com.xaut.dao.TeacherClassDao;
-
+import com.xaut.dao.TeacherDao;
+import com.xaut.entity.Teacher;
 import com.xaut.entity.Teacherclass;
+
 /**
  * 教师业务逻辑类
  * 
@@ -19,8 +17,8 @@ import com.xaut.entity.Teacherclass;
 public class TeacherService {
 
 	private TeacherDao tdao = new TeacherDao();
-
 	private TeacherClassDao tcdao = new TeacherClassDao();
+
 	/**
 	 * 老师登录的逻辑
 	 * 
@@ -51,11 +49,10 @@ public class TeacherService {
 	 * @return
 	 */
 	public List<Teacher> queryAll() {
-		
+		String sql = "select * from teacher";
 		return tdao.queryAll();
 
 	}
-	
 
 	/**
 	 * 保存老师信息
@@ -76,8 +73,5 @@ public class TeacherService {
 		}
 
 	}
-	
-	
-	
 
 }

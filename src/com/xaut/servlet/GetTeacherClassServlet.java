@@ -3,7 +3,6 @@ package com.xaut.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.xaut.entity.Dictionary;
-import com.xaut.service.DictionaryService;
+import com.xaut.service.TeacherClassService;
 
-public class GetDictionaryServlet extends HttpServlet {
+public class GetTeacherClassServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetDictionaryServlet() {
+	public GetTeacherClassServlet() {
 		super();
 	}
 
@@ -69,64 +68,18 @@ public class GetDictionaryServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// 设置编码解决乱码问题
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		int teacherId=Integer.parseInt(request.getParameter("teacherId"));
+		TeacherClassService tcs = new TeacherClassService();
+		List<Dictionary> list = tcs.queryByTeacherId(teacherId);
 
-		DictionaryService ds = new DictionaryService();
-		PrintWriter pw = response.getWriter();
-		// 在此处要处理 五种不同的数据
-		// flag是客户端传递的一个参数表示要获取的数据的类型
-		String flag = request.getParameter("flag");
-		if (flag.equals("1")) {// 查询学院
-			List<String> yuanlist = ds.getYuan();
-			// 将集合变为字符串或者json格式进行数据的传递
-			StringBuffer str = new StringBuffer();
-			for (String string : yuanlist) {
-				str.append(string + ",");
-			}
-			System.out.println(str);
-			pw.print(str);
-		} else if (flag.equals("2")) {
-			List<String> yuanlist = ds.getX();
-			// 将集合变为字符串或者json格式进行数据的传递
-			StringBuffer str = new StringBuffer();
-			for (String string : yuanlist) {
-				str.append(string + ",");
-			}
-			pw.print(str);
-		} else if (flag.equals("3")) {
-			List<String> yuanlist = ds.getZY();
-			// 将集合变为字符串或者json格式进行数据的传递
-			StringBuffer str = new StringBuffer();
-			for (String string : yuanlist) {
-				str.append(string + ",");
-			}
-			pw.print(str);
-		} else if (flag.equals("4")) {
-			List<String> yuanlist = ds.getNJ();
-			// 将集合变为字符串或者json格式进行数据的传递
-			StringBuffer str = new StringBuffer();
-			for (String string : yuanlist) {
-				str.append(string + ",");
-			}
-			pw.print(str);
-		} else if (flag.equals("5")) {
-			List<String> yuanlist = ds.getBJ();  
-			// 将集合变为字符串或者json格式进行数据的传递
-			StringBuffer str = new StringBuffer();
-			for (String string : yuanlist) {
-				str.append(string + ",");
-			}
-			pw.print(str);
-		} else {
+		String json = JSON.toJSONString(list);
 
-			// if (flag.equals("4")) {
-			// xxx学院-xx系-xx专业-xx级-xx班
-			Map<String, Dictionary> map = ds.getBJAll();
-			String json = JSON.toJSONString(map);
-			System.out.println(json);
-			pw.print(json);//返回给客户端浏览器
-		}
+		System.out.println(json);
+
+		response.getWriter().println(json);
 
 	}
 

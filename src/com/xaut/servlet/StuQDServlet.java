@@ -8,17 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xaut.entity.Dictionary;
-import com.xaut.entity.Teacher;
-import com.xaut.service.DictionaryService;
-import com.xaut.service.TeacherService;
-
-public class TeacherAddServlet extends HttpServlet {
+public class StuQDServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public TeacherAddServlet() {
+	public StuQDServlet() {
 		super();
 	}
 
@@ -47,7 +42,7 @@ public class TeacherAddServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		this.doPost(request, response);
+			this.doPost(request, response);
 	}
 
 	/**
@@ -69,35 +64,19 @@ public class TeacherAddServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		// 取得用户输入的值
-		String tname = request.getParameter("tname");
-		String tsex = request.getParameter("tsex");
-		String tphone = request.getParameter("tphone");
-		String tpass = request.getParameter("tpass");
-
-		String[] tclass = request.getParameterValues("tclass");
-
-		Teacher t = new Teacher();
-		t.setTname(tname);
-		t.setTpassword(tpass);
-		t.setTphone(tphone);
-		t.setTsex(Integer.parseInt(tsex));
-
-		TeacherService ts = new TeacherService();
-		ts.saveTeacher(t, tclass);
-
-		request.setAttribute("msg", "添加老师成功");
-		request.setAttribute("flag", "2");
-
-		// 需要在转向到leader.jsp页面之前，首先把leader.jsp页面中需要查询的数据查询出来
-		// 调用 字典业务逻辑类 中查询的方法
-		DictionaryService ds = new DictionaryService();
-		java.util.List<Dictionary> list = ds.queryAll();
-		// 并且将查询的结果存放在某一个范围中
-		request.setAttribute("data", list);
-
-		request.getRequestDispatcher("/leader.jsp").forward(request, response);
+		response.setCharacterEncoding("utf-8"); 
+		String data = request.getParameter("did");
+		String datas[]=data.split(",");
+		String did=datas[0];
+		String startTime=datas[1];
+		
+ 		//将班级编号储存在一个范围中
+		//这个范围比较大，因为 只要学生端不重新访问，或者不关闭扫描的结果这个班级都应该有效
+		request.getSession().setAttribute("sessionClassID", did);
+		request.getSession().setAttribute("startTime", startTime);
+		System.out.println("------>>>>   " + did);
+//		request.getRequestDispatcher("/studentPhone.jsp").forward(request, response);
+		response.sendRedirect("../studentPhone.jsp"); 
 
 	}
 
