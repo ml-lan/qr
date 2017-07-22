@@ -15,8 +15,16 @@ public class QDRecord {
 	private String qtime1;// ` time DEFAULT NULL,
 	private String qstarttime1;// ` time DEFAULT NULL,
 	
-	
-	
+	//扩展一个属性用于存储 出勤状态
+	private int cqstate;
+		
+	public int getCqstate() {
+		return cqstate;
+	}
+
+	public void setCqstate(int cqstate) {
+		this.cqstate = cqstate;
+	}
 	
 
 	public String getQdate1() {

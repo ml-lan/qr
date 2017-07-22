@@ -9,6 +9,9 @@
 	var CTX_PATH = "${CTX_PATH}";
 </script>
 <!-- css -->
+<link rel="icon" href="${CTX_PATH}/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="${CTX_PATH}/favicon.ico" type="image/x-icon" />
+<link rel="bookmark" href="${CTX_PATH}/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="${CTX_PATH}/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="${CTX_PATH}/css/dhtmlxmessage_dhx_skyblue.css"/>
 <link rel="stylesheet" type="text/css" href="${CTX_PATH}/css/animate.min.css"/>

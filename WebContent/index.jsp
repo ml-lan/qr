@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
 <title>二维码签到系统</title>
 </head>
 <body>
@@ -24,6 +25,7 @@
 		</div>
 </nav>
 <div class="jumbotron" style="margin-top: 50px;">
+
 	<div class="container">
 		<h1 class="animated fadeInDown ">高效办公 技术先行</h1>
 		<p class="animated fadeInRightBig">西安理工大学二维码签到程序 登录入口</p>

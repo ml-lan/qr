@@ -2,6 +2,10 @@ package com.xaut.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import com.xaut.entity.QDRecord;
 import com.xaut.util.DBManager;
@@ -9,6 +13,7 @@ import com.xaut.util.DBManager;
 public class QDRecordDao {
 
 	private DBManager db = new DBManager();
+
 
 	public void saveRecord(QDRecord q) {
 		String sql = " insert into qdrecord(studentno,qdate,qtime,qstarttime) "
@@ -31,6 +36,7 @@ public class QDRecordDao {
 	 * @return
 	 */
 	public int queryQDCount(int classno, String day, String time) {
+		DBManager db = new DBManager();
 		int count = 0;
 		try {
 			String sql = "select count(studentno) countsno from "
@@ -43,13 +49,64 @@ public class QDRecordDao {
 				count = rs.getInt("countsno");
 			}
 		} catch (SQLException e) {
- 			e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			db.closeConn();
 		}
 
 		return count;
 	}
-	
+
+	/**
+	 * 查询某一个学生编号 在某一天的某一堂课上是否签到了
+	 * 
+	 * @param sno
+	 * @param day
+	 * @param startTime
+	 * @return true就是已经签到了
+	 */
+	public boolean getQDData(int sno, String day, String startTime) {
+
+		try {
+			String sql = "select * from qdrecord where studentno=" + sno
+					+ " and qdate='" + day + "' and qstarttime='" + startTime
+					+ "' ";
+			ResultSet rs = db.query(sql);
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	/**
+	 * 查询某一个学生的出勤记录
+	 * 
+	 * @param stuno
+	 * @return
+	 */
+	public List<QDRecord> queryStudentQDRecord(int stuno) {
+		List<QDRecord> list = new ArrayList<QDRecord>();
+		try {
+			String sql = "select  qdate, qstarttime,qtime ,(qtime-qstarttime) cqs    from qdrecord where studentno=  "
+					+ stuno;
+			ResultSet rs = db.query(sql);  
+			while (rs.next()) {
+				QDRecord q = new QDRecord();
+				q.setQdate(rs.getDate("qdate"));
+				Time t1 = rs.getTime("qstarttime");
+				q.setQstarttime1(t1.toString()); //我们将数据查询的TIme 转换为了 String 继而封装到了 Qstarttime1
+				Time t2 = rs.getTime("qtime");
+				q.setQtime1(t2.toString()); 
+				q.setCqstate(rs.getInt("cqs")); 
+				list.add(q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+
+	}
+
 	
 }

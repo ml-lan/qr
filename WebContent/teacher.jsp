@@ -7,6 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+
 <title>二维码签到系统教师端</title>
 </head>
 <body>
@@ -21,7 +23,7 @@
 							<span id="time_show"></span>
 						</li>
 						<li>
-							<a href="#"><span class="glyphicon glyphicon-log-out"> </span> 安全退出</a>
+							<a href="${CTX_PATH}/index.jsp"><span class="glyphicon glyphicon-log-out"> </span> 安全退出</a>
 						</li>
 					</ul>
 				</div>	
@@ -64,7 +66,7 @@
 						</tr>
 						<tr>
 							<td>服务器地址</td>
-							<td><input type="text"  class="form-control"  name="" id="txtVal" value="http://127.0.0.1:8090/qr_check/servlet/StuQDServlet"/></td>
+							<td><input type="text"  class="form-control"  name="" id="txtVal" value="http://127.0.0.1:8080/qr_check/servlet/StuQDServlet"/></td>
 							<td></td>
 						</tr>
 						<tr>
@@ -72,11 +74,7 @@
 							<td><input type="text"  class="form-control"  name="" id="txtCode" value="http://qr.topscan.com/api.php?text="/></td>
 							<td></td>
 						</tr>
-						<tr>
-							<td colspan="3"  align="center">
-								<input type="button" name="" id="" class="btn btn-danger" value="保存设置" />
-							</td>
-						</tr>
+						
 				</table>
 			</div> 
 			
@@ -201,7 +199,6 @@ $("#a_set").click(function(){
 	});
 			
 });
-
 		 
 //发送ajax请求获取数据 
 //ajax默认是异步请求的

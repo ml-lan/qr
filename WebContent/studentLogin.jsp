@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 <title>二维码签到系统学生手机端</title>
-
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -45,7 +44,6 @@
 
 <div class="jumbotron " style="margin-top: 50px;">
 			<div class="container">
-				
 				<h1>二维码签到系统</h1>
 				<p>好好学习 天天向上</p>
 				<div align="right">

@@ -10,17 +10,10 @@
 <title>二维码签到系统学生手机端</title>
 </head>
 <body>
-
-
 		<%
  
-		
-			//jsp = html+java
 			Cookie cc[]= request.getCookies();//获取客户端本地的cookie数据
-			
-			 
-			
-			
+		
 			boolean flag=false;//表示没有登录
 			String sphone="";//学生电话号码
 			String sno="";//学生在数据库的编号
@@ -41,9 +34,6 @@
 			}
 			
 		 %>
-
-
-
 
 <nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
@@ -89,6 +79,7 @@
 
 <div class="jumbotron " style="margin-top: 50px;">
 	<div class="container">
+		<h3 id="serverMsg"></h3>   
 		<h1>二维码签到系统</h1>
 		
 						<%
@@ -123,12 +114,11 @@
 <div id="div_qd" style="display: none;">
 			
 			<div class="container">
-				
 				<h2>授课老师：谢逊</h2>
 				<h4>课程：微机原理</h4>
 				<div align="center">
 					
-					<img src="${CTX_PATH}/img/current.jpg" />
+					<img src="${CTX_PATH}/img/current.jpg" id="stateImg" />
 					
 				</div>
 				<br />
@@ -141,7 +131,7 @@
 </div>
 
 <div id="div_sqqj" style="display: none;">
-			<table class="table table-striped">
+			<table class="table table-bordered">
 				<tr>
 					<td>请假时间</td>
 				</tr>
@@ -183,65 +173,12 @@
 			<div class="container">
 				
 				<table class="table table-striped">
-					<tr>
+					<tr id="tableData">
 						<td>日期</td>
-						<td>课程</td>
-						<td>考勤状态</td>
+						<td>上课时间</td>
+						<td>签到时间</td>
+ 						<td>考勤状态</td>
 					</tr>
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td>正常</td>
-					</tr>
-					
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td><span class="label label-danger">缺勤</span></td>
-					</tr>
-					
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td><span class="label label-warning">迟到</span></td>
-					</tr>
-					
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td><span class="label label-info">请假</span></td>
-					</tr>
-					
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td><span class="label label-warning">迟到</span></td>
-					</tr>
-					
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td>正常</td>
-					</tr>
-					
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td><span class="label label-danger">缺勤</span></td>
-					</tr>
-					
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td><span class="label label-warning">迟到</span></td>
-					</tr>
-					
-					<tr>
-						<td>2017-07-15</td>
-						<td>微机原理</td>
-						<td><span class="label label-info">请假</span></td>
-					</tr>
-					 
 				</table>
 				
 				<input type="button" name="" class="btn btn-danger btn-block" id="" value="返回主菜单"  onclick="showHomePage('div_ckkq')" />
@@ -252,7 +189,8 @@
 </div>
 
 <div id="div_xgxx" style="display: none;">
-			4444444444444444
+				4444
+				<input type="button" name="" class="btn btn-danger btn-block" id="" value="返回主菜单"  onclick="showHomePage('div_ckkq')" />
 </div>
 
 <script type="text/javascript">
@@ -267,6 +205,29 @@ function showHomePage(div_id){
 
 //为按钮增加点击的事件处理
 $("#btn1").click(function() {
+	
+
+	//判断用户是否登陆了，如果登陆了才可以签到，否则提示 请先登录
+	
+	<%
+			Cookie cks[]= request.getCookies();
+		String val=null;
+		for(Cookie c:cks){
+			if(c.getName().equals("islogin")){
+				val=c.getValue();
+			}
+		}
+	
+	%>
+	
+	var islogin='<%=val%>';
+		if(islogin=='null'){
+		alert('请先登录才可以签到');
+		return ;  
+	}
+	
+	
+
 	$("#btnDiv").fadeOut(500, function() {
 		$("#div_qd").fadeIn(500,function(){
 			 
@@ -275,16 +236,26 @@ $("#btn1").click(function() {
 				     type : "POST", //提交方式
 				     url : "${CTX_PATH}/servlet/QDServlet",//路径
 				     data:{
-				     	sno:<%=sno%>
+				     	sno:'<%=sno%>'   
 				     },
-				     success : function(result) {//返回数据根据结果进行相应的处理
-	 			      		 alert(result);
-	 			     }
+				     success : function(result) {//返回数据根据结果进行相应的处理  
+				     		$("#serverMsg").html(result);
+				     		//返回的完整数据具体是是什么 需要 断点调试                  
+	 			      		 if(result.length != 8 ){
+	 			      		 	//显示错误的图片
+	 			      		 	$("#stateImg").attr("src",'${CTX_PATH}/img/x.jpg');
+	 			      		 }else{
+	 			      		 	$("#stateImg").attr("src",'${CTX_PATH}/img/current.jpg');
+	 			      		 }
+	 			     } 
 			    }); 
+				
 		});
 	});
-
+	
+	
 });
+	
 
 $("#btn2").click(function() {
 	$("#btnDiv").fadeOut(500, function() {
@@ -294,6 +265,35 @@ $("#btn2").click(function() {
 
 $("#btn3").click(function() {
 	$("#btnDiv").fadeOut(500, function() {
+		
+		//访问后台获取数据
+		$.ajax({        
+			     type : "POST", //提交方式
+			     url : "${CTX_PATH}/servlet/GetStudentQDRecordServlet",//路径
+			     data:{
+			     	 "stuno":'<%=sno%>'   
+				     },
+			     dataType:"json",  
+			     success : function(result) {//返回数据根据结果进行相应的处理    
+ 			      	$.each(result,function(index,item){    
+ 			      	
+ 			      		 //将之间的数据先删除
+ 			      		 // 找到dom结构 删除#tableData 的后面的兄弟元素
+ 			      		 $("#tableData").next("tr").remove(); 
+    		    
+ 			      		  var ss=(item.cqs<=0?"正常":"迟到");   
+ 			      		  var newTime = new Date(item.qdate); //就得到普通的时间了
+	 			      		  var n=	newTime.getFullYear()+"-";
+	 			      		  var y=	newTime.getMonth()+1+"-";   
+	 			      		  var r=	newTime.getDate();  
+	 			      		  $("#tableData").after(" <tr> <td> "+ (n+y+r) +" </td> <td> "+item.qstarttime1+" </td> <td> "+item.qtime1+" </td> <td> "+ ss +" </td> </tr> ");
+ 			      		 
+ 			      	});
+ 			     }
+		  });      
+		//并把数据进行解析
+	
+	
 		$("#div_ckkq").fadeIn(500);
 	});
 });
@@ -313,8 +313,6 @@ function sendQJMessage() {
 
 }
 
-
-	
 var msg='<%=request.getAttribute("msg")%>'; 
 if(msg!='null'){//如果有消息
 	alert(msg);
