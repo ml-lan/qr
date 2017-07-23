@@ -58,5 +58,12 @@ public class QDRecordService {
 	public List<QDRecord> queryStudentQDRecord(int stuno) {
 		return qddao.queryStudentQDRecord(stuno);
 	}
+	
+	public List<Object[]> queryDataByClassNo(String classno, String sday,
+			String eday) {
+		
+		return qddao.queryDataByClassNo(classno, sday, eday);
+		
+	}
 
 }

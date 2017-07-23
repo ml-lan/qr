@@ -107,6 +107,51 @@ public class QDRecordDao {
 		return list;
 
 	}
+	
+	
+	
+	/**
+	 * 查询某一段日期内 某个班级学生的出勤记录
+	 * 
+	 * @param classno
+	 * @param sday
+	 * @param eday
+	 * @return
+	 */
+	public List<Object[]> queryDataByClassNo(String classno, String sday,
+			String eday) {
+		List<Object[]> list = new ArrayList<Object[]>();
+		try {
+			String sql = "select s.sname,s.ssex,s.sphone, q.qdate,qtime>qstarttime ss from qdrecord q,student s "
+					+ "where q.studentno = s.sno  and  s.classno=" + classno;
+
+			if (sday != null && !"".equals(sday)) {// 如果你传来了日期 则sql中需要动态增加
+				// 日期的条件限制
+				sql += "  and q.qdate BETWEEN '" + sday + "' and  '" + eday
+						+ "' ";
+			}  
+			
+			System.out.println(sql   );
+
+			ResultSet rs = db.query(sql);
+			while (rs.next()) {
+				// 一行数据就是一个数组
+				Object[] obj = new Object[5];
+				obj[0] = rs.getObject("sname");
+				obj[1] = rs.getObject("ssex");
+				obj[2] = rs.getObject("sphone");
+				obj[3] = rs.getObject("qdate");
+				obj[4] = rs.getObject("ss");
+				list.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closeConn();
+		}
+
+		return list;
+	}
 
 	
 }

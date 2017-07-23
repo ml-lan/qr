@@ -93,4 +93,34 @@ public class TeacherDao {
 
 	
 	
+
+	/**
+	 * 得到某一班级的老师信息
+	 * 
+	 * @param cno
+	 * @return
+	 */
+	public List<Teacher> queryClassTeacher(String sno) {
+		List<Teacher> list = new ArrayList<Teacher>();
+		String sql = "select t.tid,t.tname from teacherclass tc,teacher t where tc.teacherid= t.tid"
+				+" and tc.dictionaryid=(select s.classno from student s where sno="+
+				sno + ")";
+				
+		try {
+			ResultSet rs = db.query(sql);
+			while (rs.next()) {
+				Teacher t = new Teacher();
+				t.setTid(rs.getInt("tid"));
+				t.setTname(rs.getString("tname"));
+				list.add(t);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	
+	
 }

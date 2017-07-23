@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="com.xaut.service.StudentService"%>
+<%@ page import="com.xaut.dao.StudentDao"%>
+<%@ page import="com.xaut.entity.Student"%>
 <%@ include file="include.jsp" %>  
 <!DOCTYPE html>
 <html>
@@ -136,16 +140,29 @@
 					<td>请假时间</td>
 				</tr>
 				<tr>
-					<td><input type="text" class="form-control" value="2017-07-19" /></td>
+					<td><input type="text" class="form-control" value="2017-07-19" id="qjtime"/></td>
 				</tr>
 
+
+				<tr>  
+					<td>选择老师</td>
+				</tr>  
+				<tr>
+					<td>
+						<select   class="form-control"  id="teacherData">
+							<option value="-1">请选择</option>
+						</select>
+					</td>
+
+				</tr>
+				
 				<tr>
 					<td>事由</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="radio" value="b" checked="checked" name="sy" />病假
-						<input type="radio" value="s" name="sy" />事假
+						<input type="radio" value="病假" checked="checked" name="sy" />病假
+						<input type="radio" value="事假" name="sy" />事假
 					</td>
 
 				</tr>
@@ -225,8 +242,7 @@ $("#btn1").click(function() {
 		alert('请先登录才可以签到');
 		return ;  
 	}
-	
-	
+		
 
 	$("#btnDiv").fadeOut(500, function() {
 		$("#div_qd").fadeIn(500,function(){
@@ -258,7 +274,35 @@ $("#btn1").click(function() {
 	
 
 $("#btn2").click(function() {
+	
+
+	var islogin='<%=val%>';
+		if(islogin=='null'){
+		alert('请先登录才可以签到');
+		return ;  
+	}
+	
 	$("#btnDiv").fadeOut(500, function() {
+		
+		
+		//为老师这个 选择框 赋值 /servlet/GetClassTeacherDataServlet
+			$.ajax({        
+			     type : "POST", //提交方式
+			     url : "${CTX_PATH}/servlet/GetClassTeacherDataServlet",//路径
+			     data:{   
+			     	 "sno":'<%=sno%>'   
+				     },
+			     dataType:"json",  
+			     success : function(result) {//返回数据根据结果进行相应的处理       
+ 			       	//
+ 			      	$.each(result,function(inx,iteam){
+ 			      		 var dddata="<option value='"+iteam.tid+"'> "+iteam.tname+" </option>";
+ 			      		
+ 			      		 $("#teacherData").append(dddata);   
+ 			      	});
+ 			     }
+		  });      
+		
 		$("#div_sqqj").fadeIn(500);
 	});
 });
@@ -304,12 +348,41 @@ $("#btn4").click(function() {
 	});
 });
 
+//请假信息提交后台
 function sendQJMessage() {
 
-	alert('提交成功');
-	$("#div_sqqj").fadeOut(500, function() {
-		$("#btnDiv").fadeIn(500);
-	});
+
+	var qjreason;
+	var qjtime=$("#qjtime").val()
+	console.log(qjtime);
+	var qjresoninput=document.getElementsByName("sy");//通过元素的name属性值获取一组 html标签 这是一个数组
+	for(var i=0;i<qjresoninput.length;i++)
+	{
+			if(qjresoninput[i].checked==true)
+			{ 
+		qjreason=qjresoninput[i].value; 
+		break;  
+		}  
+	}   
+	var teacherSelected=$("#teacherData").find("option:selected").text();
+	
+	$.ajax({        
+		     type : "POST", //提交方式
+		     url : "${CTX_PATH}/servlet/AddQingjaMessageServlet",//路径
+		     data:{
+		     	 "stuno":'<%=sno%>',
+		     	 "qjtime":qjtime, //请假时间
+		     	  "qjreason":qjreason  //请假原因   
+			     },
+		     
+		     success : function(result) {//返回数据根据结果进行相应的处理    
+			     	alert(result);
+			     }
+	  });      
+	
+$("#div_sqqj").fadeOut(500, function() {
+	$("#btnDiv").fadeIn(500);
+});
 
 }
 

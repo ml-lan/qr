@@ -83,7 +83,7 @@
  					 
 					  <ul class="nav nav-tabs" role="tablist">
 					    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">考勤</a></li>
-					    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">出勤记录</a></li>
+					    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><span onclick="getClassQDRecord()">出勤记录</span></a></li>
 					    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">消息</a></li>
  					  </ul>
 					
@@ -103,11 +103,11 @@
 					    	 	<table class="table">
 						    	 	<tr>
 						    	 		<td>开始日期</td>
-						    	 		<td><input type="text" class="form-control" name="" id="" value="" /></td>
+						    	 		<td><input type="text" class="form-control" name=""  id="stime" value="" /></td>
 						    	 		<td>结束日期</td>
-						    	 		<td><input type="text" class="form-control" name="" id="" value="" /></td>
+						    	 		<td><input type="text" class="form-control" name="" id="etime" value="" /></td>
 						    	 		<td>
-						    				<input type="button" name="" id="" value="搜索" class="btn btn-primary" />
+						    				<input type="button" name="" id="" onclick="getClassQDRecord()" value="搜索" class="btn btn-primary" />
 						    				<input type="button" name="" id="" value="Excel下载" class="btn btn-primary" />
 						    	 		</td>
 						    	 	</tr>
@@ -115,21 +115,15 @@
 					    	 	
 					    	 </div>
 					    	 <div class="col-lg-12">
-					    	 	<table class="table table-striped table-hover table-bordered">
-						    	 	<tr>
+					    	 	<table id="classqdrecodeTable" class="table table-striped table-hover table-bordered">
+						    	 	<tr id="table_classqd_data">
 						    	 		<td>姓名</td>
 						    	 		<td>性别</td>
 						    	 		<td>电话</td>
 						    	 		<td>考勤时间</td>
 						    	 		<td>考勤状态</td>
 						    	 	</tr>
-						    	 	<tr>
-						    	 		<td>张无忌</td>
-						    	 		<td>男</td>
-						    	 		<td>18500000000</td>
-						    	 		<td>2017-07-14</td>
-						    	 		<td>正常</td>
-						    	 	</tr>
+						    	 
 						    	 </table>
 					    	 </div>
 					    </div>
@@ -178,10 +172,12 @@
 var did; //课程编号
 var stime="";  //签到时间
 var teacherId='<%=request.getAttribute("teacherId")%>';	//登录的老师的ID
+
+console.log(teacherId);
 //当网页dom结构加载完毕之后
 $(function(){
 
-	getTeacherClass();//填充老师带班信息
+	getTeacherClass(teacherId);//填充老师带班信息
 }); 
 
 $("#a_set").click(function(){
@@ -203,7 +199,7 @@ $("#a_set").click(function(){
 //发送ajax请求获取数据 
 //ajax默认是异步请求的
 //就是说 发送了请求之后，不需要等待服务器的返回就可以执行其他的代码
-function getTeacherClass(){
+function getTeacherClass(teacherId){
 	$.ajax({      
 			 type : "POST", //提交方式
 			 url : "${CTX_PATH}/servlet/GetTeacherClassServlet",//路径
@@ -292,6 +288,62 @@ function getqdfunction(){
 	setTimeout(getqdfunction,1000);//过上一秒钟，让程序再次调用  getqdfunction 这个函数
 }
 	
+
+
+//ajax获取 本班级签到数据
+function getClassQDRecord(){
+		dhtmlx.message({
+			text:'数据努力加载中...',    
+			expire: 3000
+		}); 
+
+  
+	
+			$.ajax({        
+		     type : "POST", //提交方式
+		     url : "${CTX_PATH}/servlet/GetClassQDRecordServlet",//路径
+		     data:{
+		     	 "classno":did,//在此处需要注意当前台没有传递某个参数的时候，后台获取这个参数 拿到的值就是null 不会报错
+		     	  "sday":$("#stime").val(),
+		     	   "eday":$("#etime").val()    
+			     },
+		     dataType:"json",    
+		     success : function(result) {//返回数据根据结果进行相应的处理  
+		       
+		     
+		     	//alert("数据已经获取到了  ");
+		     		//alert( $("#classqdrecodeTable").find("tbody").children(":gt(0)").length );   
+			       		//$("#table_classqd_data").next().remove();
+			       		 
+			       		$("#classqdrecodeTable").find("tbody").children(":gt(0)").remove(); 
+			       		     
+			       		$.each(result,function(indx,d){ 
+			       		
+			       			  var newTime = new Date(d[3]); //就得到普通的时间了
+	 			      		  var n=	newTime.getFullYear()+"-";
+	 			      		  var y=	newTime.getMonth()+1+"-";   
+	 			      		  var r=	newTime.getDate();   
+			       		  
+			       			var rowdata="<tr>"+
+						    	 		"<td>"+d[0]+"</td>"+
+						    	 		"<td>"+(d[1]==0?"女":"男")+"</td>"+
+						    	 		"<td>"+d[2]+"</td>"+ 
+						    	 		"<td>"+(n+y+r)+"</td>"+   
+						    	 		"<td>"+(d[4]>0 ?"迟到":"正常" )+"</td>"+  
+				    				"</tr>";
+				    				
+				    	$("#table_classqd_data").after(rowdata);		 	  
+			       		});
+			       		
+			       		//$(".dhtmlx_message_area").fadeOut(500); 
+			       			$(".dhtmlx_message_area").empty();//清空     
+			       		
+			     }
+	  });     
+}
+
+
+
 
 </script>
 </body>

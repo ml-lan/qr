@@ -73,5 +73,10 @@ public class TeacherService {
 		}
 
 	}
+	
+	
+	public List<Teacher> queryClassTeacher(String sno) {
+		return tdao.queryClassTeacher(sno);
+	}
 
 }

@@ -1,4 +1,4 @@
-package com.oracle.servlet;
+package com.xaut.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oracle.dao.AccountDao;
-import com.oracle.util.SmsBase;
+import com.alibaba.fastjson.JSON;
+import com.xaut.service.QDRecordService;
 
-public class GetPhoneRamdomNoServlet extends HttpServlet {
+public class GetClassQDRecordServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetPhoneRamdomNoServlet() {
+	public GetClassQDRecordServlet() {
 		super();
 	}
 
@@ -45,7 +45,6 @@ public class GetPhoneRamdomNoServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 处理的是用户get方式提交的数据
 		this.doPost(request, response);
 	}
 
@@ -67,36 +66,20 @@ public class GetPhoneRamdomNoServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 获取用户输入的手机号码
-		String phoneno = request.getParameter("phoneno");
-		System.out.println("已经获取到手机号码:" + phoneno);
-		String result;// 表示服务器返回的结果
-		if (phoneno.length() != 11) {
-			result = "01";
-			response.getWriter().print(result);
-			return;
-		}
+		// 解决乱码
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 
-		try {
-			Long.parseLong(phoneno);// 将字符串转换为 长整形 ，如果无法转换则会引发异常，表示不是数字
-		} catch (Exception e) {
-			result = "01";
-			response.getWriter().print(result);
-			return;
-		}
-		// 接下来就到了，需要查询数据库中是否存在这个手机号码的 校验了
-		AccountDao ad = new AccountDao();
-		boolean resultp = ad.existPhone(phoneno);
-		if (resultp) {
-			result = "03";
-			//需要向此手机号码发送短信
-			SmsBase sms=new SmsBase();
-			sms.SendSms(phoneno, "本次验证码是:0268,理工大不会以任何理由询问你的验证码,请勿告知他人");
-		} else {
-			result = "02";
-		}
+		QDRecordService qds = new QDRecordService();
 
-		response.getWriter().print(result);
+		String classno = request.getParameter("classno");
+		String sday = request.getParameter("sday");
+		String eday = request.getParameter("eday");
+
+		java.util.List<Object[]> list = qds.queryDataByClassNo(classno, sday,
+				eday);
+
+		response.getWriter().println(JSON.toJSONString(list));
 
 	}
 
