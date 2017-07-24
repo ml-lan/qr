@@ -14,18 +14,15 @@ import java.sql.SQLException;
 public class DBManager {
 
 	private static final String DRIVERCLASS = "com.mysql.jdbc.Driver";
-	//?useUnicode=true&characterEncoding=UTF-8
-	//private static final String URL = "jdbc:mysql://118.89.150.221:3306/QRcode?useUnicode=true&characterEncoding=UTF-8";
-	private static final String URL = "jdbc:mysql://127.0.01:3306/erwei?useUnicode=true&characterEncoding=UTF-8";
-	private static final String NAME = "root";
-	private static final String PASS = "root";
 	
-	//private static final String URL = "jdbc:mysql://47.90.16.158:3309/erweidb2";
-	//private static final String NAME = "erweidb2";
-	//private static final String PASS = "ligongda";
+	private static final String URL = "jdbc:mysql://118.89.150.221:3306/QRcode?useUnicode=true&characterEncoding=UTF-8";
+	//private static final String URL = "jdbc:mysql://127.0.01:3306/erwei?useUnicode=true&characterEncoding=UTF-8";
+	//private static final String NAME = "root";
+	//private static final String PASS = "root";
 	
-	//private static final String NAME = "myuser";
-	//private static final String PASS = "mypassword";
+	
+	private static final String NAME = "myuser";
+	private static final String PASS = "mypassword";
 	private Connection conn;
 
 	static {

@@ -84,7 +84,7 @@
 					  <ul class="nav nav-tabs" role="tablist">
 					    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">考勤</a></li>
 					    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><span onclick="getClassQDRecord()">出勤记录</span></a></li>
-					    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">消息</a></li>
+					    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" onclick="getClassMessage()" data-toggle="tab">消息</a></li>
  					  </ul>
 					
 					  <!-- Tab panes -->
@@ -129,24 +129,16 @@
 					    </div>
 					    <div role="tabpanel" class="tab-pane" id="messages">
 					    	
-					    	<table class="table table-striped table-hover table-bordered">
-					    		<tr>
+					    	<table id="classQJMessage" class="table table-striped table-hover table-bordered">
+					    		<tr id="table_classqj_data">
+					    			<td>发送人</td>  
 					    			<td>日期</td>
-					    			<td>发送人</td>
+					    			
 					    			<td>类型</td>
 					    			<td>内容</td>
 					    			<td>操作</td>
 					    		</tr>
-					    		<tr>
-					    			<td>殷素素</td>
-					    			<td>2017-08-09</td>
-					    			<td>病假</td>
-					    			<td>冰火岛太冷了，冻感冒了</td>
-					    			<td>
-					    				<input type="button" value="同意" class="btn btn-success" />
-					    				<input type="button" value="不同意" class="btn btn-danger" />
-					    			</td>
-					    		</tr>
+					    		 
 					    	</table>
 					    	
 					    </div>
@@ -344,6 +336,94 @@ function getClassQDRecord(){
 
 
 
+//获取学生发送给自己【老师】的消息
+function getClassMessage(){
+		
+				dhtmlx.message({
+					text:'数据努力加载中...',    
+					expire: -1
+				}); 
+		
+		
+				//应该是要调用后台 根据老师编号 和 班级编号查询 未读的消息记录
+	 
+				$.ajax({        
+				     type : "POST", //提交方式
+				     url : "${CTX_PATH}/servlet/GetClassQJRecordServlet",//路径
+				     data:{
+				     	 "cno":did,	//在此处需要注意当前台没有传递某个参数的时候，后台获取这个参数 拿到的值就是null 不会报错
+				     	 "teacherId":teacherId
+				     },
+				     dataType:"json",    
+				     success : function(result) {//返回数据根据结果进行相应的处理  
+				       
+				     
+				     		//alert(result);  
+				     		//alert( $("#classqdrecodeTable").find("tbody").children(":gt(0)").length );   
+	 			       		$("#table_classqd_data").next().remove();
+	 			       		
+	 			       		 $("#classQJMessage").find("tbody").children(":gt(0)").remove(); 
+	 			       		     
+	 			       		$.each(result,function(indx,d){ 
+	 			       		
+	 			       		
+					    			
+	 			       			   var newTime = new Date(d[3]); //就得到普通的时间了
+	 	 			      		  var n=	newTime.getFullYear()+"-";
+	 	 			      		  var y=	newTime.getMonth()+1+"-";   
+	 	 			      		  var r=	newTime.getDate();   
+	 			       		  
+	 			       			var rowdata="<tr>"+    
+								    	 		"<td>"+d[1]+"</td>"+  
+								    	 		"<td>"+(n+y+r)+"</td>"+
+								    	 		"<td>"+d[2]+"</td>"+ 
+								    	 		"<td>"+d[4]+"</td>"+   
+								    	 		"<td>"+ 
+								    				"<input type='button' value='同意' onclick='btnQJClick("+d[5]+",0)' class='btn btn-success' />"+ 
+								    				"<input type='button' value='不同意'  onclick='btnQJClick("+d[5]+",1)' class='btn btn-danger' />"+ 
+								    			"</td>"+   
+						    				"</tr>";
+						    				   
+						    	$("#table_classqj_data").after(rowdata);		 	  
+	 			       		}); 
+	 			       		
+	 			       		//$(".dhtmlx_message_area").fadeOut(500); 
+	 			       		$(".dhtmlx_message_area").empty();//清空     
+	 			       		
+	 			     } 
+			  });     
+		}	
+		
+
+
+///servlet/UpdateQJStateServlet
+		 
+function btnQJClick(qjid,val){
+		 		$.ajax({        
+				     type : "POST", //提交方式
+				     url : "${CTX_PATH}/servlet/UpdateQJStateServlet",//路径
+				     data:{
+				     	 
+				     	 "qjid": qjid,
+				     	 "state":val
+				     },
+				       
+				     success : function(result) {
+				    	 
+				    	 //返回数据根据结果进行相应的处理  
+				    	 
+				    	 alert(result);
+				       	dhtmlx.message({
+							text:result,    
+							expire: 3000
+						}); 
+		
+						getClassMessage();    //当处理了消息之后，将数据的消息重新查询一次
+				      
+	 			     } 
+			  });     
+		 
+}
 
 </script>
 </body>

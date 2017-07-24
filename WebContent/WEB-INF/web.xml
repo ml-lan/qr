@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>qr_check</display-name>
-  
-   <servlet>
+  <servlet>
     <servlet-name>GetPhoneRamdomNoServlet</servlet-name>
     <servlet-class>com.xaut.servlet.GetPhoneRamdomNoServlet</servlet-class>
   </servlet>
@@ -76,8 +75,7 @@
     <servlet-name>TestDeleteCookie</servlet-name>
     <servlet-class>com.xaut.servlet.TestDeleteCookie</servlet-class>
   </servlet>
-
- <servlet>
+  <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>GetStudentQDRecordServlet</servlet-name>
@@ -89,25 +87,33 @@
     <servlet-name>GetClassQDRecordServlet</servlet-name>
     <servlet-class>com.xaut.servlet.GetClassQDRecordServlet</servlet-class>
   </servlet>
-
- <servlet>
+  <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>GetClassTeacherDataServlet</servlet-name>
     <servlet-class>com.xaut.servlet.GetClassTeacherDataServlet</servlet-class>
   </servlet>
-
-
-
-
-
-
-
-
-
-
-
-
+  
+   <servlet>
+    <servlet-name>AddSQQJServlet</servlet-name>
+    <servlet-class>com.xaut.servlet.AddSQQJServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>GetClassQJRecordServlet</servlet-name>
+    <servlet-class>com.xaut.servlet.GetClassQJRecordServlet</servlet-class>
+  </servlet>
+  
+   <servlet>
+   
+    <servlet-name>UpdateQJStateServlet</servlet-name>
+    <servlet-class>com.xaut.servlet.UpdateQJStateServlet</servlet-class>
+  </servlet>
+  
+  
+  
+  
+  
   <servlet-mapping>
     <servlet-name>GetPhoneRamdomNoServlet</servlet-name>
     <url-pattern>/servlet/GetPhoneRamdomNoServlet</url-pattern>
@@ -164,20 +170,32 @@
     <servlet-name>TestDeleteCookie</servlet-name>
     <url-pattern>/servlet/TestDeleteCookie</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>GetStudentQDRecordServlet</servlet-name>
     <url-pattern>/servlet/GetStudentQDRecordServlet</url-pattern>
   </servlet-mapping>
-  
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>GetClassQDRecordServlet</servlet-name>
     <url-pattern>/servlet/GetClassQDRecordServlet</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>GetClassTeacherDataServlet</servlet-name>
     <url-pattern>/servlet/GetClassTeacherDataServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+    <servlet-name>AddSQQJServlet</servlet-name>
+    <url-pattern>/servlet/AddSQQJServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetClassQJRecordServlet</servlet-name>
+    <url-pattern>/servlet/GetClassQJRecordServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>UpdateQJStateServlet</servlet-name>
+    <url-pattern>/servlet/UpdateQJStateServlet</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>
@@ -188,5 +206,4 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
- 
 </web-app>

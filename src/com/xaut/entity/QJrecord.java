@@ -7,8 +7,32 @@ public class QJrecord {
 	private int studentno; //` int(11) DEFAULT NULL,
 	private String qres; //` varchar(255) DEFAULT NULL,
 	private Date qdate; //` datetime DEFAULT NULL,
+	private String qdate2; //` datetime DEFAULT NULL,
 	private int qisread; //` int(1) DEFAULT '1',
 	private int qresult;//` int(1) DEFAULT NULL,
+	
+	private int teacherno;
+	private int qshiyou;
+	
+	
+	public String getQdate2() {
+		return qdate2;
+	}
+	public void setQdate2(String qdate2) {
+		this.qdate2 = qdate2;
+	}
+	public int getTeacherno() {
+		return teacherno;
+	}
+	public void setTeacherno(int teacherno) {
+		this.teacherno = teacherno;
+	}
+	public int getQshiyou() {
+		return qshiyou;
+	}
+	public void setQshiyou(int qshiyou) {
+		this.qshiyou = qshiyou;
+	}
 	
 	
 	public int getQid() {

@@ -135,50 +135,51 @@
 </div>
 
 <div id="div_sqqj" style="display: none;">
-			<table class="table table-bordered">
+			<table class="table table-striped">
 				<tr>
 					<td>请假时间</td>
 				</tr>
 				<tr>
-					<td><input type="text" class="form-control" value="2017-07-19" id="qjtime"/></td>
+					<td><input type="text" id="sqqj_day" class="form-control" value="2017-07-19" /></td>
 				</tr>
 
+				<tr>
+					<td>事由</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="radio" id="sqqj_sy" value="b" checked="checked" name="sy" />病假
+						<input type="radio" value="s" name="sy" />事假
+					</td>
 
+				</tr>
+				
 				<tr>  
 					<td>选择老师</td>
 				</tr>  
 				<tr>
 					<td>
-						<select   class="form-control"  id="teacherData">
+						<select   class="form-control"   id="teacherData">
 							<option value="-1">请选择</option>
 						</select>
 					</td>
 
 				</tr>
 				
-				<tr>
-					<td>事由</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="radio" value="病假" checked="checked" name="sy" />病假
-						<input type="radio" value="事假" name="sy" />事假
-					</td>
-
-				</tr>
+				
 				<tr>
 					<td>备注 </td>
 				</tr>
 
 				<tr>
 					<td>
-						<textarea name="3" rows="3" cols="" class="form-control"></textarea>
+						<textarea name="3" rows="3"  id="sqqj_bz" cols="" class="form-control"></textarea>
 					</td>
 				</tr>
 
 				<tr>
 					<td>
-						<input type="button" class="btn btn-danger btn-block" name="" id="" onclick="sendQJMessage()" value="确认申请" />
+						<input type="button" class="btn btn-danger btn-block" name="" id="btnaaa" onclick="sendQJMessage()" value="确认申请" />
 					</td>
 				</tr>
 
@@ -348,43 +349,59 @@ $("#btn4").click(function() {
 	});
 });
 
-//请假信息提交后台
+
+	//请假信息提交后台
 function sendQJMessage() {
 
 
-	var qjreason;
-	var qjtime=$("#qjtime").val()
-	console.log(qjtime);
-	var qjresoninput=document.getElementsByName("sy");//通过元素的name属性值获取一组 html标签 这是一个数组
-	for(var i=0;i<qjresoninput.length;i++)
-	{
-			if(qjresoninput[i].checked==true)
-			{ 
-		qjreason=qjresoninput[i].value; 
-		break;  
-		}  
-	}   
-	var teacherSelected=$("#teacherData").find("option:selected").text();
-	
-	$.ajax({        
-		     type : "POST", //提交方式
-		     url : "${CTX_PATH}/servlet/AddQingjaMessageServlet",//路径
-		     data:{
-		     	 "stuno":'<%=sno%>',
-		     	 "qjtime":qjtime, //请假时间
-		     	  "qjreason":qjreason  //请假原因   
-			     },
-		     
-		     success : function(result) {//返回数据根据结果进行相应的处理    
-			     	alert(result);
-			     }
-	  });      
-	
-$("#div_sqqj").fadeOut(500, function() {
-	$("#btnDiv").fadeIn(500);
-});
+				$("#btnaaa").attr("disabled","disabled");
 
+				//获取请假的数据 
+				   
+				var sqqj_day = $("#sqqj_day").val();
+				var sqqj_sy ;//事由是一个radio
+				if( $("#sqqj_sy").attr("checked")==true){
+					sqqj_sy="0";
+				}else{
+					sqqj_sy="1";  
+				}
+	 			var sqqj_ls = $("#teacherData").val();
+				var sqqj_bz = $("#sqqj_bz").val();
+				    
+				if(sqqj_day=="" || sqqj_ls=="" || sqqj_bz==""  || sqqj_ls==-1){
+					alert("填写的内容不完整,请检查后再次提交");
+					return ;    
+				}
+				
+				
+				//访问后台获取数据
+				$.ajax({        
+					     type : "POST", //提交方式
+					     url : "${CTX_PATH}/servlet/AddSQQJServlet",//路径
+					     data:{
+					     	 "sqqj_day":sqqj_day,        
+					     	 "sqqj_sy":sqqj_sy,    
+					     	 "sqqj_ls":sqqj_ls,
+					     	 "sqqj_bz":sqqj_bz ,  
+					     	 "stuno":'<%=sno%>'           
+	 				     },
+					    
+					     success : function(result) {//返回数据根据结果进行相应的处理    
+	 		 			      	
+					    	
+	 		 			      	alert(result);
+	 		 			      
+	 							$("#div_sqqj").fadeOut(500, function() { 
+									$("#btnDiv").fadeIn(500);
+								});
+							 			      
+			 			      
+			 			      
+			 		     }
+				 });      
+	
 }
+
 
 var msg='<%=request.getAttribute("msg")%>'; 
 if(msg!='null'){//如果有消息
