@@ -16,6 +16,7 @@
 <body>
 		<%
  
+		String randomUUID=request.getParameter("randomUUID");
 			Cookie cc[]= request.getCookies();//获取客户端本地的cookie数据
 		
 			boolean flag=false;//表示没有登录
@@ -253,7 +254,8 @@ $("#btn1").click(function() {
 				     type : "POST", //提交方式
 				     url : "${CTX_PATH}/servlet/QDServlet",//路径
 				     data:{
-				     	sno:'<%=sno%>'   
+				     	sno:'<%=sno%>',
+				     	"uuid":'<%=randomUUID%>' 
 				     },
 				     success : function(result) {//返回数据根据结果进行相应的处理  
 				     		$("#serverMsg").html(result);

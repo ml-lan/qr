@@ -240,8 +240,13 @@ function classClick(){
 				
 		$("#div_set").fadeOut(500,function(){
 			//为图片赋一个地址
-			var path=$("#txtCode").val()+$("#txtVal").val()+"?did="+did+","+stime;  
-			$("#erweiCode").attr("src",path);  
+			
+			//二维码的地址，我们让后台帮助前台生成【计算】
+			//前台只用调用即可
+			//这样做的好处是在后台可以轻松的操作session
+ 			//调用设置二维码地址方法					
+			setEWImage();
+			
 			$("#div_qd").fadeIn(500,function(){
 						
 			});
@@ -254,6 +259,34 @@ function classClick(){
 				
 				
 	});
+}
+
+//设置二维码的地址
+function setEWImage(){
+	//alert(11);
+	 //$("#erweiCode").fadeOut(5); 
+
+	var path=$("#txtCode").val()+$("#txtVal").val()+"?did="+did+","+stime;
+	
+	$.ajax({        
+		     type : "POST", //提交方式      
+		     url : "${CTX_PATH}/servlet/EWImagePathServlet",//路径
+		     data:{
+		     	 "path":path     
+			     },
+			     success : function(result) {//返回数据根据结果进行相应的处理 
+			      	 $("#erweiCode").attr("src",result).load(function(){    
+			      	 	 	//$("#erweiCode").fadeIn(5);
+			      	 	 	 setTimeout(setEWImage,60000);   
+			      	 });     
+			      	
+     
+			      	
+			     }    
+	  });     
+	
+	 
+	
 }
 						
 function getqdfunction(){
@@ -277,7 +310,7 @@ function getqdfunction(){
 	 			     }
 			});   
 			  
-	setTimeout(getqdfunction,1000);//过上一秒钟，让程序再次调用  getqdfunction 这个函数
+	setTimeout(getqdfunction,60000);//过上一秒钟，让程序再次调用  getqdfunction 这个函数
 }
 	
 

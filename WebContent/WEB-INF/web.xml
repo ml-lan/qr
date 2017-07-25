@@ -110,6 +110,11 @@
     <servlet-class>com.xaut.servlet.UpdateQJStateServlet</servlet-class>
   </servlet>
   
+  <servlet>
+   
+    <servlet-name>EWImagePathServlet</servlet-name>
+    <servlet-class>com.xaut.servlet.EWImagePathServlet</servlet-class>
+  </servlet>
   
   
   
@@ -196,6 +201,11 @@
    <servlet-mapping>
     <servlet-name>UpdateQJStateServlet</servlet-name>
     <url-pattern>/servlet/UpdateQJStateServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>EWImagePathServlet</servlet-name>
+    <url-pattern>/servlet/EWImagePathServlet</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>
