@@ -57,5 +57,10 @@ public class DictionaryService {
 	public  Map<String, Dictionary>  getBJAll() {
 		return ddao.getBJAll();
 	}
+	
+
+	public List<Object[]> getClassStuCount() {
+		return ddao.getClassStuCount();
+	}
 
 }

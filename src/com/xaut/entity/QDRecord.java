@@ -17,7 +17,18 @@ public class QDRecord {
 	
 	//扩展一个属性用于存储 出勤状态
 	private int cqstate;
-		
+	
+
+	private int qteachermsg;
+	
+	public int getQteachermsg() {
+		return qteachermsg;
+	}
+
+	public void setQteachermsg(int qteachermsg) {
+		this.qteachermsg = qteachermsg;
+	}
+	
 	public int getCqstate() {
 		return cqstate;
 	}

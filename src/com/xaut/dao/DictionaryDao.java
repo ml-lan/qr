@@ -242,4 +242,28 @@ public class DictionaryDao {
 		return map;
 	}
 
+	public List<Object[]> getClassStuCount() {
+
+		List<Object[]> list = new ArrayList<Object[]>();
+
+		try {
+			String sql = "SELECT	CONCAT(d.dnjname,'¼¶',d.dbjname),	count(s.sno) FROM	student s,	dictionary d where 	s.classno=d.did group by 	d.dnjname,d.dbjname";
+			ResultSet rs = db.query(sql);
+			while (rs.next()) {
+
+				Object obj[] = new Object[2];
+				obj[0] = rs.getObject(1);
+				obj[1] = rs.getObject(2);
+				list.add(obj);
+
+			}
+		} catch (SQLException e) {
+ 			e.printStackTrace();
+		}
+
+		db.closeConn();
+
+		return list;
+	}
+
 }

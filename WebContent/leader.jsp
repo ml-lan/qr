@@ -18,6 +18,10 @@ String bjname=""; //班级
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 <title>二维码签到系统管理端</title>
+
+<!-- 报表引入的框架 -->	
+<script src="${CTX_PATH}/js/dhtmlxchart.js" type="text/javascript"></script>
+<link rel="STYLESHEET" type="text/css" href="${CTX_PATH}/css/dhtmlxchart.css">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -57,9 +61,13 @@ String bjname=""; //班级
 	
 	<div class="col-lg-9" style="background-color: white; min-height: 350px; padding-top: 10px;">
 
-		<div id="div_chart">
-			<img src="${CTX_PATH}/img/chart.jpg" />
+		<!-- 图表 -->
+		<div id="div_chart" style="  height:300px;border:1px solid #A4BED4;">
+
+				 
+
 		</div>
+
 			
 		<div id="div_teacher_manager">
 					
@@ -407,6 +415,28 @@ for(Dictionary d:list){
 %>
 
 <script type="text/javascript">
+$(function(){
+	//加载报表
+	var barChart2 = new dhtmlXChart({
+	    view: "bar",
+	    container: "div_chart",
+	    value: "#dcount#",
+	    label: "#dcount#",
+	    tooltip: {
+	        template: "#dcount#"  
+	    },
+	    xAxis: {
+		        template: "#dclassname#" 
+	    },
+	    yAxis: {
+            title: "人数" 
+            
+        }
+	});
+	barChart2.load("${CTX_PATH}/servlet/GetClassStuCountServlet", "json");
+		
+
+});
 
 function addTeacherJob(){	
 	//首先拷贝

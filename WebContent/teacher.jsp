@@ -23,7 +23,7 @@
 							<span id="time_show"></span>
 						</li>
 						<li>
-							<a href="${CTX_PATH}/index.jsp"><span class="glyphicon glyphicon-log-out"> </span> 安全退出</a>
+							<a href="javascript:void(0)" id="adoOut"><span class="glyphicon glyphicon-log-out"> </span> 安全退出</a>
 						</li>
 					</ul>
 				</div>	
@@ -161,6 +161,16 @@
 </footer>
 
 <script type="text/javascript">
+
+//老师退出
+    
+$("#adoOut").click(function(){		  	
+		  	if(confirm('请确认当前授课班级编号:'+did+",上课时间为:"+stime)){
+		  		window.location.href='tdoout?classno='+did+'&startTime='+stime;   
+		  	}
+});
+		
+
 var did; //课程编号
 var stime="";  //签到时间
 var teacherId='<%=request.getAttribute("teacherId")%>';	//登录的老师的ID
@@ -208,9 +218,40 @@ function getTeacherClass(teacherId){
 	 			 });
  			      	 
  			     classClick(); 
+ 			     
+ 			  //当 老师 带班信息加载完毕之后需要查询 这个班级中的消息条目
+			      	 
+			      getClassQJData();
  			 }
 		   }); 
 }
+
+
+
+//得到老师带班 的请假信息
+function getClassQJData(){
+	 $.each($(".a_kq"),function(index,val){
+	 		var aobj=$(this);
+	 	
+	 	   var  classno=$(this).attr("id");
+	 		//循环的向后台发送请求，以用于获取 消息的条目
+	 			$.ajax({        
+				     type : "POST", //提交方式
+				     url : "${CTX_PATH}/servlet/GetClassQJRecordServlet",//路径
+				     data:{
+				     	 "cno":classno//在此处需要注意当前台没有传递某个参数的时候，后台获取这个参数 拿到的值就是null 不会报错
+				     	 
+ 				     },
+				     dataType:"json",    
+				     success : function(result) {//返回数据根据结果进行相应的处理  
+				        //alert(classno+"==="+result.length);
+				        aobj.find("span").text(result.length);
+		 			     }  
+			  });     
+	 		
+	 });
+}
+
 
 //为班级考勤和设置链接增加点击事件的处理   
 function classClick(){ 
@@ -277,7 +318,8 @@ function setEWImage(){
 			     success : function(result) {//返回数据根据结果进行相应的处理 
 			      	 $("#erweiCode").attr("src",result).load(function(){    
 			      	 	 	//$("#erweiCode").fadeIn(5);
-			      	 	 	 setTimeout(setEWImage,60000);   
+			      		 setTimeout(setEWImage,60000);     
+			      	 	 	 
 			      	 });     
 			      	
      
@@ -348,14 +390,22 @@ function getClassQDRecord(){
 	 			      		  var n=	newTime.getFullYear()+"-";
 	 			      		  var y=	newTime.getMonth()+1+"-";   
 	 			      		  var r=	newTime.getDate();   
-			       		  
-			       			var rowdata="<tr>"+
-						    	 		"<td>"+d[0]+"</td>"+
-						    	 		"<td>"+(d[1]==0?"女":"男")+"</td>"+
-						    	 		"<td>"+d[2]+"</td>"+ 
-						    	 		"<td>"+(n+y+r)+"</td>"+   
-						    	 		"<td>"+(d[4]>0 ?"迟到":"正常" )+"</td>"+  
-				    				"</tr>";
+	 			      		 var zt;
+		 			       		
+	 			       		  zt= (d[4]>0 ?"迟到":"正常" );
+	 			       		   
+	 			       		  
+	 			       		 if( d[5]==1){
+	 			       		  	zt='缺勤'; 
+	 			       		  }
+
+	 			       		var rowdata="<tr>"+
+								    	 		"<td>"+d[0]+"</td>"+
+								    	 		"<td>"+(d[1]==0?"女":"男")+"</td>"+
+								    	 		"<td>"+d[2]+"</td>"+ 
+								    	 		"<td>"+(n+y+r)+"</td>"+   
+								    	 		"<td>"+zt+"</td>"+  
+						    				"</tr>";
 				    				
 				    	$("#table_classqd_data").after(rowdata);		 	  
 			       		});

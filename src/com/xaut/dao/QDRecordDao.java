@@ -88,17 +88,21 @@ public class QDRecordDao {
 	public List<QDRecord> queryStudentQDRecord(int stuno) {
 		List<QDRecord> list = new ArrayList<QDRecord>();
 		try {
-			String sql = "select  qdate, qstarttime,qtime ,(qtime-qstarttime) cqs    from qdrecord where studentno=  "
+			String sql = "select  qdate, qstarttime,qtime ,((qdate+qtime)-(qdate+qstarttime)) cqs ,qteachermsg   from qdrecord where studentno=  "
 					+ stuno;
+
+			System.out.println("====》》》》》》》" + sql);  
 			ResultSet rs = db.query(sql);  
 			while (rs.next()) {
 				QDRecord q = new QDRecord();
 				q.setQdate(rs.getDate("qdate"));
 				Time t1 = rs.getTime("qstarttime");
-				q.setQstarttime1(t1.toString()); //我们将数据查询的TIme 转换为了 String 继而封装到了 Qstarttime1
+				q.setQstarttime1(t1.toString()); // 我们将数据查询的TIme 转换为了 String
+				// 继而封装到了 Qstarttime1
 				Time t2 = rs.getTime("qtime");
-				q.setQtime1(t2.toString()); 
-				q.setCqstate(rs.getInt("cqs")); 
+				q.setQtime1(t2.toString());
+				q.setCqstate(rs.getInt("cqs"));
+				q.setQteachermsg(rs.getInt("qteachermsg"));
 				list.add(q);
 			}
 		} catch (SQLException e) {
@@ -122,26 +126,31 @@ public class QDRecordDao {
 			String eday) {
 		List<Object[]> list = new ArrayList<Object[]>();
 		try {
-			String sql = "select s.sname,s.ssex,s.sphone, q.qdate,qtime>qstarttime ss from qdrecord q,student s "
+			String sql = "select s.sname,s.ssex,s.sphone, q.qdate,(q.qdate+qtime)>(q.qdate+qstarttime) ss  ,q.qteachermsg  from qdrecord q,student s "
 					+ "where q.studentno = s.sno  and  s.classno=" + classno;
 
+			// String sql="select s.sname,s.ssex,s.sphone,
+			// q.qdate,(q.qdate+qtime)>(q.qdate+qstarttime) " +
+			// " ss ,q.qteachermsg from qdrecord q right join student s on
+			// q.studentno = s.sno and s.classno="+classno;
 			if (sday != null && !"".equals(sday)) {// 如果你传来了日期 则sql中需要动态增加
 				// 日期的条件限制
 				sql += "  and q.qdate BETWEEN '" + sday + "' and  '" + eday
 						+ "' ";
 			}  
 			
-			System.out.println(sql   );
-
+			System.out.println("班级出勤 查询 SQL -->>> " + sql);
+			
 			ResultSet rs = db.query(sql);
 			while (rs.next()) {
 				// 一行数据就是一个数组
-				Object[] obj = new Object[5];
+				Object[] obj = new Object[6];
 				obj[0] = rs.getObject("sname");
 				obj[1] = rs.getObject("ssex");
 				obj[2] = rs.getObject("sphone");
 				obj[3] = rs.getObject("qdate");
 				obj[4] = rs.getObject("ss");
+				obj[5] = rs.getObject("qteachermsg");
 				list.add(obj);
 			}
 		} catch (SQLException e) {

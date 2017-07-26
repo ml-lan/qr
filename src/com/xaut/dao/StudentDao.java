@@ -36,7 +36,8 @@ public class StudentDao {
 	 */
 	public boolean queryBySphone(String sphone) {
 		try {
-			String sql = "select * from student where sphone=" + sphone;
+			String sql = "select * from student where sphone= '"+sphone+"'";
+			System.out.println(">>>>>>>>>>>>>"+sql);
 			ResultSet rs = db.query(sql);
 
 			return rs.next();
@@ -58,7 +59,7 @@ public class StudentDao {
 	public Student queryBySphone2(String sphone) {
 		Student s = null;
 		try {
-			String sql = "select * from student where sphone=" + sphone;
+			String sql = "select * from student where sphone= '" + sphone +"'";
 			ResultSet rs = db.query(sql);
 
 			while (rs.next()) {

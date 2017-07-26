@@ -16,7 +16,7 @@
 <body>
 		<%
  
-		String randomUUID=request.getParameter("randomUUID");
+			String randomUUID=request.getParameter("randomUUID");
 			Cookie cc[]= request.getCookies();//获取客户端本地的cookie数据
 		
 			boolean flag=false;//表示没有登录
@@ -119,12 +119,10 @@
 <div id="div_qd" style="display: none;">
 			
 			<div class="container">
-				<h2>授课老师：谢逊</h2>
-				<h4>课程：微机原理</h4>
+				<h3 id="tihsiMsg"></h3>
 				<div align="center">
 					
-					<img src="${CTX_PATH}/img/current.jpg" id="stateImg" />
-					
+					<img id="stateImg" class="img-responsive" src="" />
 				</div>
 				<br />
 				<input type="button" name="" class="btn btn-danger btn-block" id="" value="返回主菜单" onclick="showHomePage('div_qd')" />
@@ -224,8 +222,15 @@ function showHomePage(div_id){
 
 //为按钮增加点击的事件处理
 $("#btn1").click(function() {
-	
+		
+			stuQDFun();
 
+});
+
+
+//签到 方法
+
+function stuQDFun(){
 	//判断用户是否登陆了，如果登陆了才可以签到，否则提示 请先登录
 	
 	<%
@@ -244,37 +249,56 @@ $("#btn1").click(function() {
 		alert('请先登录才可以签到');
 		return ;  
 	}
+	
+	
+	
+	<%
+		//通过学生的编号，或者学生所在的班级 
+		//或者通过学生的手机号码 获取到学生所在的班级
+		StudentDao sd=new StudentDao();//三层思想开发下的代码是不能够在jsp页面中直接访问service或者dao层的
+		//但是今天例外一下【偷懒】
+	 	Student ss=	sd.queryBySphone2(sphone);
 		
+		int classno=-1;//班级编号
+		
+		if(ss!=null){//没有登录的时候 通过手机号查询出的学生信息就是一个null
+			classno=ss.getClassno();
+		}
+		
+	
+	%>
+	
+	
 
 	$("#btnDiv").fadeOut(500, function() {
-		$("#div_qd").fadeIn(500,function(){
+		$("#div_qd").fadeIn(500,function(){  
 			 
 			 //发送ajax签到自己
 			 $.ajax({     
 				     type : "POST", //提交方式
 				     url : "${CTX_PATH}/servlet/QDServlet",//路径
 				     data:{
-				     	sno:'<%=sno%>',
+				     	"sno":'<%=sno%>'  , 
 				     	"uuid":'<%=randomUUID%>' 
 				     },
 				     success : function(result) {//返回数据根据结果进行相应的处理  
-				     		$("#serverMsg").html(result);
-				     		//返回的完整数据具体是是什么 需要 断点调试                  
+				    	 	$("#tihsiMsg").html(result);
+				     		//返回的完整数据具体是是什么 需要 断点调试      
+	 			      		 //alert(result.length);            
 	 			      		 if(result.length != 8 ){
 	 			      		 	//显示错误的图片
 	 			      		 	$("#stateImg").attr("src",'${CTX_PATH}/img/x.jpg');
 	 			      		 }else{
-	 			      		 	$("#stateImg").attr("src",'${CTX_PATH}/img/current.jpg');
+	 			      		 	$("#stateImg").attr("src",'${CTX_PATH}/img/dui.jpg');
 	 			      		 }
 	 			     } 
 			    }); 
-				
+				//============================================
 		});
 	});
-	
-	
-});
-	
+}
+
+
 
 $("#btn2").click(function() {
 	
@@ -328,7 +352,17 @@ $("#btn3").click(function() {
  			      		 // 找到dom结构 删除#tableData 的后面的兄弟元素
  			      		 $("#tableData").next("tr").remove(); 
     		    
- 			      		  var ss=(item.cqs<=0?"正常":"迟到");   
+ 			      	   	var ss;
+			      		   if(item.cqstate>0){
+			      		   		ss="迟到";
+			      		   }else{
+			      		   		ss="正常";
+			      		   }
+			      		   
+
+	 			      		if(item.qteachermsg==1){
+	 			      		  	ss="缺勤";
+	 			      		}
  			      		  var newTime = new Date(item.qdate); //就得到普通的时间了
 	 			      		  var n=	newTime.getFullYear()+"-";
 	 			      		  var y=	newTime.getMonth()+1+"-";   
