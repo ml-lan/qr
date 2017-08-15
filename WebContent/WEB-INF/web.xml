@@ -93,35 +93,31 @@
     <servlet-name>GetClassTeacherDataServlet</servlet-name>
     <servlet-class>com.xaut.servlet.GetClassTeacherDataServlet</servlet-class>
   </servlet>
-  
-   <servlet>
+  <servlet>
     <servlet-name>AddSQQJServlet</servlet-name>
     <servlet-class>com.xaut.servlet.AddSQQJServlet</servlet-class>
   </servlet>
-  
   <servlet>
     <servlet-name>GetClassQJRecordServlet</servlet-name>
     <servlet-class>com.xaut.servlet.GetClassQJRecordServlet</servlet-class>
   </servlet>
-  
-   <servlet>
-   
+  <servlet>
     <servlet-name>UpdateQJStateServlet</servlet-name>
     <servlet-class>com.xaut.servlet.UpdateQJStateServlet</servlet-class>
   </servlet>
-  
   <servlet>
-   
     <servlet-name>EWImagePathServlet</servlet-name>
     <servlet-class>com.xaut.servlet.EWImagePathServlet</servlet-class>
   </servlet>
   <servlet>
-   
     <servlet-name>GetClassStuCountServlet</servlet-name>
     <servlet-class>com.xaut.servlet.GetClassStuCountServlet</servlet-class>
   </servlet>
   
-  
+   <servlet>
+    <servlet-name>ModifyTeacherPasswd</servlet-name>
+    <servlet-class>com.xaut.servlet.ModifyTeacherPasswd</servlet-class>
+  </servlet>
   
   
   <servlet-mapping>
@@ -192,8 +188,6 @@
     <servlet-name>GetClassTeacherDataServlet</servlet-name>
     <url-pattern>/servlet/GetClassTeacherDataServlet</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet-mapping>
     <servlet-name>AddSQQJServlet</servlet-name>
     <url-pattern>/servlet/AddSQQJServlet</url-pattern>
@@ -202,22 +196,23 @@
     <servlet-name>GetClassQJRecordServlet</servlet-name>
     <url-pattern>/servlet/GetClassQJRecordServlet</url-pattern>
   </servlet-mapping>
-  
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>UpdateQJStateServlet</servlet-name>
     <url-pattern>/servlet/UpdateQJStateServlet</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>EWImagePathServlet</servlet-name>
     <url-pattern>/servlet/EWImagePathServlet</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>GetClassStuCountServlet</servlet-name>
     <url-pattern>/servlet/GetClassStuCountServlet</url-pattern>
   </servlet-mapping>
   
+ <servlet-mapping>
+    <servlet-name>ModifyTeacherPasswd</servlet-name>
+    <url-pattern>/servlet/ModifyTeacherPasswd</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

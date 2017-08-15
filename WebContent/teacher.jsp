@@ -7,9 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-
-
 <title>二维码签到系统教师端</title>
+
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -36,31 +35,28 @@
 			<p>教师中心</p>
 		</div>
 </div>
-<div class="container">
+<div class="container" style="margin-bottom:25px">
 			
 		<div class="col-lg-3" >
 				<div class="list-group">
 					 <a href="#" class="list-group-item  disabled">班级管理</a>
-					
 					 <a href="#" id="a_set" class="list-group-item active">设置</a>
  				</div>
 		</div>
 		<div class="col-lg-9" id="teacher_con">
 			
 			<div id="div_set" >
-					<input type="button" value="修改密码(搁置)" class=" btn btn-info" />
-					<br />	<br />
 					<table class="table">
-						<tr>
-							<td>当日口令</td>
-							<td><input type="text" class="form-control" name="" id="" value="432JH432H324GG432JHG43JH3" /> </td>
-							<td><input type="button" name="" id=""  class="btn btn-success" value="一键生成" /></td>
-						</tr>
+						
 						<tr>
 							<td>上课时间</td>
 							<td>
-								<input type="radio" name="startTime" id="" value="09:00:00" checked="checked"/>9:00
-								<input type="radio" name="startTime" id="" value="13:00:00" />13:00
+								<input type="radio" name="startTime" id="" value="09:00:00" checked="checked"/>&nbsp&nbsp8:00&nbsp&nbsp 
+								<input type="radio" name="startTime" id="" value="13:00:00" />&nbsp&nbsp10:00&nbsp&nbsp 
+								<input type="radio" name="startTime" id="" value="09:00:00" />&nbsp&nbsp14:00&nbsp&nbsp  
+								<input type="radio" name="startTime" id="" value="13:00:00" />&nbsp&nbsp16:00&nbsp&nbsp  
+								<input type="radio" name="startTime" id="" value="09:00:00" />&nbsp&nbsp19:00&nbsp&nbsp  
+						
 							</td>
 							<td></td>
 						</tr>
@@ -76,6 +72,29 @@
 						</tr>
 						
 				</table>
+				
+				
+				<div id="form_modify_passwd">
+					<table  class="table" style="display:none">
+						<tr>
+							<td>
+								<input type="password" name="spass1">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="password" name="spass2">
+							</td>
+						</tr>
+					
+							
+					</table>
+				<button  type="button" class="btn btn-danger" id="modify_passwd_submit" style="display:none">确认修改</button>
+						
+				</div>
+				<button  type="button" class="btn btn-warning" id="modify_passwd">修改密码</button>
+				<br>
+				<br>
 			</div> 
 			
 				
@@ -108,8 +127,14 @@
 						    	 		<td><input type="text" class="form-control" name="" id="etime" value="" /></td>
 						    	 		<td>
 						    				<input type="button" name="" id="" onclick="getClassQDRecord()" value="搜索" class="btn btn-primary" />
-						    				<input type="button" name="" id="" value="Excel下载" class="btn btn-primary" />
+						    				
 						    	 		</td>
+						    	 		
+						    	 	</tr>
+						    	 	<tr>
+							    	 	<td>
+							    	 		<button type="button"  id="btn-click-excel" >Excel导出</button>  
+							    	 	</td>
 						    	 	</tr>
 						    	 </table>
 					    	 	
@@ -160,28 +185,206 @@
  </div> 
 </footer>
 
+
 <script type="text/javascript">
 
 //老师退出
     
 $("#adoOut").click(function(){		  	
 		  	if(confirm('请确认当前授课班级编号:'+did+",上课时间为:"+stime)){
-		  		window.location.href='tdoout?classno='+did+'&startTime='+stime;   
+		  		window.location.href="../index.jsp";   
 		  	}
 });
-		
 
 var did; //课程编号
 var stime="";  //签到时间
 var teacherId='<%=request.getAttribute("teacherId")%>';	//登录的老师的ID
 
-console.log(teacherId);
+
 //当网页dom结构加载完毕之后
 $(function(){
 
+	//excel函数
+	var idTmr;
+	function  getExplorer() {
+	    var explorer = window.navigator.userAgent ;
+	    //ie
+	    if (explorer.indexOf("MSIE") >= 0) {
+	        return 'ie';
+	    }
+	    //firefox
+	    else if (explorer.indexOf("Firefox") >= 0) {
+	        return 'Firefox';
+	    }
+	    //Chrome
+	    else if(explorer.indexOf("Chrome") >= 0){
+	        return 'Chrome';
+	    }
+	    //Opera
+	    else if(explorer.indexOf("Opera") >= 0){
+	        return 'Opera';
+	    }
+	    //Safari
+	    else if(explorer.indexOf("Safari") >= 0){
+	        return 'Safari';
+	    }
+	}
+	function method1(tableid) {//整个表格拷贝到EXCEL中
+	    if(getExplorer()=='ie')
+	    {
+	        var curTbl = document.getElementById(tableid);
+	        var oXL = new ActiveXObject("Excel.Application");
+	         
+	        //创建AX对象excel
+	        var oWB = oXL.Workbooks.Add();
+	        //获取workbook对象
+	        var xlsheet = oWB.Worksheets(1);
+	        //激活当前sheet
+	        var sel = document.body.createTextRange();
+	        sel.moveToElementText(curTbl);
+	        //把表格中的内容移到TextRange中
+	        sel.select();
+	        //全选TextRange中内容
+	        sel.execCommand("Copy");
+	        //复制TextRange中内容 
+	        xlsheet.Paste();
+	        //粘贴到活动的EXCEL中      
+	        oXL.Visible = true;
+	        //设置excel可见属性
+
+	        try {
+	            var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");
+	        } catch (e) {
+	            print("Nested catch caught " + e);
+	        } finally {
+	            oWB.SaveAs(fname);
+
+	            oWB.Close(savechanges = false);
+	            //xls.visible = false;
+	            oXL.Quit();
+	            oXL = null;
+	            //结束excel进程，退出完成
+	            //window.setInterval("Cleanup();",1);
+	            idTmr = window.setInterval("Cleanup();", 1);
+
+	        }
+	    }
+	    else
+	    {
+	        tableToExcel(tableid)
+	    }
+	}
+	function Cleanup() {
+	    window.clearInterval(idTmr);
+	    CollectGarbage();
+	}
+	var tableToExcel = (function() {
+	      var uri = 'data:application/vnd.ms-excel;base64,',
+	      template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="Content-Type" charset=utf-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+	        base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },
+	        format = function(s, c) {
+	            return s.replace(/{(\w+)}/g,
+	            function(m, p) { return c[p]; }) }
+	        return function(table, name) {
+	        if (!table.nodeType) table = document.getElementById(table)
+	        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+	        window.location.href = uri + base64(format(template, ctx))
+	      }
+	    })()
+	
+	//时间函数
+	startTime();
 	getTeacherClass(teacherId);//填充老师带班信息
+
+	$("#btn-click-excel").click(function(){
+		method1('classqdrecodeTable');
+	})
+	var $goTop = $('<div id="goTop" style="border:1px solid #337AB7;background:#337AB7;color:#fff;text-align:center;padding:10px 13px 7px 13px;position:fixed;bottom:10px;right:10px;cursor:pointer;display:none;font-family:verdana;font-size:18px;">^</div>').appendTo('body');
+
+	  $(window).scroll(function() {
+	    if ($(this).scrollTop() != 0) {
+	      $goTop.fadeIn();
+	    } else {
+	      $goTop.fadeOut();
+	    }
+	  });
+
+	  $goTop.click(function() {
+	    $('body, html').animate({
+	      scrollTop: 0
+	    }, 800);
+	  });
+	
 }); 
 
+//老师自身修改密码
+$("#modify_passwd").click(function(){
+
+	$(this).css({
+		"display":"none"
+	});
+	$("#modify_passwd_submit").css({
+		"display":"block"
+	})
+	$("#form_modify_passwd").find("table").css({
+		"display":"table"
+	})
+
+})
+$("#modify_passwd_submit").click(function(){
+
+	$(this).css({
+		"display":"none"
+	});
+	$("#form_modify_passwd").find("table").css({
+		"display":"none"
+	})
+	$("#modify_passwd").css({
+		"display":"block"
+	})
+	
+	var spass1=$("#form_modify_passwd").find("input[name='spass1']").val();
+	var spass2=$("#form_modify_passwd").find("input[name='spass2']").val();
+	if(spass1!=spass2){
+	
+		dhtmlx.message({
+			text: "两次密码应一致！！！",   
+			expire: 3000
+		});
+		$("#form_modify_passwd").find("input[name='spass1']").val("");
+		$("#form_modify_passwd").find("input[name='spass2']").val("");
+	}
+	else{
+		$.ajax({
+			 type : "POST", //提交方式
+			 url : "${CTX_PATH}/servlet/ModifyTeacherPasswd",//路径
+			 data:{
+				 "teacherId":teacherId,
+				 "ModifyPasswd":spass1
+		   	 },
+			 success : function(result) {
+				 if(result=1)
+					 {
+						 dhtmlx.message({
+								text: "修改密码成功",   
+								expire: 3000
+							});
+					 }
+				 else{
+					 dhtmlx.message({
+							text: "修改密码失败",   
+							expire: 3000
+						});
+				 }
+			 }
+				 
+			
+		})
+	}
+	
+})
+
+//左侧菜单点击事件
 $("#a_set").click(function(){
 			
 	//先去处已经获得焦点的标签的样式
@@ -462,7 +665,7 @@ function getClassMessage(){
 								    	 		"<td>"+d[2]+"</td>"+ 
 								    	 		"<td>"+d[4]+"</td>"+   
 								    	 		"<td>"+ 
-								    				"<input type='button' value='同意' onclick='btnQJClick("+d[5]+",0)' class='btn btn-success' />"+ 
+								    				"<input type='button' value='同意' onclick='btnQJClick("+d[5]+",0)' class='btn btn-success' style='margin-right:20px'/>"+ 
 								    				"<input type='button' value='不同意'  onclick='btnQJClick("+d[5]+",1)' class='btn btn-danger' />"+ 
 								    			"</td>"+   
 						    				"</tr>";

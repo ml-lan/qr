@@ -35,7 +35,7 @@ String bjname=""; //班级
 							<span id="time_show"></span>
 						</li>
 						<li>
-							<a href="#"><span class="glyphicon glyphicon-log-out"> </span> 安全退出</a>
+							<a href="${CTX_PATH}/index.jsp"><span class="glyphicon glyphicon-log-out"> </span> 安全退出</a>
 						</li>
 					</ul>
 				</div>	
@@ -416,6 +416,11 @@ for(Dictionary d:list){
 
 <script type="text/javascript">
 $(function(){
+
+	//时间函数
+	startTime();
+
+	
 	//加载报表
 	var barChart2 = new dhtmlXChart({
 	    view: "bar",

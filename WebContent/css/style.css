@@ -28,7 +28,6 @@ input{
 }
 footer>div{
 	 padding:20px 0;
-	 margin-top:100px;
 	 background-color: #e7e7e7;
 	 border-top:solid 1px #ccc;
 	 border-bottom:solid 1px #ccc;
@@ -36,7 +35,6 @@ footer>div{
 /*teacher css*/
 #teacher_con{
 	background-color: white; 
-	min-height: 350px;
 	padding-top: 20px;
 }
 /*studentAdd css*/

@@ -122,5 +122,23 @@ public class TeacherDao {
 	}
 
 	
+	/**
+	 * 
+	 * –ﬁ∏ƒ¿œ ¶√‹¬Î
+	 */
 	
+	public int modifyPasswd(int teacherid,String ModifyPasswd){
+		
+		String sql = "UPDATE teacher SET tpassword = '"+ModifyPasswd+"' WHERE tid="+teacherid;
+		
+		try {
+			db.update(sql);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		db.closeConn();
+		return -1;
+		
+	}
 }

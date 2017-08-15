@@ -78,5 +78,9 @@ public class TeacherService {
 	public List<Teacher> queryClassTeacher(String sno) {
 		return tdao.queryClassTeacher(sno);
 	}
+	//ĞŞ¸ÄÀÏÊ¦ÃÜÂë
+	public int modifyPasswd(int teacherid,String ModifyPasswd){
+		return tdao.modifyPasswd(teacherid,ModifyPasswd);
+	}
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ include file="include.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -50,19 +51,20 @@
 					<tr>
 						<td style="vertical-align: middle;"> <span class="glyphicon glyphicon-exclamation-sign"> </span> 身份</td>
 						<td>
-							<input class="" name="sf" type="radio" value="gly" checked="checked"/>管理员
-							<input class="" name="sf" type="radio" value="ls" />老师	
+							<input class="" name="sf" type="radio" value="gly" checked="checked"/>&nbsp&nbsp管理员&nbsp&nbsp&nbsp&nbsp  
+							<input class="" name="sf" type="radio" value="ls" />&nbsp&nbsp老师	
 						</td>
 					</tr>
+					<!--忘记密码功能暂时不做
 					 <tr>
 						<td colspan="2" align="right">
 							<a href="javascript:void(0)" onclick="change('#table1','#table2')">忘记密码</a>
 						</td>
 					</tr> 
+					  -->
 					<tr>
 						<td colspan="2" align="center">
-							<input type="button" class="btn btn-info" value="二维码登录" />
-							<input class="btn btn-danger btn-danger" type="submit" value="立即登录" />
+							<input class="btn btn-info btn-block" type="submit" value="立即登录" />
 						</td>
 					</tr>
 					 
@@ -124,33 +126,10 @@
 </footer>
 
 <script type="text/javascript">
-
 $(function(){
-	startTime();//时间函数
+	//时间函数
+	startTime();
 })
-function startTime()
-{
-	var date = new Date();
-	var d=date.getDate();
-	var mon=date.getMonth() + 1;
-	var y=date.getFullYear();
-	var h=date.getHours();
-	var m=date.getMinutes();
-	var s=date.getSeconds();
-	m=checkTime(m)
-	s=checkTime(s)
-	$("#time_show").html(y+"年"+mon+"月"+d+"  "+h+":"+m+":"+s);
-	t=setTimeout('startTime()',1000);//设定定时器，循环执行 
-}
-
-function checkTime(i)
-{
-	if (i<10) 
-	{
-	  	i="0" + i
-	}
-	return i
-}
 function change(selector1,selector2){
 	$(selector1).css({
 		"display":"none"
@@ -159,47 +138,7 @@ function change(selector1,selector2){
 		"display":"table"
 	});
 }
-
-
-function next_step() {
-
-	//需要校验用户数输入的手机号码是否ok
-	var phoneval = $("#txtPhone").val();
-	$.ajax({     
-			   type : "POST", //提交方式
-			   url : "${CTX_PATH}/servlet/GetPhoneRamdomNoServlet",//路径
-			   data : {
-				   	"phoneno" : phoneval
-			     	  },//数据，这里使用的是Json格式进行传输
-			   success : function(result) {//返回数据根据结果进行相应的处理
- 			      		//根据后台返回的结果 做相应的逻辑处理
-						if(result=='01') {
-							dhtmlx.message({
-								type: "error",
-								text: "请输入合法的手机号码",
-								expire: 5000
-							});
-						}else if(result=='02'){
-							dhtmlx.message({
-								type: "error",
-								text: "手机号码不存在请检查",
-								expire: 5000
-							});
-						} else {
-							dhtmlx.message({
-								text: "验证码已经发送,请注意接收",
-								expire: 3000
-							});
- 							$("#table2").fadeOut(500);
-							$("#table3").fadeIn(500);
- 						}
- 			     }
-		  }); 
-
-}
-
 var msg='<%=request.getAttribute("msg")%>';
-
 if(msg!='null'){//如果有消息
 		dhtmlx.message({
 			text: msg,   
