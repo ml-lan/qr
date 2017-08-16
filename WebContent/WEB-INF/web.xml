@@ -113,10 +113,14 @@
     <servlet-name>GetClassStuCountServlet</servlet-name>
     <servlet-class>com.xaut.servlet.GetClassStuCountServlet</servlet-class>
   </servlet>
-  
-   <servlet>
+  <servlet>
     <servlet-name>ModifyTeacherPasswd</servlet-name>
     <servlet-class>com.xaut.servlet.ModifyTeacherPasswd</servlet-class>
+  </servlet>
+  
+   <servlet>
+    <servlet-name>AddStartTimeServlet</servlet-name>
+    <servlet-class>com.xaut.servlet.AddStartTimeServlet</servlet-class>
   </servlet>
   
   
@@ -208,10 +212,14 @@
     <servlet-name>GetClassStuCountServlet</servlet-name>
     <url-pattern>/servlet/GetClassStuCountServlet</url-pattern>
   </servlet-mapping>
-  
- <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ModifyTeacherPasswd</servlet-name>
     <url-pattern>/servlet/ModifyTeacherPasswd</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AddStartTimeServlet</servlet-name>
+    <url-pattern>/servlet/AddStartTimeServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

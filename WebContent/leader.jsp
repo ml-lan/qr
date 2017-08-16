@@ -3,14 +3,12 @@
 <%@page import="com.xaut.entity.Dictionary"%>
 <%@ include file="include.jsp" %>
 <%
-
 //声明
 String xyname=""; //学院
 String xiname=""; //系
 String zyname=""; //专业
 String njname=""; //年级
 String bjname=""; //班级
-
 %> 
 <!DOCTYPE html>
 <html>
@@ -64,8 +62,6 @@ String bjname=""; //班级
 		<!-- 图表 -->
 		<div id="div_chart" style="  height:300px;border:1px solid #A4BED4;">
 
-				 
-
 		</div>
 
 			
@@ -85,7 +81,8 @@ String bjname=""; //班级
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="home" style="padding: 10px;"> 
 
-					 <input type="button" name="" id="" value="添加老师" onclick="showAddTeacher()" class="btn btn-sm btn-danger" style="margin:20px;"/>
+					 <input type="button" name="" id="" value="添加老师信息" onclick="showAddTeacher()" class="btn btn-sm btn-danger" style="margin:20px;"/>
+					<input type="button" name="" id="" value="返回教师管理" onclick="backAddTeacher()" class="btn btn-sm btn-info" style="margin:20px;"/>
 							
 							<!--显示老师信息 start -->
 					<table id="teacher_show" class="table table-striped table-bordered table-hover">
@@ -110,17 +107,19 @@ String bjname=""; //班级
 									</tr>
 									<tr>
 										<td style="vertical-align: middle;">性别：</td>
-										<td><input type="radio" name="tsex" id="" value="1" checked="checked"/>男<input type="radio" name="tsex" id="" value="0" />女</td>
+										<td>
+										<input type="radio" name="tsex" id="" value="1" checked="checked"/>男&nbsp&nbsp
+										<input type="radio" name="tsex" id="" value="0" />女</td>
 									
 									</tr>
 									<tr>
 										<td style="vertical-align: middle;">电话：</td>
-										<td><input class="form-control" type="text" name="tphone" id="" value="" /></td>
+										<td><input class="form-control"  type="text" name="tphone" id="" value="" /></td>
 									
 									</tr>
 									<tr>
 										<td style="vertical-align: middle;">密码：</td>
-										<td><input class="form-control" type="text" name="tpass" id="" value="" /></td>
+										<td><input class="form-control"  type="password" name="tpass" id="" value="" /></td>
 									
 									</tr>
 										
@@ -232,10 +231,10 @@ String bjname=""; //班级
 											</select>
 										</td>
 										<td style="vertical-align: middle;"><input type="button" name="" id="" value="+" class="btn btn-danger"  data-toggle="modal" data-target="#modal_banji_add"  /></td>
-										<td style="vertical-align: middle;"></td>
-										<td style="vertical-align: middle;" colspan="2">
-											<input type="button" name="" id="" value="查询" class="btn btn-primary " />
-											<input type="submit" name="" id="" value="保存" class="btn btn-success" />
+										
+										<td style="vertical-align: middle;" colspan="3">
+											<!--<input type="button" name="" id="" value="查询" class="btn btn-primary " />  -->
+											<input type="submit" name="" id="" value="添加" class="btn btn-success btn-block" />
 										</td>
 	
 									</tr>
@@ -243,7 +242,7 @@ String bjname=""; //班级
 								</table>
 								
 							</form>
-							<table class=" table table-striped table-bordered">
+							<table class=" table table-striped table-bordered table-condensed">
 								<tr>
 									<td>学院</td>
 									<td>系名称</td>
@@ -281,7 +280,84 @@ String bjname=""; //班级
 							</table>
 
 						</div>
-						<div role="tabpanel" class="tab-pane" id="sksd">222222222</div>
+						<div role="tabpanel" class="tab-pane" id="sksd" style="margin-bottom:20px">
+						<!-- 上课时段 -->
+							<select  class="form-control" style="width:40%; margin:20px">
+								<option value="0">请选择</option>
+								
+							</select>
+							
+							<table class="table table-bordered">
+								<tr>
+									<td>时间\星期</td>
+									<td>周日</td>
+									<td>周一</td>
+									<td>周二</td>
+									<td>周三</td>
+									<td>周四</td>
+									<td>周五</td>
+									<td>周六</td>
+								</tr>
+								<tr>
+									<td rowspan="2" align="center" style="vertical-align: middle;">上午</td>
+									<td><button type="button" class="btn btn-default" value="08:00">08:00</button></td>
+									<td><button type="button" class="btn btn-default" value="08:00">08:00</button></td>
+									<td><button type="button" class="btn btn-default" value="08:00">08:00</button></td>
+									<td><button type="button" class="btn btn-default" value="08:00">08:00</button></td>
+									<td><button type="button" class="btn btn-default" value="08:00">08:00</button></td>
+									<td><button type="button" class="btn btn-default" value="08:00">08:00</button></td>
+									<td><button type="button" class="btn btn-default" value="08:00">08:00</button></td>
+									
+								</tr>
+								<tr>
+									
+									<td><button type="button" class="btn btn-default" value="10:00">10:00</button></td>
+									<td><button type="button" class="btn btn-default" value="10:00">10:00</button></td>
+									<td><button type="button" class="btn btn-default" value="10:00">10:00</button></td>
+									<td><button type="button" class="btn btn-default" value="10:00">10:00</button></td>
+									<td><button type="button" class="btn btn-default" value="10:00">10:00</button></td>
+									<td><button type="button" class="btn btn-default" value="10:00">10:00</button></td>
+									<td><button type="button" class="btn btn-default" value="10:00">10:00</button></td>
+								</tr>
+								
+								<tr>
+									<td rowspan="2" align="center" style="vertical-align: middle;">下午</td>
+									<td><button type="button" class="btn btn-default" value="14:00">14:00</button></td>
+									<td><button type="button" class="btn btn-default" value="14:00">14:00</button></td>
+									<td><button type="button" class="btn btn-default" value="14:00">14:00</button></td>
+									<td><button type="button" class="btn btn-default" value="14:00">14:00</button></td>
+									<td><button type="button" class="btn btn-default" value="14:00">14:00</button></td>
+									<td><button type="button" class="btn btn-default" value="14:00">14:00</button></td>
+									<td><button type="button" class="btn btn-default" value="14:00">14:00</button></td>
+								</tr>
+								<tr>
+									
+								<td><button type="button" class="btn btn-default" value="16:00">16:00</button></td>
+									<td><button type="button" class="btn btn-default" value="16:00">16:00</button></td>
+									<td><button type="button" class="btn btn-default" value="16:00">16:00</button></td>
+									<td><button type="button" class="btn btn-default" value="16:00">16:00</button></td>
+									<td><button type="button" class="btn btn-default" value="16:00">16:00</button></td>
+									<td><button type="button" class="btn btn-default" value="16:00">16:00</button></td>
+									<td><button type="button" class="btn btn-default" value="16:00">16:00</button></td>
+								</tr>
+									<tr>
+									<td align="center" style="vertical-align: middle;">晚上</td>
+									<td><button type="button" class="btn btn-default" value="19:00">19:00</button></td>
+									<td><button type="button" class="btn btn-default" value="19:00">19:00</button></td>
+									<td><button type="button" class="btn btn-default" value="19:00">19:00</button></td>
+									<td><button type="button" class="btn btn-default" value="19:00">19:00</button></td>
+									<td><button type="button" class="btn btn-default" value="19:00">19:00</button></td>
+									<td><button type="button" class="btn btn-default" value="19:00">19:00</button></td>
+									<td><button type="button" class="btn btn-default" value="19:00">19:00</button></td>
+								</tr>
+							</table>
+							<br>
+							<button type="button" class="btn btn-default"  id="courseTime">确定课程开始时间</button>
+							<button type="button" class="btn btn-default"  id="resetCourseTime">重置课程开始时间</button>
+							
+						</div>
+						
+						
 						<div role="tabpanel" class="tab-pane" id="yjfs">.3333333333333</div>
 					</div>
 				</div>
@@ -466,7 +542,11 @@ function showAddTeacher(){
 		$("#teacher_add").fadeIn(500);
 	});
 }
-
+function backAddTeacher(){
+	$("#teacher_add").fadeOut(500,function(){
+		$("#teacher_show").fadeIn(500);
+	});
+}
 function saveTeacher(){
 	dhtmlx.message({
 		text:"添加老师信息成功"
@@ -525,9 +605,10 @@ $(".list-group").children("a").click(function() {
 								"		<input type='button' name='' id='' value='删除' class='btn btn-sm btn-warning' />"+
 								"	</td>"+
 								"</tr>";
-								   
+							var selectdata="<option value='"+item.tid+"'>"+item.tname+ "</option>";
+							
 								$("#teacher_show").append($(rowdata));
-														   
+								$("#sksd").find("select").append($(selectdata));				   
 						     
 						})
 	 			     }
@@ -629,6 +710,62 @@ function initAddTeacherSelect(){
  
 				
 }
+
+
+
+//上课时段
+var courseTimeArr=new Array();
+$("#sksd").find("table").on("click","button",function(event){
+		var e=event;
+	
+		
+			$(e.target).css({
+				"background-color":"red"
+			})
+		
+			
+			courseTimeArr.push($(e.target).val());
+		
+			
+})
+$("#courseTime").click(function(){
+	
+		var teacherid=$("#sksd select").find("option:selected").val();
+		var courseTimeArrJson =  JSON.stringify(courseTimeArr);
+		
+		$.ajax({
+			  type : "POST", //提交方式
+			     url : "${CTX_PATH}/servlet/AddStartTimeServlet",//路径
+			     data : { 
+			    	 "teacherid":teacherid,
+			    	 "courseTimeArrJson":courseTimeArrJson
+			     },
+			     dataType:"json", 
+			     success : function(result) {
+			    	 if(result=1)
+					 {
+						 dhtmlx.message({
+								text: "添加时间成功",   
+								expire: 3000
+							});
+					 }
+				 else{
+					 dhtmlx.message({
+							text: "添加时间失败",   
+							expire: 3000
+						});
+				 }
+			     }
+			
+		})
+})
+//重置课程时间函数
+$("#resetCourseTime").click(function(){
+	$("#sksd table button").css({
+		"background-color":"#fff"
+	})
+	courseTimeArr=[];
+})
 </script>
 </body>
 </html>
