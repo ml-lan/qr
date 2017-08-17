@@ -22,6 +22,7 @@ String bjname=""; //班级
 <link rel="STYLESHEET" type="text/css" href="${CTX_PATH}/css/dhtmlxchart.css">
 </head>
 <body>
+
 <nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 				<div class="navbar-header">
@@ -48,7 +49,7 @@ String bjname=""; //班级
 </div>
 
 		
-<div class="container">
+<div class="container" style="margin-bottom:20px">
 	<div class="col-lg-3">
 		<div class="list-group">
 			<a href="#" id="a_kq" class="list-group-item active">数据统计 </a>
@@ -160,8 +161,19 @@ String bjname=""; //班级
 				</div>
 				<div role="tabpanel" class="tab-pane" id="profile">
 
-							2222222222222222222
+							<!-- 查询startTime表 -->
 
+						<select  class="form-control" style="width:40%; margin:20px">
+								<option value="0">请选择</option>
+								
+						</select>
+	
+					
+					<button type="button" class="btn btn-default"  id="queryStartTime">查询</button>
+					
+					<table id="tableStarttime" class="table table-border">
+					
+					</table>
 				</div>
 
 			</div>
@@ -177,7 +189,7 @@ String bjname=""; //班级
 							<a href="#sksd" aria-controls="profile" role="tab" data-toggle="tab">上课时段</a>
 						</li>
 						<li role="presentation">
-							<a href="#yjfs" aria-controls="messages" role="tab" data-toggle="tab">邮件发送</a>
+							<a href="#fsxx" aria-controls="messages" role="tab" data-toggle="tab">发送消息</a>
 						</li>
 
 					</ul>
@@ -358,7 +370,20 @@ String bjname=""; //班级
 						</div>
 						
 						
-						<div role="tabpanel" class="tab-pane" id="yjfs">.3333333333333</div>
+						<div role="tabpanel" class="tab-pane" id="fsxx">
+						
+							<select  class="form-control" style="width:40%; margin:20px">
+								<option value="0">请选择</option>
+								
+							</select>
+							
+							<table class="table">
+							
+							
+							</table>
+							
+													
+						</div>
 					</div>
 				</div>
 
@@ -608,8 +633,9 @@ $(".list-group").children("a").click(function() {
 							var selectdata="<option value='"+item.tid+"'>"+item.tname+ "</option>";
 							
 								$("#teacher_show").append($(rowdata));
-								$("#sksd").find("select").append($(selectdata));				   
-						     
+								$("#sksd").find("select").append($(selectdata));	
+								$("#fsxx").find("select").append($(selectdata));	
+								$("#profile").find("select").append($(selectdata));	
 						})
 	 			     }
 	}); 
@@ -765,6 +791,49 @@ $("#resetCourseTime").click(function(){
 		"background-color":"#fff"
 	})
 	courseTimeArr=[];
+})
+
+//查询出勤记录
+
+$("#queryStartTime").click(function(){
+	var teacherid=$("#profile select").find("option:selected").val();
+	console.log(teacherid);
+	$.ajax({
+		type : "POST", //提交方式
+	     url : "${CTX_PATH}/servlet/QueryStartTimeServlet",//路径
+	     data : { 
+	    	 "teacherid":teacherid,
+	     },
+	     dataType:"json", 
+	     success : function(result) {
+	    	 console.log(result);
+	    	 var iswork;
+	    	 
+	    		$("#tableStarttime").empty();
+	    		$("#tableStarttime").append("<tr >"+
+				"<td>"+"上课时间"+"</td>"+
+				"<td>"+"考勤状态"+"</td>"+
+			"</tr>");
+	    		$.each(result, function(idx, obj) {
+	    			console.log(obj.stime);
+	    		if(obj.iswork!=null)
+	    			{
+	    			iswork = obj.iswork>0?"正常":"缺勤";
+	    			}
+	    		else{
+	    			iswork = "请假"
+	    		}
+	    			var rowdata=
+	    				"<tr>"+
+	    	 		"<td>"+obj.stime+"</td>"+
+	    	 		
+	    	 		"<td>"+iswork+"</td>"+   
+	    	 	
+				"</tr>";
+				$("#tableStarttime").append(rowdata);
+	    		});
+	     }
+	})
 })
 </script>
 </body>

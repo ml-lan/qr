@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 139.199.113.163
-Source Server Version : 50718
-Source Host           : 139.199.113.163:3306
-Source Database       : erweidb2
+Source Server         : localhost
+Source Server Version : 50553
+Source Host           : localhost:3306
+Source Database       : erwei
 
 Target Server Type    : MYSQL
-Target Server Version : 50718
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-07-26 15:24:31
+Date: 2017-08-17 20:31:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `account`
+-- Table structure for account
 -- ----------------------------
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
@@ -31,7 +31,7 @@ CREATE TABLE `account` (
 INSERT INTO `account` VALUES ('00000000000', '000000', '2017-07-16 14:25:44');
 
 -- ----------------------------
--- Table structure for `dictionary`
+-- Table structure for dictionary
 -- ----------------------------
 DROP TABLE IF EXISTS `dictionary`;
 CREATE TABLE `dictionary` (
@@ -42,15 +42,17 @@ CREATE TABLE `dictionary` (
   `dnjname` varchar(255) DEFAULT NULL,
   `dbjname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`did`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dictionary
 -- ----------------------------
 INSERT INTO `dictionary` VALUES ('37', '计算机', '网络工程', '网络工程', '2014', '1402');
+INSERT INTO `dictionary` VALUES ('38', '计算机', '网络工程', '物联网', '2014', '1401');
+INSERT INTO `dictionary` VALUES ('39', '自动化', '自动化', '嵌入式', '2014', '1401');
 
 -- ----------------------------
--- Table structure for `erwei`
+-- Table structure for erwei
 -- ----------------------------
 DROP TABLE IF EXISTS `erwei`;
 CREATE TABLE `erwei` (
@@ -68,14 +70,14 @@ CREATE TABLE `erwei` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `messagerecord`
+-- Table structure for messagerecord
 -- ----------------------------
 DROP TABLE IF EXISTS `messagerecord`;
 CREATE TABLE `messagerecord` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
   `mcontent` varchar(500) DEFAULT NULL,
   `mdate` datetime DEFAULT NULL,
-  `mformid` int(11) DEFAULT NULL,
+  `mfromid` int(11) DEFAULT NULL,
   `mtoid` int(11) DEFAULT NULL,
   `misread` int(1) DEFAULT '1' COMMENT '1表示未读\r\n2表示已读',
   PRIMARY KEY (`mid`)
@@ -86,7 +88,7 @@ CREATE TABLE `messagerecord` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `qdrecord`
+-- Table structure for qdrecord
 -- ----------------------------
 DROP TABLE IF EXISTS `qdrecord`;
 CREATE TABLE `qdrecord` (
@@ -97,7 +99,7 @@ CREATE TABLE `qdrecord` (
   `qstarttime` time DEFAULT NULL,
   `qteachermsg` int(2) DEFAULT NULL COMMENT '如果有直九表示 缺勤',
   PRIMARY KEY (`qid`)
-) ENGINE=InnoDB AUTO_INCREMENT=557 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=559 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qdrecord
@@ -147,9 +149,11 @@ INSERT INTO `qdrecord` VALUES ('553', '992', '2017-07-26 00:00:00', '00:00:00', 
 INSERT INTO `qdrecord` VALUES ('554', '993', '2017-07-26 00:00:00', '00:00:00', '16:00:00', '1');
 INSERT INTO `qdrecord` VALUES ('555', '995', '2017-07-26 00:00:00', '00:00:00', '16:00:00', '1');
 INSERT INTO `qdrecord` VALUES ('556', '121', '2017-07-26 00:00:00', '15:20:02', '14:00:00', null);
+INSERT INTO `qdrecord` VALUES ('557', '120', '2017-07-26 00:00:00', '20:40:29', '13:00:00', null);
+INSERT INTO `qdrecord` VALUES ('558', '120', '2017-07-26 00:00:00', '20:44:36', '09:00:00', null);
 
 -- ----------------------------
--- Table structure for `qingjiarecord`
+-- Table structure for qingjiarecord
 -- ----------------------------
 DROP TABLE IF EXISTS `qingjiarecord`;
 CREATE TABLE `qingjiarecord` (
@@ -162,30 +166,40 @@ CREATE TABLE `qingjiarecord` (
   `teacherno` int(11) DEFAULT NULL,
   `qshiyou` int(255) DEFAULT NULL COMMENT '0事假 1 病假',
   PRIMARY KEY (`qid`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qingjiarecord
 -- ----------------------------
 INSERT INTO `qingjiarecord` VALUES ('67', '128', '11', '2017-07-19 00:00:00', '1', null, '34', '1');
 INSERT INTO `qingjiarecord` VALUES ('68', '120', '病了', '2017-07-19 00:00:00', '0', '0', '34', '1');
+INSERT INTO `qingjiarecord` VALUES ('69', '120', '哈哈哈哈', '2017-07-19 00:00:00', '0', '0', '34', '1');
 
 -- ----------------------------
--- Table structure for `starttime`
+-- Table structure for starttime
 -- ----------------------------
 DROP TABLE IF EXISTS `starttime`;
 CREATE TABLE `starttime` (
-  `sid` int(11) NOT NULL,
+  `sid` int(11) NOT NULL AUTO_INCREMENT,
   `stime` time DEFAULT NULL,
+  `tid` int(11) DEFAULT NULL,
+  `iswork` int(11) DEFAULT NULL COMMENT '是否出勤，1为是，0为否',
   PRIMARY KEY (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of starttime
 -- ----------------------------
+INSERT INTO `starttime` VALUES ('12', '08:00:00', '34', '1');
+INSERT INTO `starttime` VALUES ('13', '08:00:00', '34', '0');
+INSERT INTO `starttime` VALUES ('14', '08:00:00', '35', '1');
+INSERT INTO `starttime` VALUES ('15', '08:00:00', '35', null);
+INSERT INTO `starttime` VALUES ('16', '10:00:00', '35', null);
+INSERT INTO `starttime` VALUES ('17', '10:00:00', '35', null);
+INSERT INTO `starttime` VALUES ('18', '10:00:00', '35', null);
 
 -- ----------------------------
--- Table structure for `student`
+-- Table structure for student
 -- ----------------------------
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
@@ -203,27 +217,21 @@ CREATE TABLE `student` (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('100', 'aaa', '1', '18309299172', '18309299172', '37');
 INSERT INTO `student` VALUES ('119', '王旭阳', '1', '13359249892', '123456', '37');
 INSERT INTO `student` VALUES ('120', '许乐', '1', '18291955723', '1111', '37');
 INSERT INTO `student` VALUES ('121', '任泽蒙', '1', '18291958713', '11111111', '37');
 INSERT INTO `student` VALUES ('122', '许杰', '1', '18309294671', '1427525810', '37');
-INSERT INTO `student` VALUES ('123', '许杰', '1', '18309294671', '1427525810', '37');
 INSERT INTO `student` VALUES ('124', '白晓', '1', '13720748398', '123456', '37');
-INSERT INTO `student` VALUES ('125', '周璐璐', '1', '18309299172', '132465798', '37');
-INSERT INTO `student` VALUES ('126', '周璐璐', '1', '18309299172', '132465798', '37');
 INSERT INTO `student` VALUES ('127', '林婧雯', '1', '15319737232', '123456', '37');
 INSERT INTO `student` VALUES ('128', '杨洋', '1', '17674786133', '1', '37');
 INSERT INTO `student` VALUES ('129', '李幸', '1', '18392005106', 'lucklios', '37');
-INSERT INTO `student` VALUES ('990', 'aaa', '1', '18309299172', '18309299172', '37');
 INSERT INTO `student` VALUES ('991', '闵乾祺', '1', '15667079621', '123456', '37');
-INSERT INTO `student` VALUES ('992', '就是就是', '1', '12345678910', '1', '37');
 INSERT INTO `student` VALUES ('993', '寇佳文', '1', '18292418948', '123456', '37');
 INSERT INTO `student` VALUES ('994', '武督', '1', '18229036123', '123456', '37');
 INSERT INTO `student` VALUES ('995', '魏昕', '1', '1839200523', '123', '37');
 
 -- ----------------------------
--- Table structure for `teacher`
+-- Table structure for teacher
 -- ----------------------------
 DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher` (
@@ -233,15 +241,16 @@ CREATE TABLE `teacher` (
   `tsex` int(1) NOT NULL DEFAULT '1',
   `tpassword` varchar(255) NOT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('34', '18502999188', '雷老师', '0', '000');
+INSERT INTO `teacher` VALUES ('34', '18502999188', '雷老师', '0', '1');
+INSERT INTO `teacher` VALUES ('35', '15129243623', '李老师', '1', '123');
 
 -- ----------------------------
--- Table structure for `teacherclass`
+-- Table structure for teacherclass
 -- ----------------------------
 DROP TABLE IF EXISTS `teacherclass`;
 CREATE TABLE `teacherclass` (
@@ -249,9 +258,12 @@ CREATE TABLE `teacherclass` (
   `teacherid` int(11) DEFAULT NULL,
   `dictionaryid` int(11) DEFAULT NULL,
   PRIMARY KEY (`tcid`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of teacherclass
 -- ----------------------------
 INSERT INTO `teacherclass` VALUES ('30', '34', '37');
+INSERT INTO `teacherclass` VALUES ('31', '35', '37');
+INSERT INTO `teacherclass` VALUES ('32', '36', '37');
+INSERT INTO `teacherclass` VALUES ('33', '37', '37');

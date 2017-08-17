@@ -78,12 +78,12 @@
 					<table  class="table" style="display:none">
 						<tr>
 							<td>
-								<input type="password" name="spass1">
+								<label>修改密码：</label><input type="password" name="spass1">
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="password" name="spass2">
+								<label>重复密码：</label><input type="password" name="spass2">
 							</td>
 						</tr>
 					

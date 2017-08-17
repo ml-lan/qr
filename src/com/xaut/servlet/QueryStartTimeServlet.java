@@ -1,6 +1,11 @@
 package com.xaut.servlet;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,19 +13,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.xaut.entity.Dictionary;
+import com.xaut.entity.Starttime;
 import com.xaut.util.DBManager;
 
 /**
- * Servlet implementation class AddStartTimeServlet
+ * Servlet implementation class QueryStartTime
  */
-@WebServlet("/AddStartTimeServlet")
-public class AddStartTimeServlet extends HttpServlet {
+@WebServlet("/QueryStartTime")
+public class QueryStartTimeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager db = new DBManager();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddStartTimeServlet() {
+    public QueryStartTimeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,27 +47,30 @@ public class AddStartTimeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		// 取得用户输入的值
-		int teacherid  = Integer.parseInt(request.getParameter("teacherid"));
-		String courseTimeArrJson = request.getParameter("courseTimeArrJson");
-		System.out.print(teacherid);
-		String tem = courseTimeArrJson.substring(1,courseTimeArrJson.length()-1);
- 		
+		
+		int teacherid = Integer.parseInt(request.getParameter("teacherid"));
+		
+		String sql="select stime,iswork from starttime WHERE tid="+teacherid;
+		// ArrayList是实现了数组动态扩容的一个List接口的实现类
+		List<Starttime> list = new ArrayList<Starttime>();
+		
+		ResultSet rs = db.query(sql);
 		try {
-			for(int i=0;i<tem.split(",").length;i++)
-			{
-				
-				String time=tem.split(",")[i];
-				String sql="insert INTO starttime (stime,tid) values("+ time +","+teacherid+")";
-				db.update(sql);
+			while (rs.next()) {
+				// 一条记录对应一个java类对象
+				Starttime s = new Starttime();
+				s.setStime(rs.getString("stime"));
+				s.setIswork(rs.getInt("iswork"));
+				list.add(s);// 向集合中添加数据
 			}
-			db.closeConn();
-			response.getWriter().println(1);
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		db.closeConn();
 		
+		System.out.println(JSON.toJSONString(list));
+		response.getWriter().println(JSON.toJSONString(list));
 		
 	}
 

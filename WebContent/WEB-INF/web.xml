@@ -117,12 +117,15 @@
     <servlet-name>ModifyTeacherPasswd</servlet-name>
     <servlet-class>com.xaut.servlet.ModifyTeacherPasswd</servlet-class>
   </servlet>
-  
-   <servlet>
+  <servlet>
     <servlet-name>AddStartTimeServlet</servlet-name>
     <servlet-class>com.xaut.servlet.AddStartTimeServlet</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>QueryStartTimeServlet</servlet-name>
+    <servlet-class>com.xaut.servlet.QueryStartTimeServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>GetPhoneRamdomNoServlet</servlet-name>
@@ -216,11 +219,16 @@
     <servlet-name>ModifyTeacherPasswd</servlet-name>
     <url-pattern>/servlet/ModifyTeacherPasswd</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>AddStartTimeServlet</servlet-name>
     <url-pattern>/servlet/AddStartTimeServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>QueryStartTimeServlet</servlet-name>
+    <url-pattern>/servlet/QueryStartTimeServlet</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
