@@ -5,13 +5,23 @@ import Index from './index'
 import router from './router'
 import {
   Button,
-  Input
+  Input,
+  Form,
+  FormItem,
+  Radio,
+  RadioGroup,
+  RadioButton
 } from 'element-ui'
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
 Vue.use(Button)
 Vue.use(Input)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(RadioButton)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

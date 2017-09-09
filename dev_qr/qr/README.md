@@ -34,6 +34,8 @@ cnpm install babel-plugin-component -D
 npm run server
 启动服务
 
+
+
 ## Build Setup
 
 ``` bash

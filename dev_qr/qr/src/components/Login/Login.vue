@@ -1,27 +1,51 @@
 <template>
-  <div class="login">
-    <form>
-      <el-input v-model="phoneNum" name="phoneNum" type="text" placeholder="">
+  <div>
+    <HeadNav/>
+    <div class="login">
+      <el-form label-width="100px">
+        <el-form-item label="手机号码：">
+          <el-input v-model="phoneNum" name="phoneNum" type="text" placeholder="">
 
-      </el-input>
-      <br>
-      <br>
-      <el-input v-model="passWord" name="passWord" type="password" placeholder="">
+          </el-input>
+        </el-form-item>
+        <br>
+        <br>
+        <el-form-item label="用户密码：">
+          <el-input v-model="passWord" name="passWord" type="password" placeholder="">
 
-      </el-input>
-      <br>
-      <br>
-      <el-button type="button" @click="Login">登录</el-button>
-    </form>
+          </el-input>
+        </el-form-item>
+
+        <br>
+        <br>
+        <el-form-item label="用户身份：" v-model="form.resource">
+          <el-radio-group>
+            <el-radio label="领导"></el-radio>
+            <el-radio label="教师"></el-radio>
+            <el-radio label="学生"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <br>
+        <br>
+        <el-button type="primary" @click="Login">登录</el-button>
+        <el-button>取消</el-button>
+      </el-form>
+    </div>
+    <Footer-boottom/>
   </div>
 </template>
 
 <script>
+import HeadNav from '../../base/HeadNav/HeadNav'
+import FooterBoottom from '../../base/FooterBoottom/FooterBoottom'
 export default {
   data() {
     return {
       phoneNum: '',
-      passWord: ''
+      passWord: '',
+      form: {
+        resource: ''
+      }
     }
   },
   methods: {
@@ -35,6 +59,10 @@ export default {
         console.log(response)
       })
     }
+  },
+  components: {
+    HeadNav,
+    FooterBoottom
   }
 }
 </script>
@@ -44,10 +72,8 @@ export default {
 .login{
   margin:0 auto;
   width:400px;
-  padding:40px 0px;
+  padding:75px 0px;
   text-align :center
 }
-.login button{
-  width:100%;
-}
+
 </style>

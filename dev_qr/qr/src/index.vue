@@ -1,12 +1,10 @@
 <template>
   <div>
-    <HeadNav/>
     <Login></Login>
   </div>
 </template>
 
 <script>
-import HeadNav from './base/HeadNav/HeadNav'
 import Login from './components/Login/Login'
 export default {
   data() {
@@ -15,7 +13,6 @@ export default {
     }
   },
   components: {
-    HeadNav,
     Login
   }
 }

@@ -64,8 +64,6 @@ export default {
   float:right;
 }
 .jumbotron{
-  margin-left:-9px;
-  width:105%;
 	text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4), 0px 0px 30px rgba(0, 0, 0, 0.075);
 	background: linear-gradient(45deg, rgb(2, 0, 49) 0px, rgb(109, 51, 83) 100%) repeat scroll 0% 0% transparent;
 	box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2) inset, 0px -3px 7px rgba(0, 0, 0, 0.2) inset;
