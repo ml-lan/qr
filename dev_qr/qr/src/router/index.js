@@ -25,27 +25,36 @@ const Student = (resolve) => {
     resolve(module)
   })
 }
+
+const studentRegister = (resolve) => {
+  import('../components/studentRegister/studentRegister').then((module) => {
+    resolve(module)
+  })
+}
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      redirect: 'Login'
-    },
-    {
-      path: '/login',
-      component: Login
-    },
-    {
-      path: '/leader',
-      component: Leader
-    },
-    {
-      path: '/Teacher',
-      component: Teacher
-    },
-    {
-      path: '/student',
-      component: Student
-    }
+  routes: [{
+    path: '/',
+    redirect: 'Login'
+  },
+  {
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/leader',
+    component: Leader
+  },
+  {
+    path: '/teacher',
+    component: Teacher
+  },
+  {
+    path: '/student',
+    component: Student,
+    children: [{
+      path: '/register',
+      component: studentRegister
+    }]
+  }
   ]
 })

@@ -1,13 +1,17 @@
 <template>
   <div>
+    <HeadNav/>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+    <FooterBoottom/>
   </div>
 </template>
 
 <script>
 import Login from './components/Login/Login'
+import HeadNav from './base/HeadNav/HeadNav'
+import FooterBoottom from './base/FooterBoottom/FooterBoottom'
 export default {
   data() {
     return {
@@ -15,7 +19,9 @@ export default {
     }
   },
   components: {
-    Login
+    Login,
+    HeadNav,
+    FooterBoottom
   }
 }
 

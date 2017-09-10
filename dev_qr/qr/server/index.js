@@ -1,6 +1,8 @@
 // node 后端服务器
 
-const userLogin = require('./api/userLogin');
+const leaderLogin = require('./api/leaderLogin');
+const teacherLogin = require('./api/teacherLogin');
+const studentLogin = require('./api/studentLogin');
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -13,8 +15,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 // 后端api路由
-app.use('/api/user', userLogin);
-
+app.use('/api/user', leaderLogin);
+app.use('/api/user', teacherLogin);
+app.use('/api/user', studentLogin);
 // 监听端口
 app.listen(3000);
 console.log('success listen at port:3000......');

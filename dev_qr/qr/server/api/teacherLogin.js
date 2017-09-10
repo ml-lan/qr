@@ -19,9 +19,9 @@ var jsonWrite = function(res, ret) {
     }
 };
 
-// 用户登录
-router.post('/UserLogin', (req, res) => {
-    var sql = $sql.user.add;
+//老师登录
+router.post('/teacherLogin', (req, res) => {
+    var sql = $sql.teacher.query;
     var params = req.body;
     console.log(params);
     conn.query(sql, [params.num, params.pass], function(err, result) {
@@ -33,5 +33,4 @@ router.post('/UserLogin', (req, res) => {
         }
     })
 });
-
 module.exports = router;

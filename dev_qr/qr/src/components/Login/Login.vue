@@ -1,6 +1,5 @@
 <template>
   <div>
-    <HeadNav/>
     <div class="login">
       <el-form :model="form" label-width="100px">
         <el-form-item label="手机号码：" prop='phoneNum'>
@@ -27,13 +26,11 @@
         <el-button>取消</el-button>
       </el-form>
     </div>
-    <Footer-boottom/>
   </div>
 </template>
 
 <script>
-import HeadNav from '../../base/HeadNav/HeadNav'
-import FooterBoottom from '../../base/FooterBoottom/FooterBoottom'
+
 export default {
   data() {
     return {
@@ -50,22 +47,46 @@ export default {
       var pass = this.form.passWord
       var identity = this.form.identity
       console.log(identity)
-      this.$http.post('/api/user/UserLogin', {
-        num: num,
-        pass: pass
-      }, {}).then((response) => {
-        console.log(response)
-        if (response.data.length === 1) {
-          this.$router.push({
-            path: `/leader`
-          })
-        }
-      })
+      if (identity === '领导') {
+        this.$http.post('/api/user/leaderLogin', {
+          num: num,
+          pass: pass
+        }, {}).then((response) => {
+          console.log(response)
+          if (response.data.length === 1) {
+            this.$router.push({
+              path: `/leader`
+            })
+          }
+        })
+      } else if (identity === '教师') {
+        this.$http.post('/api/user/teacherLogin', {
+          num: num,
+          pass: pass
+        }, {}).then((response) => {
+          console.log(response)
+          if (response.data.length === 1) {
+            this.$router.push({
+              path: `/teacher`
+            })
+          }
+        })
+      } else {
+        this.$http.post('/api/user/studentLogin', {
+          num: num,
+          pass: pass
+        }, {}).then((response) => {
+          console.log(response)
+          if (response.data.length === 1) {
+            this.$router.push({
+              path: `/student`
+            })
+          }
+        })
+      }
     }
   },
   components: {
-    HeadNav,
-    FooterBoottom
   }
 }
 </script>
@@ -78,5 +99,4 @@ export default {
   padding:75px 0px;
   text-align :center
 }
-
 </style>

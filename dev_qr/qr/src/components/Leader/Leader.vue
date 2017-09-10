@@ -1,6 +1,5 @@
 <template>
   <div>
-    <HeadNav/>
     <el-row class="leader_con">
       <el-col :span="4">
         <el-menu default-active="1" class="el-menu-vertical-demo">
@@ -38,14 +37,10 @@
       </el-col>
 
     </el-row>
-
-    <Footer-boottom/>
   </div>
 </template>
 
 <script>
-import HeadNav from '../../base/HeadNav/HeadNav'
-import FooterBoottom from '../../base/FooterBoottom/FooterBoottom'
 export default {
   data() {
     return {
@@ -72,8 +67,6 @@ export default {
     }
   },
   components: {
-    HeadNav,
-    FooterBoottom
   }
 }
 </script>
