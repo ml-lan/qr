@@ -4,7 +4,7 @@
       <div class="con">
         <h4>理工大 曲江校区</h4>
         <p>Designed and built by
-          <a href="#" target="_blank">@XAUT</a>
+          <a href="#" target="_blank">@XUT</a>
         </p>
       </div>
     </div>

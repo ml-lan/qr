@@ -2,21 +2,21 @@
   <div>
     <HeadNav/>
     <div class="login">
-      <el-form label-width="100px">
-        <el-form-item label="手机号码：">
-          <el-input v-model="phoneNum" name="phoneNum" type="text" placeholder="">
+      <el-form :model="form" label-width="100px">
+        <el-form-item label="手机号码：" prop='phoneNum'>
+          <el-input v-model="form.phoneNum" type="text" placeholder="">
 
           </el-input>
         </el-form-item>
 
-        <el-form-item label="用户密码：">
-          <el-input v-model="passWord" name="passWord" type="password" placeholder="">
+        <el-form-item label="用户密码：" prop='passWord'>
+          <el-input v-model="form.passWord" type="password" placeholder="">
 
           </el-input>
         </el-form-item>
 
-        <el-form-item label="用户身份：" v-model="form.resource">
-          <el-radio-group>
+        <el-form-item label="用户身份：" prop="identity">
+          <el-radio-group v-model="form.identity">
             <el-radio class="radio" label="领导"></el-radio>
             <el-radio class="radio" label="教师"></el-radio>
             <el-radio class="radio" label="学生"></el-radio>
@@ -37,23 +37,25 @@ import FooterBoottom from '../../base/FooterBoottom/FooterBoottom'
 export default {
   data() {
     return {
-      phoneNum: '',
-      passWord: '',
       form: {
-        resource: 3
+        phoneNum: '',
+        passWord: '',
+        identity: ''
       }
     }
   },
   methods: {
     Login() {
-      var num = this.phoneNum
-      var pass = this.passWord
+      var num = this.form.phoneNum
+      var pass = this.form.passWord
+      var identity = this.form.identity
+      console.log(identity)
       this.$http.post('/api/user/UserLogin', {
         num: num,
         pass: pass
       }, {}).then((response) => {
         console.log(response)
-        if (response) {
+        if (response.data.length === 1) {
           this.$router.push({
             path: `/leader`
           })

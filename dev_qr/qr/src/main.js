@@ -4,17 +4,33 @@ import Vue from 'vue'
 import Index from './index'
 import router from './router'
 import {
+  Icon,
+  Row,
+  Col,
+  Menu,
+  Submenu,
+  MenuItem,
+  MenuItemGroup,
   Button,
   Input,
   Form,
   FormItem,
   Radio,
   RadioGroup,
-  RadioButton
+  RadioButton,
+  Tabs,
+  TabPane
 } from 'element-ui'
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
+Vue.use(Icon)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Menu)
+Vue.use(Submenu)
+Vue.use(MenuItem)
+Vue.use(MenuItemGroup)
 Vue.use(Button)
 Vue.use(Input)
 Vue.use(Form)
@@ -22,6 +38,8 @@ Vue.use(FormItem)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(RadioButton)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
