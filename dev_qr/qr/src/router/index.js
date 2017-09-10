@@ -26,11 +26,6 @@ const Student = (resolve) => {
   })
 }
 
-const studentRegister = (resolve) => {
-  import('../components/studentRegister/studentRegister').then((module) => {
-    resolve(module)
-  })
-}
 export default new Router({
   routes: [{
     path: '/',
@@ -50,11 +45,7 @@ export default new Router({
   },
   {
     path: '/student',
-    component: Student,
-    children: [{
-      path: '/register',
-      component: studentRegister
-    }]
+    component: Student
   }
   ]
 })

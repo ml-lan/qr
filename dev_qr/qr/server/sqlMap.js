@@ -8,7 +8,7 @@ var sqlMap = {
     query: 'select * from teacher where tphone = ? and tpassword = ?'
   },
   student: {
-    query: 'select * from studnet where sphone = ? and spassword = ?'
+    query: 'select * from student where sphone = ? and spassword = ?'
   }
 }
 

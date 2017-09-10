@@ -19,7 +19,7 @@ var jsonWrite = function(res, ret) {
     }
 };
 
-//老师登录
+//学生登录
 router.post('/studentLogin', (req, res) => {
     var sql = $sql.student.query;
     var params = req.body;
