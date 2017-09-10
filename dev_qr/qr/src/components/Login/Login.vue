@@ -8,25 +8,21 @@
 
           </el-input>
         </el-form-item>
-        <br>
-        <br>
+
         <el-form-item label="用户密码：">
           <el-input v-model="passWord" name="passWord" type="password" placeholder="">
 
           </el-input>
         </el-form-item>
 
-        <br>
-        <br>
         <el-form-item label="用户身份：" v-model="form.resource">
           <el-radio-group>
-            <el-radio label="领导"></el-radio>
-            <el-radio label="教师"></el-radio>
-            <el-radio label="学生"></el-radio>
+            <el-radio class="radio" label="领导"></el-radio>
+            <el-radio class="radio" label="教师"></el-radio>
+            <el-radio class="radio" label="学生"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <br>
-        <br>
+
         <el-button type="primary" @click="Login">登录</el-button>
         <el-button>取消</el-button>
       </el-form>
@@ -44,7 +40,7 @@ export default {
       phoneNum: '',
       passWord: '',
       form: {
-        resource: ''
+        resource: 3
       }
     }
   },
@@ -57,6 +53,11 @@ export default {
         pass: pass
       }, {}).then((response) => {
         console.log(response)
+        if (response) {
+          this.$router.push({
+            path: `/leader`
+          })
+        }
       })
     }
   },
