@@ -30,8 +30,14 @@
 </template>
 
 <script>
-
+import { setCookie, getCookie } from '../../common/js/cookie'
 export default {
+  mounted() {
+    // 页面挂载获取cookie 存在则跳转
+    if (getCookie('username')) {
+      this.$router.push('/leader')
+    }
+  },
   data() {
     var checkPhoneNum = (rule, value, callback) => {
       if (!value) {
@@ -82,52 +88,53 @@ export default {
   },
   methods: {
     Login(form) {
-      var num = this.form.phoneNum
-      var pass = this.form.passWord
       var identity = this.form.identity
-      console.log(num + ':' + pass + ':' + identity)
+      let data = {
+        'num': this.form.phoneNum,
+        'pass': this.form.passWord
+      }
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (identity === '领导') {
-            this.$http.post('/api/user/leaderLogin', {
-              num: num,
-              pass: pass
-            }, {}).then((response) => {
+            this.$http.post('/api/user/leaderLogin', data).then((response) => {
               console.log(response)
               if (response.data.length === 1) {
-                this.$router.push({
-                  path: `/leader`
-                })
+                setCookie('username', this.form.phoneNum, 1000 * 60)
+                setTimeout(function() {
+                  this.$router.push({
+                    path: `/leader`
+                  })
+                }.bind(this), 1000)
               }
             })
           } else if (identity === '教师') {
-            this.$http.post('/api/user/teacherLogin', {
-              num: num,
-              pass: pass
-            }, {}).then((response) => {
+            this.$http.post('/api/user/teacherLogin', data).then((response) => {
               console.log(response)
               if (response.data.length === 1) {
-                this.$router.push({
-                  path: `/teacher`
-                })
+                setCookie('username', this.form.phoneNum, 1000 * 60)
+                setTimeout(function() {
+                  this.$router.push({
+                    path: `/teacher`
+                  })
+                }.bind(this), 1000)
               }
             })
-          } else {
-            this.$http.post('/api/user/studentLogin', {
-              num: num,
-              pass: pass
-            }, {}).then((response) => {
+          } else if (identity === '学生') {
+            this.$http.post('/api/user/studentLogin', data).then((response) => {
               console.log(response)
               if (response.data.length === 1) {
-                this.$router.push({
-                  path: `/student`
-                })
+                setCookie('username', this.form.phoneNum, 1000 * 60)
+                setTimeout(function() {
+                  this.$router.push({
+                    path: `/student`
+                  })
+                }.bind(this), 1000)
               }
             })
           }
-          console.log('submit!')
+          // console.log('submit!')
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })
@@ -148,7 +155,5 @@ export default {
   width:400px;
   padding:75px 0px;
   text-align :center
-@media only screen and (min-width: 300px)
-  .login
-    width: 80%
+
 </style>

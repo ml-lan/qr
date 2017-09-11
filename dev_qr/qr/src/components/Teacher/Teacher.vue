@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-row class="teacher_con">
+      <h4>{{'欢迎：' + name}}</h4>
       <el-col :span="4">
         <el-menu default-active="1" class="el-menu-vertical-demo">
           <el-menu-item index="1">
@@ -8,7 +9,10 @@
           </el-menu-item>
 
           <el-menu-item index="2">
-            <i class="el-icon-setting"></i>设置
+            <i class="el-icon-setting"></i>系统设置
+          </el-menu-item>
+          <el-menu-item index="3" @click="logout">
+            <i class="el-icon-setting"></i>用户注销
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -23,12 +27,25 @@
 </template>
 
 <script>
+import { getCookie, delCookie } from '../../common/js/cookie'
 export default {
   data() {
     return {
+      name: ''
+    }
+  },
+  mounted() {
+    let phoneNum = getCookie('username')
+    this.name = phoneNum
+    if (phoneNum === '') {
+      this.$router.push('/')
     }
   },
   methods: {
+    logout() {
+      delCookie('username')
+      this.$router.push('/')
+    }
   },
   components: {
   }
