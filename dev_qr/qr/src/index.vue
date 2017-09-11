@@ -15,8 +15,10 @@ import FooterBoottom from './base/FooterBoottom/FooterBoottom'
 export default {
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created() {
+    console.log(this.cookie)
   },
   components: {
     Login,

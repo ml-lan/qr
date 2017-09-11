@@ -6,10 +6,11 @@ export default function startTime(selector) {
   var h = date.getHours()
   var m = date.getMinutes()
   var s = date.getSeconds()
+  h = checkTime(h)
   m = checkTime(m)
   s = checkTime(s)
   var result
-  result = y + '年' + mon + '月' + d + ' ' + h + ':' + m + ':' + s
+  result = y + '年' + mon + '月' + d + '日  ' + h + ':' + m + ':' + s
   return result
 }
 

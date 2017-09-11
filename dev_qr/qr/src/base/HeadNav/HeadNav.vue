@@ -1,25 +1,32 @@
 <template>
   <div>
-    <div class="con">
-      <div class='logo'>
-        <a href="#">XUT</a>
+      <el-row :gutter="0">
+      <div class="con">
+        <el-col :xs="12" :sm="12" :md="12" :lg="12">
+        <div class='logo'>
+          <a href="#">XUT</a>
+        </div>
+        </el-col>
+        <el-col :xs="12" :sm="12" :md="12" :lg="12">
+        <div class="con_right">
+          <ul>
+            <li>
+              <span>{{time}}</span>
+            </li>
+          </ul>
+        </div>
+        </el-col>
       </div>
-      <div class="con_right">
-        <ul>
-          <li>
-            <span>{{time}}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="clear"></div>
-    <div class="jumbotron">
+      </el-row>
+      <div class="clear"></div>
+      <div class="jumbotron">
 
-      <div class="jumbotron_con">
-        <h1 class="">高效办公 技术先行</h1>
-        <p class="">西安理工大学二维码签到程序 登录入口</p>
+        <div class="jumbotron_con">
+          <h1 class="">高效办公 技术先行</h1>
+          <p class="">西安理工大学二维码签到程序 登录入口</p>
+        </div>
       </div>
-    </div>
+    
   </div>
 </template>
 
@@ -52,8 +59,10 @@ export default {
   clear: both;
 }
 .con {
-  width: 960px;
+  width: 80%;
+  height: 50px;
   margin: 0 auto;
+  text-align :center
 }
 .logo{
   float :left;
@@ -63,6 +72,7 @@ export default {
   display: inline-block;
   float:right;
 }
+
 .jumbotron{
 	text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4), 0px 0px 30px rgba(0, 0, 0, 0.075);
 	background: linear-gradient(45deg, rgb(2, 0, 49) 0px, rgb(109, 51, 83) 100%) repeat scroll 0% 0% transparent;

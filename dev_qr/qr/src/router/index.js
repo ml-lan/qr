@@ -29,7 +29,7 @@ const Student = (resolve) => {
 export default new Router({
   routes: [{
     path: '/',
-    redirect: 'Login'
+    redirect: 'login'
   },
   {
     path: '/login',
@@ -37,7 +37,10 @@ export default new Router({
   },
   {
     path: '/leader',
-    component: Leader
+    component: Leader,
+    meta: {
+      requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+    }
   },
   {
     path: '/teacher',
