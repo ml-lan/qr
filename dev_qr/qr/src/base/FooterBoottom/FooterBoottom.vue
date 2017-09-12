@@ -25,6 +25,7 @@ footer>div{
 	 background-color: #e7e7e7;
 	 border-top:solid 1px #ccc;
 	 border-bottom:solid 1px #ccc;
+   clear: both;
 }
 .con{
   margin-left :40px

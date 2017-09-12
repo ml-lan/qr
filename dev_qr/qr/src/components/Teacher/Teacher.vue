@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="con">
     <el-row class="teacher_con">
       <h4>{{'欢迎：' + tid}}</h4>
       <el-col :span="4">
@@ -26,11 +26,12 @@
                 </el-option>
               </el-select>
               <div class="qr_img">
-                <svg>
-                  <g id="qrcode" />
+                <svg id="svg" width="300" height="300">
+                  <g id="qrcode" ref="qrcode" />
                 </svg>
               </div>
-
+              <el-button type="primary" @click="zoom(1.1)">放大</el-button>
+              <el-button type="primary" @click="zoom(0.9)">缩小</el-button>
             </el-tab-pane>
             <el-tab-pane label="出勤记录">出勤记录</el-tab-pane>
           </el-tabs>
@@ -63,6 +64,7 @@ export default {
       list: [],
       listVaule: '',
       qrURL: `http://mzl0101.com`,
+      scale: 1,
       options: [{
         value: '08:00',
         label: '08:00'
@@ -128,6 +130,16 @@ export default {
       })
       qrcode.makeCode(this.qrURL)
     },
+    // 放大或者缩小
+    zoom(num) {
+      var svg = document.getElementById('svg')
+      this.scale = this.scale * num
+      if (this.scale < 0.5 || this.scale > 1.1) {
+        return
+      } else {
+        svg.setAttribute('transform', 'scale(' + this.scale + ')')
+      }
+    },
     logout() {
       delCookie('username')
       localStorage.removeItem('userinfo')
@@ -141,14 +153,19 @@ export default {
 
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
+.con{
+  margin-bottom :20px
+}
 .teacher_con{
   width :960px;
-  height :400px;
   margin :0 auto;
   padding :40px 0px;
 }
-.select {
+.select,.qr_img {
   margin-top: 20px;
+}
+#svg{
+  margin-left :20px
+  margin-bottom : 20px
 }
 </style>
