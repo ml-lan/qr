@@ -19,7 +19,10 @@ import {
   RadioGroup,
   RadioButton,
   Tabs,
-  TabPane
+  TabPane,
+  Message,
+  Select,
+  Option
 } from 'element-ui'
 import VueResource from 'vue-resource'
 
@@ -40,6 +43,10 @@ Vue.use(RadioGroup)
 Vue.use(RadioButton)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Message)
+Vue.use(Select)
+Vue.use(Option)
+Vue.prototype.$message = Message
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

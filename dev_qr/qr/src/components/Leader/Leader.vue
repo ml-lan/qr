@@ -61,8 +61,6 @@ export default {
   },
   methods: {
     changeTabs(e) {
-      console.log(e._props.index)
-      console.log(this.$refs.count.style.display)
       var index = parseInt(e._props.index)
       if (index === 1) {
         this.$refs.count.style.display = 'block'

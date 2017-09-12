@@ -3,6 +3,7 @@
 const leaderLogin = require('./api/leaderLogin');
 const teacherLogin = require('./api/teacherLogin');
 const studentLogin = require('./api/studentLogin');
+const teacherClass = require('./api/teacherClass');
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use('/api/user', leaderLogin);
 app.use('/api/user', teacherLogin);
 app.use('/api/user', studentLogin);
+app.use('/api/class', teacherClass);
 // 监听端口
 app.listen(3000);
 console.log('success listen at port:3000......');

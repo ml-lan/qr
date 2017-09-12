@@ -3,7 +3,7 @@
     <div class="login">
       <el-form :model="form" :label-position="labelPosition" ref="form" :rules="rules" label-width="100px">
         <el-form-item label="手机号码：" prop='phoneNum'>
-          <el-input v-model.number="form.phoneNum" type="text" placeholder="">
+          <el-input v-model.number="form.phoneNum" type="text" placeholder="手机号码">
 
           </el-input>
         </el-form-item>
@@ -22,9 +22,9 @@
           </el-radio-group>
         </el-form-item>
 
-        <el-button type="primary" @click="Login('form')">登录</el-button>
-        <el-button @click="reset('form')">取消</el-button>
       </el-form>
+      <el-button type="primary" @click="Login('form')" size="large" style="width:160px">登录</el-button>
+      <el-button type="primary" @click="reset('form')" size="large" style="width:160px">取消</el-button>
     </div>
   </div>
 </template>
@@ -97,38 +97,42 @@ export default {
         if (valid) {
           if (identity === '领导') {
             this.$http.post('/api/user/leaderLogin', data).then((response) => {
-              console.log(response)
               if (response.data.length === 1) {
                 setCookie('username', this.form.phoneNum, 1000 * 60)
                 setTimeout(function() {
                   this.$router.push({
                     path: `/leader`
                   })
-                }.bind(this), 1000)
+                }.bind(this), 500)
+              } else {
+                this.err()
               }
             })
           } else if (identity === '教师') {
             this.$http.post('/api/user/teacherLogin', data).then((response) => {
-              console.log(response)
               if (response.data.length === 1) {
+                localStorage.setItem('userinfo', response.data[0].tid)
                 setCookie('username', this.form.phoneNum, 1000 * 60)
                 setTimeout(function() {
                   this.$router.push({
                     path: `/teacher`
                   })
-                }.bind(this), 1000)
+                }.bind(this), 500)
+              } else {
+                this.err()
               }
             })
           } else if (identity === '学生') {
             this.$http.post('/api/user/studentLogin', data).then((response) => {
-              console.log(response)
               if (response.data.length === 1) {
                 setCookie('username', this.form.phoneNum, 1000 * 60)
                 setTimeout(function() {
                   this.$router.push({
                     path: `/student`
                   })
-                }.bind(this), 1000)
+                }.bind(this), 500)
+              } else {
+                this.err()
               }
             })
           }
@@ -141,6 +145,9 @@ export default {
     },
     reset(form) {
       this.$refs[form].resetFields()
+    },
+    err() {
+      this.$message('用户名不存在或密码错误')
     }
   },
   components: {
@@ -155,5 +162,4 @@ export default {
   width:400px;
   padding:75px 0px;
   text-align :center
-
 </style>
