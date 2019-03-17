@@ -9,7 +9,7 @@ public class AccountDao {
 	private DBManager db = new DBManager();
 
 	/**
-	 * ¼ì²éÊÖ»úºÅÂëÊÇ·ñ´æÔÚ
+	 * æ£€æŸ¥æ‰‹æœºå·ç æ˜¯å¦å­˜åœ¨
 	 * 
 	 * @param phoneNo
 	 * @return
@@ -24,7 +24,7 @@ public class AccountDao {
 
 			ResultSet rs = db.query(sql);
 
-			return rs.next();// nextµÄº¬ÒåÊÇ ÊÇ·ñ´æÔÚÊı¾İ£¬Èç¹û´æÔÚÔÚ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+			return rs.next();// nextçš„å«ä¹‰æ˜¯ æ˜¯å¦å­˜åœ¨æ•°æ®ï¼Œå¦‚æœå­˜åœ¨åœ¨è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class AccountDao {
 	}
 
 	/**
-	 * Í¨¹ıÊÖ»úºÅÂë»ñÈ¡ÃÜÂë
+	 * é€šè¿‡æ‰‹æœºå·ç è·å–å¯†ç 
 	 * 
 	 * @param phoneNo
 	 * @return
@@ -62,7 +62,7 @@ public class AccountDao {
 	}
 
 	/**
-	 * ĞŞ¸ÄÃÜÂë
+	 * ä¿®æ”¹å¯†ç 
 	 * 
 	 * @param phoneNo
 	 * @param pass

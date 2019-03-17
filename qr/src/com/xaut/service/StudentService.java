@@ -9,11 +9,11 @@ public class StudentService {
 	private QDRecordDao qddao=new QDRecordDao();
 
 	public void save(Student s) {
-		// Ê×ÏÈÒª½øĞĞÊı¾İµÄÅĞ¶Ï
-		// ±ÈÈçÑ§ÉúĞÅÏ¢ÊÇ·ñ´æÔÚ
+		// é¦–å…ˆè¦è¿›è¡Œæ•°æ®çš„åˆ¤æ–­
+		// æ¯”å¦‚å­¦ç”Ÿä¿¡æ¯æ˜¯å¦å­˜åœ¨
 
 		if (sdao.queryBySphone(s.getSphone()) == true) {
-			throw new RuntimeException("Ñ§ÉúÊÖ»úºÅÒÑ¾­±»Õ¼ÓÃ");
+			throw new RuntimeException("å­¦ç”Ÿæ‰‹æœºå·å·²ç»è¢«å ç”¨");
 		}
 
 		sdao.saveStudent(s);
@@ -23,25 +23,25 @@ public class StudentService {
 
 		Student s = sdao.queryBySphone2(sphone);
 		if (s == null) {
-			throw new RuntimeException("²éÎŞ´ËÈË");
+			throw new RuntimeException("æŸ¥æ— æ­¤äºº");
 		}
 
 		if (!s.getSpassword().equals(spass)) {
-			throw new RuntimeException("ÓÃ»§Ãû»òÃÜÂë´íÎó");
+			throw new RuntimeException("ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯");
 		}
 
 		return s;
 	}
 
 	/**
-	 * µÃµ½°à¼¶µÄ×ÜÈËÊıºÍÒÑ¾­Ç©µ½µÄÑ§ÉúÊıÁ¿
+	 * å¾—åˆ°ç­çº§çš„æ€»äººæ•°å’Œå·²ç»ç­¾åˆ°çš„å­¦ç”Ÿæ•°é‡
 	 * 
 	 * @return
 	 */
 	public int[] getStuCountAndQDCount(String classno,String day,String time) {
-		//Ä³¸ö°àµÄ×ÜÈËÊı
+		//æŸä¸ªç­çš„æ€»äººæ•°
 		int totleCount = sdao.queryStudentCountByClassNo(classno);
-		//Ä³¸ö°à Ä³Ò»Ìì Ä³¸öÉÏ¿ÎÊ±¼ä¶Î ÒÑÓĞµÄÇÃµ½Êı¾İ
+		//æŸä¸ªç­ æŸä¸€å¤© æŸä¸ªä¸Šè¯¾æ—¶é—´æ®µ å·²æœ‰çš„æ•²åˆ°æ•°æ®
 		int qdcount=qddao.queryQDCount(Integer.parseInt(classno), day, time);
 		
 		int[] results={totleCount,qdcount};

@@ -73,8 +73,8 @@ public class StuQDServlet extends HttpServlet {
 		String startTime=datas[1];
 		String randomUUID=datas[2];
 		
-		//将班级编号储存在一个范围中
-		//这个范围比较大，因为 只要学生端不重新访问，或者不关闭扫描的结果这个班级都应该有效
+		//灏嗙彮绾х紪鍙峰偍瀛樺湪涓�涓寖鍥翠腑
+		//杩欎釜鑼冨洿姣旇緝澶э紝鍥犱负 鍙瀛︾敓绔笉閲嶆柊璁块棶锛屾垨鑰呬笉鍏抽棴鎵弿鐨勭粨鏋滆繖涓彮绾ч兘搴旇鏈夋晥
 		request.getSession().setAttribute("sessionClassID", did);
 		request.getSession().setAttribute("startTime", startTime);
 		System.out.println("------>>>>   " + did);

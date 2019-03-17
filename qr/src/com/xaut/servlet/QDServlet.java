@@ -75,7 +75,7 @@ public class QDServlet extends HttpServlet {
 		String sno = request.getParameter("sno");
 		 
 		String stime=request.getSession().getAttribute("startTime").toString();
-		String uuid = request.getParameter("uuid");// »ñÈ¡µ½ÓÃ»§´«ÈëµÄuuidÖµ
+		String uuid = request.getParameter("uuid");// è·å–åˆ°ç”¨æˆ·ä¼ å…¥çš„uuidå€¼
 
 		QDRecordService qs = new com.xaut.service.QDRecordService();
 		QDRecord q = new QDRecord();
@@ -83,40 +83,40 @@ public class QDServlet extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		q.setQdate1(sdf.format(new Date()));
 		
-		// ´ÓsessionÖĞ»ñÈ¡¶şÎ¬ÂëÖĞ¶ÔÓ¦µÄµ±Ç°¿¼ÇÚ°à¼¶±àºÅ
+		// ä»sessionä¸­è·å–äºŒç»´ç ä¸­å¯¹åº”çš„å½“å‰è€ƒå‹¤ç­çº§ç¼–å·
 		int classNo = Integer.parseInt(request.getSession().getAttribute(
 						"sessionClassID").toString());
 
-		// ÓÃÓÃ»§´«µİµÄËæ»úÊıºÍapplication·¶Î§ÖĞµÄÖµ½øĞĞ±È½Ï
+		// ç”¨ç”¨æˆ·ä¼ é€’çš„éšæœºæ•°å’ŒapplicationèŒƒå›´ä¸­çš„å€¼è¿›è¡Œæ¯”è¾ƒ
 		Map<String, String> map = (Map<String, String>) getServletContext()
 				.getAttribute("random");
-		String applicationRandom = map.get(classNo + "");// Í¨¹ı°à¼¶µÄ±àºÅ£¬»ñÈ¡Õâ¸ö°à¼¶¶ÔÓ¦µÄ
-															// Ëæ»úÊı
-		System.out.println("Ñ§Éú¿ªÊ¼Ç©µ½ÁË:" + uuid + "\t\t" + applicationRandom);
+		String applicationRandom = map.get(classNo + "");// é€šè¿‡ç­çº§çš„ç¼–å·ï¼Œè·å–è¿™ä¸ªç­çº§å¯¹åº”çš„
+															// éšæœºæ•°
+		System.out.println("å­¦ç”Ÿå¼€å§‹ç­¾åˆ°äº†:" + uuid + "\t\t" + applicationRandom);
 		
 		if (!uuid.equals(applicationRandom)) {
-			System.out.println("²»ºÏ·¨µÄÇ©µ½--->>>>>>>> :" + uuid + "\t\t"
+			System.out.println("ä¸åˆæ³•çš„ç­¾åˆ°--->>>>>>>> :" + uuid + "\t\t"
 					+ applicationRandom + "\t\t" + sno);
 
-			response.getWriter().println("¶şÎ¬ÂëÒÑÊ§Ğ§»òÕß¶şÎ¬Âë·Ç·¨");
+			response.getWriter().println("äºŒç»´ç å·²å¤±æ•ˆæˆ–è€…äºŒç»´ç éæ³•");
 			return;
 		}
 		try {
 			q.setStudentno(Integer.parseInt(sno));
 
 			qs.saveRecord(q, classNo);
-			response.getWriter().println("½ñÈÕÇ©µ½³É¹¦");// Èç¹ûÊÇ³É¹¦Ç©µ½£¬·şÎñÆ÷·µ»Ø
-			// ½ñÈÕÇ©µ½³É¹¦£¬Ö»Òª²»ÊÇÕâ¸öĞÅÏ¢£¬Ôò±íÊ¾´íÎó
-			System.out.println(sno + " Ç©µ½³É¹¦");
+			response.getWriter().println("ä»Šæ—¥ç­¾åˆ°æˆåŠŸ");// å¦‚æœæ˜¯æˆåŠŸç­¾åˆ°ï¼ŒæœåŠ¡å™¨è¿”å›
+			// ä»Šæ—¥ç­¾åˆ°æˆåŠŸï¼Œåªè¦ä¸æ˜¯è¿™ä¸ªä¿¡æ¯ï¼Œåˆ™è¡¨ç¤ºé”™è¯¯
+			System.out.println(sno + " ç­¾åˆ°æˆåŠŸ");
 		} 
 		catch (Exception e){
 
-			System.err.println("Ç©µ½¹ı³ÌÖĞ·¢ÉúÁË´íÎó:" + e.getMessage());
+			System.err.println("ç­¾åˆ°è¿‡ç¨‹ä¸­å‘ç”Ÿäº†é”™è¯¯:" + e.getMessage());
 
-			// ×¢ÒâÄ¿Ç°ÓĞÁ½ÖÖ¿ÉÄÜ·¢ÉúÒì³£ 1 Ñ§Éú±àºÅ²»´æÔÚ£¬2 Ñ§Éú²»ÊôÓÚµ±Ç°¿¼ÇÚµÄ°à¼¶
-			if (e.getMessage().equals("Ñ§ÉúĞÅÏ¢²»´æÔÚ")) {
+			// æ³¨æ„ç›®å‰æœ‰ä¸¤ç§å¯èƒ½å‘ç”Ÿå¼‚å¸¸ 1 å­¦ç”Ÿç¼–å·ä¸å­˜åœ¨ï¼Œ2 å­¦ç”Ÿä¸å±äºå½“å‰è€ƒå‹¤çš„ç­çº§
+			if (e.getMessage().equals("å­¦ç”Ÿä¿¡æ¯ä¸å­˜åœ¨")) {
 
-				// ½«¿Í»§¶ËµÄcookieÇå¿Õ
+				// å°†å®¢æˆ·ç«¯çš„cookieæ¸…ç©º
 				Cookie cks[] = request.getCookies();
 				for (Cookie cookie : cks) {
 					cookie.setMaxAge(0);
@@ -128,14 +128,14 @@ public class QDServlet extends HttpServlet {
 
 			else if (e.getMessage().startsWith("For input string")) {
 
-				// ½«¿Í»§¶ËµÄcookieÇå¿Õ
+				// å°†å®¢æˆ·ç«¯çš„cookieæ¸…ç©º
 				Cookie cks[] = request.getCookies();
 				for (Cookie cookie : cks) {
 					cookie.setMaxAge(0);
 					cookie.setPath("/");
 					response.addCookie(cookie);
 				}
-				response.getWriter().println("Ç©µ½¹ı³ÌÖĞ·¢ÉúÁË´íÎó,ÇëÖØĞÂµÇÂ½");
+				response.getWriter().println("ç­¾åˆ°è¿‡ç¨‹ä¸­å‘ç”Ÿäº†é”™è¯¯,è¯·é‡æ–°ç™»é™†");
 			} else {
 				response.getWriter().println(e.getMessage());
 

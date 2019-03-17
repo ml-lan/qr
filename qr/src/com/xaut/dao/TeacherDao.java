@@ -13,9 +13,9 @@ public class TeacherDao {
 	private DBManager db = new DBManager();
 
 	/**
-	 * ¸ù¾İÀÏÊ¦µÄµç»°ºÅÂë²éÕÒÀÏÊ¦¶ÔÏó ÎªÊ²Ã´µÇÂ¼µÄ·½·¨ÎÒÃÇĞèÒªÈç´ËÉè¼ÆÄØ£¿ ±È½ÏÖ±¹ÛµÄÊÇ´ó¼Ò¿ÉÒÔÍ¨¹ıÊÖ»úºÅºÍÃÜÂëÍ¬Ê±²éÕÒÒ»ÌõÊı¾İ£¡
-	 * DAO²ãÊÇºÍÊı¾İ¿â´ò½»µÀµÄ ÎªÁËÈÃdao²ãÖĞµÄ·½·¨×î´ó»¯µÄ¸´ÓÃ£¬ËùÒÔÎÒÃÇÒª½«daoµÄ·½·¨ÉèÖÃÎªÔ­×Ó·½·¨£¬
-	 * queryByTeacherPhone»¹ÓĞÒ»¸öºÃ´¦£¬ ¼È¿ÉÒÔ²éÕÒÀÏÊ¦ĞÅÏ¢Î¯ ²éÕÒÂß¼­Ìá¹©daoµÄÖ§³Ö Ò²¿ÉÒÔÎªµÇÂ¼Âß¼­Ìá¹©daoÖ§³Ö ´úÂë¾Í¸´ÓÃÁË
+	 * æ ¹æ®è€å¸ˆçš„ç”µè¯å·ç æŸ¥æ‰¾è€å¸ˆå¯¹è±¡ ä¸ºä»€ä¹ˆç™»å½•çš„æ–¹æ³•æˆ‘ä»¬éœ€è¦å¦‚æ­¤è®¾è®¡å‘¢ï¼Ÿ æ¯”è¾ƒç›´è§‚çš„æ˜¯å¤§å®¶å¯ä»¥é€šè¿‡æ‰‹æœºå·å’Œå¯†ç åŒæ—¶æŸ¥æ‰¾ä¸€æ¡æ•°æ®ï¼
+	 * DAOå±‚æ˜¯å’Œæ•°æ®åº“æ‰“äº¤é“çš„ ä¸ºäº†è®©daoå±‚ä¸­çš„æ–¹æ³•æœ€å¤§åŒ–çš„å¤ç”¨ï¼Œæ‰€ä»¥æˆ‘ä»¬è¦å°†daoçš„æ–¹æ³•è®¾ç½®ä¸ºåŸå­æ–¹æ³•ï¼Œ
+	 * queryByTeacherPhoneè¿˜æœ‰ä¸€ä¸ªå¥½å¤„ï¼Œ æ—¢å¯ä»¥æŸ¥æ‰¾è€å¸ˆä¿¡æ¯å§” æŸ¥æ‰¾é€»è¾‘æä¾›daoçš„æ”¯æŒ ä¹Ÿå¯ä»¥ä¸ºç™»å½•é€»è¾‘æä¾›daoæ”¯æŒ ä»£ç å°±å¤ç”¨äº†
 	 * 
 	 * 
 	 * @param phoneNo
@@ -26,8 +26,8 @@ public class TeacherDao {
 		String sql = " select * from teacher where tphone= '" + phoneNo + "' ";
 		ResultSet rs = db.query(sql);
 		try {
-			while (rs.next()) {// Èç¹û²éµ½ÁËÊı¾İ
-				t = new Teacher();// ¹¹½¨¿ÕµÄteacher¶ÔÏó
+			while (rs.next()) {// å¦‚æœæŸ¥åˆ°äº†æ•°æ®
+				t = new Teacher();// æ„å»ºç©ºçš„teacherå¯¹è±¡
 				t.setTid(rs.getInt("tid"));
 				t.setTname(rs.getString("tname"));
 				t.setTpassword(rs.getString("tpassword"));
@@ -42,7 +42,7 @@ public class TeacherDao {
 	}
 
 	/**
-	 * ²éÑ¯±íÖĞËùÓĞµÄÊı¾İ
+	 * æŸ¥è¯¢è¡¨ä¸­æ‰€æœ‰çš„æ•°æ®
 	 * @return
 	 */
 	public List<Teacher> queryAll() {
@@ -51,8 +51,8 @@ public class TeacherDao {
 		String sql = " select * from teacher  ";
 		ResultSet rs = db.query(sql);
 		try {
-			while (rs.next()) {// Èç¹û²éµ½ÁËÊı¾İ
-				Teacher t = new Teacher();// ¹¹½¨¿ÕµÄteacher¶ÔÏó
+			while (rs.next()) {// å¦‚æœæŸ¥åˆ°äº†æ•°æ®
+				Teacher t = new Teacher();// æ„å»ºç©ºçš„teacherå¯¹è±¡
 				t.setTid(rs.getInt("tid"));
 				t.setTname(rs.getString("tname"));
 				t.setTpassword(rs.getString("tpassword"));
@@ -81,7 +81,7 @@ public class TeacherDao {
 		db.update(sql);
 		ResultSet rs = db.query(sqlid);
 		try {
-			rs.next();// ÏÂÒÆµ½Êı¾İĞĞ
+			rs.next();// ä¸‹ç§»åˆ°æ•°æ®è¡Œ
 			return rs.getInt("mid");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class TeacherDao {
 	
 
 	/**
-	 * µÃµ½Ä³Ò»°à¼¶µÄÀÏÊ¦ĞÅÏ¢
+	 * å¾—åˆ°æŸä¸€ç­çº§çš„è€å¸ˆä¿¡æ¯
 	 * 
 	 * @param cno
 	 * @return
@@ -124,7 +124,7 @@ public class TeacherDao {
 	
 	/**
 	 * 
-	 * ĞŞ¸ÄÀÏÊ¦ÃÜÂë
+	 * ä¿®æ”¹è€å¸ˆå¯†ç 
 	 */
 	
 	public int modifyPasswd(int teacherid,String ModifyPasswd){

@@ -40,7 +40,7 @@ public class AddStartTimeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		// È¡µÃÓÃ»§ÊäÈëµÄÖµ
+		// å–å¾—ç”¨æˆ·è¾“å…¥çš„å€¼
 		int teacherid  = Integer.parseInt(request.getParameter("teacherid"));
 		String courseTimeArrJson = request.getParameter("courseTimeArrJson");
 		System.out.print(teacherid);

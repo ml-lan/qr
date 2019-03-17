@@ -68,17 +68,17 @@ public class GetStudentQDRecordServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// ÉèÖÃ±àÂë
+		// è®¾ç½®ç¼–ç 
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		// »ñÈ¡Ç°Ì¨´«µİ µÄÑ§Éú±àºÅ
+		// è·å–å‰å°ä¼ é€’ çš„å­¦ç”Ÿç¼–å·
 		String stuno = request.getParameter("stuno");
 
 		QDRecordService qd = new QDRecordService();
 		List<QDRecord> list = qd  
 				.queryStudentQDRecord(Integer.parseInt(stuno));
 
-		// ½«Êı¾İ·µ»Ø¸øÇ°Ì¨
+		// å°†æ•°æ®è¿”å›ç»™å‰å°
 		response.getWriter().print(JSON.toJSONString(list));
 
 	}

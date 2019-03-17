@@ -51,17 +51,17 @@ public class QueryStartTimeServlet extends HttpServlet {
 		int teacherid = Integer.parseInt(request.getParameter("teacherid"));
 		
 		String sql="select stime,iswork from starttime WHERE tid="+teacherid;
-		// ArrayListÊÇÊµÏÖÁËÊı×é¶¯Ì¬À©ÈİµÄÒ»¸öList½Ó¿ÚµÄÊµÏÖÀà
+		// ArrayListæ˜¯å®ç°äº†æ•°ç»„åŠ¨æ€æ‰©å®¹çš„ä¸€ä¸ªListæ¥å£çš„å®ç°ç±»
 		List<Starttime> list = new ArrayList<Starttime>();
 		
 		ResultSet rs = db.query(sql);
 		try {
 			while (rs.next()) {
-				// Ò»Ìõ¼ÇÂ¼¶ÔÓ¦Ò»¸öjavaÀà¶ÔÏó
+				// ä¸€æ¡è®°å½•å¯¹åº”ä¸€ä¸ªjavaç±»å¯¹è±¡
 				Starttime s = new Starttime();
 				s.setStime(rs.getString("stime"));
 				s.setIswork(rs.getInt("iswork"));
-				list.add(s);// Ïò¼¯ºÏÖĞÌí¼ÓÊı¾İ
+				list.add(s);// å‘é›†åˆä¸­æ·»åŠ æ•°æ®
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

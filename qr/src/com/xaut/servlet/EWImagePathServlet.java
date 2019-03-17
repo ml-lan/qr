@@ -71,23 +71,23 @@ public class EWImagePathServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String val = request.getParameter("path");
-		// Éú³ÉÒ»¸öËæ»úÊı
+		// ç”Ÿæˆä¸€ä¸ªéšæœºæ•°
 //		String randomUUID = UUID.randomUUID().toString();
 		String randomUUID = System.currentTimeMillis()+"";
 
-		// ½«Éú³ÉµÄËæ»úÊı´æ´¢ÔÚsession·¶Î§ÖĞ
-		// ÕâÀï´¢´æÔÚsessionÖĞ£¬Ö»ÊÇ¶ÔÓÚ Ò»¸öÖÕ¶ËÓĞĞ§
+		// å°†ç”Ÿæˆçš„éšæœºæ•°å­˜å‚¨åœ¨sessionèŒƒå›´ä¸­
+		// è¿™é‡Œå‚¨å­˜åœ¨sessionä¸­ï¼Œåªæ˜¯å¯¹äº ä¸€ä¸ªç»ˆç«¯æœ‰æ•ˆ
 		// request.getSession().setAttribute("randomUUID", randomUUID);
-		// Ïòapplication·¶Î§ÖĞ´æ·ÅÊı¾İ
+		// å‘applicationèŒƒå›´ä¸­å­˜æ”¾æ•°æ®
 
 		Map<String, String> map = new HashMap<String, String>();
-		ServletContext context = getServletContext();// ÕâÊÇjavawebÖĞ×î´óµÄ·¶Î§½Ğ×öapplication£¬ÒâÎ¶×ÅËùÓĞµÄÖÕ¶Ë¶¼¿ÉÒÔ½øĞĞ·ÃÎÊ
+		ServletContext context = getServletContext();// è¿™æ˜¯javawebä¸­æœ€å¤§çš„èŒƒå›´å«åšapplicationï¼Œæ„å‘³ç€æ‰€æœ‰çš„ç»ˆç«¯éƒ½å¯ä»¥è¿›è¡Œè®¿é—®
 		if (context.getAttribute("random") == null) {
-			getServletContext().setAttribute("random", map);// µ±·¶Î§ÖĞµÚÒ»´Î´æ·ÅµÄÊ±ºò
+			getServletContext().setAttribute("random", map);// å½“èŒƒå›´ä¸­ç¬¬ä¸€æ¬¡å­˜æ”¾çš„æ—¶å€™
 		} else {
-			map = (Map<String, String>) context.getAttribute("random"); // ²»ÊÇµÚÒ»´Î
+			map = (Map<String, String>) context.getAttribute("random"); // ä¸æ˜¯ç¬¬ä¸€æ¬¡
 		}
-		// µÚÒ»¸ö²ÎÊıÊÇ°à¼¶£¬µÚ¶ş¸ö²ÎÊıÊÇ Ëæ»úÊı
+		// ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯ç­çº§ï¼Œç¬¬äºŒä¸ªå‚æ•°æ˜¯ éšæœºæ•°
 
 		int indexd = val.indexOf("=");
 		String tempVal = val.substring(indexd + 1);
@@ -101,7 +101,7 @@ public class EWImagePathServlet extends HttpServlet {
 		context.setAttribute("random", map);
 
 		val += "," + randomUUID;
-		System.out.println("¡¾ĞÂµÄ¶şÎ¬ÂëµØÖ·ÒÑ¾­Éú³É--->>>¡¿" + val);
+		System.out.println("ã€æ–°çš„äºŒç»´ç åœ°å€å·²ç»ç”Ÿæˆ--->>>ã€‘" + val);
 		response.getWriter().print(val);
 
 	}

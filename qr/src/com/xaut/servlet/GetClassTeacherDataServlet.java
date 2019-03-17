@@ -71,8 +71,8 @@ public class GetClassTeacherDataServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String sno = request.getParameter("sno");
-	//	String cno = request.getParameter("cno");// Ç°¶ËĞèÒª´«µİÒ»¸ö
-													// °à¼¶µÄ±àºÅ£¬ºóÌ¨·µ»ØÕâ¸ö°à¼¶ÖĞµÄËùÓĞÊÚ¿ÎÀÏÊ¦ĞÅÏ¢
+	//	String cno = request.getParameter("cno");// å‰ç«¯éœ€è¦ä¼ é€’ä¸€ä¸ª
+													// ç­çº§çš„ç¼–å·ï¼Œåå°è¿”å›è¿™ä¸ªç­çº§ä¸­çš„æ‰€æœ‰æˆè¯¾è€å¸ˆä¿¡æ¯
 
 		TeacherService ts = new TeacherService();
 		List<Teacher> list = ts.queryClassTeacher(sno);

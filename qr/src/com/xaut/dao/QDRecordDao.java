@@ -26,7 +26,7 @@ public class QDRecordDao {
 	}
 
 	/**
-	 * ²éÑ¯Ä³¸ö°à¼¶£¬Ä³Ò»Ìì£¬Ä³Ò»ÌÃ¿ÎµÄÇ©µ½Ñ§ÉúÊıÁ¿
+	 * æŸ¥è¯¢æŸä¸ªç­çº§ï¼ŒæŸä¸€å¤©ï¼ŒæŸä¸€å ‚è¯¾çš„ç­¾åˆ°å­¦ç”Ÿæ•°é‡
 	 * 
 	 * @param classno
 	 * @param day
@@ -58,12 +58,12 @@ public class QDRecordDao {
 	}
 
 	/**
-	 * ²éÑ¯Ä³Ò»¸öÑ§Éú±àºÅ ÔÚÄ³Ò»ÌìµÄÄ³Ò»ÌÃ¿ÎÉÏÊÇ·ñÇ©µ½ÁË
+	 * æŸ¥è¯¢æŸä¸€ä¸ªå­¦ç”Ÿç¼–å· åœ¨æŸä¸€å¤©çš„æŸä¸€å ‚è¯¾ä¸Šæ˜¯å¦ç­¾åˆ°äº†
 	 * 
 	 * @param sno
 	 * @param day
 	 * @param startTime
-	 * @return true¾ÍÊÇÒÑ¾­Ç©µ½ÁË
+	 * @return trueå°±æ˜¯å·²ç»ç­¾åˆ°äº†
 	 */
 	public boolean getQDData(int sno, String day, String startTime) {
 
@@ -80,7 +80,7 @@ public class QDRecordDao {
 	}
 
 	/**
-	 * ²éÑ¯Ä³Ò»¸öÑ§ÉúµÄ³öÇÚ¼ÇÂ¼
+	 * æŸ¥è¯¢æŸä¸€ä¸ªå­¦ç”Ÿçš„å‡ºå‹¤è®°å½•
 	 * 
 	 * @param stuno
 	 * @return
@@ -91,14 +91,14 @@ public class QDRecordDao {
 			String sql = "select  qdate, qstarttime,qtime ,((qdate+qtime)-(qdate+qstarttime)) cqs ,qteachermsg   from qdrecord where studentno=  "
 					+ stuno;
 
-			System.out.println("====¡·¡·¡·¡·¡·¡·¡·" + sql);  
+			System.out.println("====ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹" + sql);  
 			ResultSet rs = db.query(sql);  
 			while (rs.next()) {
 				QDRecord q = new QDRecord();
 				q.setQdate(rs.getDate("qdate"));
 				Time t1 = rs.getTime("qstarttime");
-				q.setQstarttime1(t1.toString()); // ÎÒÃÇ½«Êı¾İ²éÑ¯µÄTIme ×ª»»ÎªÁË String
-				// ¼Ì¶ø·â×°µ½ÁË Qstarttime1
+				q.setQstarttime1(t1.toString()); // æˆ‘ä»¬å°†æ•°æ®æŸ¥è¯¢çš„TIme è½¬æ¢ä¸ºäº† String
+				// ç»§è€Œå°è£…åˆ°äº† Qstarttime1
 				Time t2 = rs.getTime("qtime");
 				q.setQtime1(t2.toString());
 				q.setCqstate(rs.getInt("cqs"));
@@ -115,7 +115,7 @@ public class QDRecordDao {
 	
 	
 	/**
-	 * ²éÑ¯Ä³Ò»¶ÎÈÕÆÚÄÚ Ä³¸ö°à¼¶Ñ§ÉúµÄ³öÇÚ¼ÇÂ¼
+	 * æŸ¥è¯¢æŸä¸€æ®µæ—¥æœŸå†… æŸä¸ªç­çº§å­¦ç”Ÿçš„å‡ºå‹¤è®°å½•
 	 * 
 	 * @param classno
 	 * @param sday
@@ -133,17 +133,17 @@ public class QDRecordDao {
 			// q.qdate,(q.qdate+qtime)>(q.qdate+qstarttime) " +
 			// " ss ,q.qteachermsg from qdrecord q right join student s on
 			// q.studentno = s.sno and s.classno="+classno;
-			if (sday != null && !"".equals(sday)) {// Èç¹ûÄã´«À´ÁËÈÕÆÚ ÔòsqlÖĞĞèÒª¶¯Ì¬Ôö¼Ó
-				// ÈÕÆÚµÄÌõ¼şÏŞÖÆ
+			if (sday != null && !"".equals(sday)) {// å¦‚æœä½ ä¼ æ¥äº†æ—¥æœŸ åˆ™sqlä¸­éœ€è¦åŠ¨æ€å¢åŠ 
+				// æ—¥æœŸçš„æ¡ä»¶é™åˆ¶
 				sql += "  and q.qdate BETWEEN '" + sday + "' and  '" + eday
 						+ "' ";
 			}  
 			
-			System.out.println("°à¼¶³öÇÚ ²éÑ¯ SQL -->>> " + sql);
+			System.out.println("ç­çº§å‡ºå‹¤ æŸ¥è¯¢ SQL -->>> " + sql);
 			
 			ResultSet rs = db.query(sql);
 			while (rs.next()) {
-				// Ò»ĞĞÊı¾İ¾ÍÊÇÒ»¸öÊı×é
+				// ä¸€è¡Œæ•°æ®å°±æ˜¯ä¸€ä¸ªæ•°ç»„
 				Object[] obj = new Object[6];
 				obj[0] = rs.getObject("sname");
 				obj[1] = rs.getObject("ssex");

@@ -71,12 +71,12 @@ public class GetTeacherDataServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 
-		// µ÷ÓÃÀÏÊ¦µÄÒµÎñÂß¼­Àà
+		// è°ƒç”¨è€å¸ˆçš„ä¸šåŠ¡é€»è¾‘ç±»
 		TeacherService ts = new TeacherService();
 		List<Teacher> list = ts.queryAll();
-		// µ«ÊÇ¼¯ºÏÊÇ²»ÄÜ¹»·µ»Ø¸ø Ç°¶ËÒ³ÃæµÄ
-		// Ò²¾ÍÊÇËµÎÒÃÇĞèÒªÊÖ¶¯µÄ½«¼¯ºÏ±äÎªjson¸ñÊ½
-		// Ê¹ÓÃÒ»¸öÉñÆ÷ alibaba µÄfastjson Ê¹ÓÃ·Ç³£µÄ¹ã·º
+		// ä½†æ˜¯é›†åˆæ˜¯ä¸èƒ½å¤Ÿè¿”å›ç»™ å‰ç«¯é¡µé¢çš„
+		// ä¹Ÿå°±æ˜¯è¯´æˆ‘ä»¬éœ€è¦æ‰‹åŠ¨çš„å°†é›†åˆå˜ä¸ºjsonæ ¼å¼
+		// ä½¿ç”¨ä¸€ä¸ªç¥å™¨ alibaba çš„fastjson ä½¿ç”¨éå¸¸çš„å¹¿æ³›
 		String jsonStr = JSON.toJSONString(list);
 		System.out.println(jsonStr);
 		response.getWriter().print(jsonStr);

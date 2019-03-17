@@ -3,7 +3,7 @@ package com.xaut.entity;
 import java.util.Date;
 
 /**
- * ÊµÌåÀàµÄ¹æÔòÊÇ Ë½ÓĞÊôĞÔ ¹«¿ª·½·¨
+ * å®ä½“ç±»çš„è§„åˆ™æ˜¯ ç§æœ‰å±æ€§ å…¬å¼€æ–¹æ³•
  * 
  * @author Administrator
  * 

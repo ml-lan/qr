@@ -74,12 +74,12 @@ public class GetDictionaryServlet extends HttpServlet {
 
 		DictionaryService ds = new DictionaryService();
 		PrintWriter pw = response.getWriter();
-		// ÔÚ´Ë´¦Òª´¦Àí ÎåÖÖ²»Í¬µÄÊı¾İ
-		// flagÊÇ¿Í»§¶Ë´«µİµÄÒ»¸ö²ÎÊı±íÊ¾Òª»ñÈ¡µÄÊı¾İµÄÀàĞÍ
+		// åœ¨æ­¤å¤„è¦å¤„ç† äº”ç§ä¸åŒçš„æ•°æ®
+		// flagæ˜¯å®¢æˆ·ç«¯ä¼ é€’çš„ä¸€ä¸ªå‚æ•°è¡¨ç¤ºè¦è·å–çš„æ•°æ®çš„ç±»å‹
 		String flag = request.getParameter("flag");
-		if (flag.equals("1")) {// ²éÑ¯Ñ§Ôº
+		if (flag.equals("1")) {// æŸ¥è¯¢å­¦é™¢
 			List<String> yuanlist = ds.getYuan();
-			// ½«¼¯ºÏ±äÎª×Ö·û´®»òÕßjson¸ñÊ½½øĞĞÊı¾İµÄ´«µİ
+			// å°†é›†åˆå˜ä¸ºå­—ç¬¦ä¸²æˆ–è€…jsonæ ¼å¼è¿›è¡Œæ•°æ®çš„ä¼ é€’
 			StringBuffer str = new StringBuffer();
 			for (String string : yuanlist) {
 				str.append(string + ",");
@@ -88,7 +88,7 @@ public class GetDictionaryServlet extends HttpServlet {
 			pw.print(str);
 		} else if (flag.equals("2")) {
 			List<String> yuanlist = ds.getX();
-			// ½«¼¯ºÏ±äÎª×Ö·û´®»òÕßjson¸ñÊ½½øĞĞÊı¾İµÄ´«µİ
+			// å°†é›†åˆå˜ä¸ºå­—ç¬¦ä¸²æˆ–è€…jsonæ ¼å¼è¿›è¡Œæ•°æ®çš„ä¼ é€’
 			StringBuffer str = new StringBuffer();
 			for (String string : yuanlist) {
 				str.append(string + ",");
@@ -96,7 +96,7 @@ public class GetDictionaryServlet extends HttpServlet {
 			pw.print(str);
 		} else if (flag.equals("3")) {
 			List<String> yuanlist = ds.getZY();
-			// ½«¼¯ºÏ±äÎª×Ö·û´®»òÕßjson¸ñÊ½½øĞĞÊı¾İµÄ´«µİ
+			// å°†é›†åˆå˜ä¸ºå­—ç¬¦ä¸²æˆ–è€…jsonæ ¼å¼è¿›è¡Œæ•°æ®çš„ä¼ é€’
 			StringBuffer str = new StringBuffer();
 			for (String string : yuanlist) {
 				str.append(string + ",");
@@ -104,7 +104,7 @@ public class GetDictionaryServlet extends HttpServlet {
 			pw.print(str);
 		} else if (flag.equals("4")) {
 			List<String> yuanlist = ds.getNJ();
-			// ½«¼¯ºÏ±äÎª×Ö·û´®»òÕßjson¸ñÊ½½øĞĞÊı¾İµÄ´«µİ
+			// å°†é›†åˆå˜ä¸ºå­—ç¬¦ä¸²æˆ–è€…jsonæ ¼å¼è¿›è¡Œæ•°æ®çš„ä¼ é€’
 			StringBuffer str = new StringBuffer();
 			for (String string : yuanlist) {
 				str.append(string + ",");
@@ -112,7 +112,7 @@ public class GetDictionaryServlet extends HttpServlet {
 			pw.print(str);
 		} else if (flag.equals("5")) {
 			List<String> yuanlist = ds.getBJ();  
-			// ½«¼¯ºÏ±äÎª×Ö·û´®»òÕßjson¸ñÊ½½øĞĞÊı¾İµÄ´«µİ
+			// å°†é›†åˆå˜ä¸ºå­—ç¬¦ä¸²æˆ–è€…jsonæ ¼å¼è¿›è¡Œæ•°æ®çš„ä¼ é€’
 			StringBuffer str = new StringBuffer();
 			for (String string : yuanlist) {
 				str.append(string + ",");
@@ -121,11 +121,11 @@ public class GetDictionaryServlet extends HttpServlet {
 		} else {
 
 			// if (flag.equals("4")) {
-			// xxxÑ§Ôº-xxÏµ-xx×¨Òµ-xx¼¶-xx°à
+			// xxxå­¦é™¢-xxç³»-xxä¸“ä¸š-xxçº§-xxç­
 			Map<String, Dictionary> map = ds.getBJAll();
 			String json = JSON.toJSONString(map);
 			System.out.println(json);
-			pw.print(json);//·µ»Ø¸ø¿Í»§¶Ëä¯ÀÀÆ÷
+			pw.print(json);//è¿”å›ç»™å®¢æˆ·ç«¯æµè§ˆå™¨
 		}
 
 	}

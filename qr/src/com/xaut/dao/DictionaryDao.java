@@ -16,13 +16,13 @@ public class DictionaryDao {
 	private DBManager db = new DBManager();
 
 	/**
-	 * ²éÑ¯ËùÓĞµÄ×ÖµäĞÅÏ¢ Êı¾İ¿âÖĞÒ»Ìõ×Öµä¼ÇÂ¼ ¶ÔÓ¦Ò»¸öjavaÀà Dictionary ºÜ¶àÌõ¼ÇÂ¼ÄØ ¾ÍÓ¦¸ÃÊÇÒ»¸ö ¼¯ºÏ List ¾ÍÊÇÒ»¸ö¼¯ºÏ
+	 * æŸ¥è¯¢æ‰€æœ‰çš„å­—å…¸ä¿¡æ¯ æ•°æ®åº“ä¸­ä¸€æ¡å­—å…¸è®°å½• å¯¹åº”ä¸€ä¸ªjavaç±» Dictionary å¾ˆå¤šæ¡è®°å½•å‘¢ å°±åº”è¯¥æ˜¯ä¸€ä¸ª é›†åˆ List å°±æ˜¯ä¸€ä¸ªé›†åˆ
 	 * 
 	 * @return
 	 */
 	public List<Dictionary> queryAll() {
-		// listÊÇÒ»¸ö¼¯ºÏµÄ½Ó¿Ú
-		// ArrayListÊÇÊµÏÖÁËÊı×é¶¯Ì¬À©ÈİµÄÒ»¸öList½Ó¿ÚµÄÊµÏÖÀà
+		// listæ˜¯ä¸€ä¸ªé›†åˆçš„æ¥å£
+		// ArrayListæ˜¯å®ç°äº†æ•°ç»„åŠ¨æ€æ‰©å®¹çš„ä¸€ä¸ªListæ¥å£çš„å®ç°ç±»
 		List<Dictionary> list = new ArrayList<Dictionary>();
 
 		String sql = "select * from dictionary order by did desc ";
@@ -30,7 +30,7 @@ public class DictionaryDao {
 
 		try {
 			while (rs.next()) {
-				// Ò»Ìõ¼ÇÂ¼¶ÔÓ¦Ò»¸öjavaÀà¶ÔÏó
+				// ä¸€æ¡è®°å½•å¯¹åº”ä¸€ä¸ªjavaç±»å¯¹è±¡
 				Dictionary d = new Dictionary();
 				d.setDbjname(rs.getString("dbjname"));
 				d.setDid(rs.getInt("did"));
@@ -38,7 +38,7 @@ public class DictionaryDao {
 				d.setDxiname(rs.getString("dxiname"));
 				d.setDxyname(rs.getString("dxyname"));
 				d.setDzyname(rs.getString("dzyname"));
-				list.add(d);// Ïò¼¯ºÏÖĞÌí¼ÓÊı¾İ
+				list.add(d);// å‘é›†åˆä¸­æ·»åŠ æ•°æ®
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -51,7 +51,7 @@ public class DictionaryDao {
 	}
 
 	/**
-	 * ¸ù¾İ´«µİµÄ×ÖµäÊı¾İÔÚÊı¾İ¿âÖĞ½øĞĞ²éÑ¯ Èç¹ûÕÒµ½ÁË£¬Ôò·µ»Øtrue ·ñÔò·µ»Ø false
+	 * æ ¹æ®ä¼ é€’çš„å­—å…¸æ•°æ®åœ¨æ•°æ®åº“ä¸­è¿›è¡ŒæŸ¥è¯¢ å¦‚æœæ‰¾åˆ°äº†ï¼Œåˆ™è¿”å›true å¦åˆ™è¿”å› false
 	 * 
 	 * @param d
 	 * @return
@@ -75,7 +75,7 @@ public class DictionaryDao {
 	}
 
 	/**
-	 * ±£´æÊı¾İ
+	 * ä¿å­˜æ•°æ®
 	 * 
 	 * @param d
 	 */
@@ -97,7 +97,7 @@ public class DictionaryDao {
 	
 	
 	/**
-	 * µÃµ½Êı¾İ×ÖµäÖĞ Ñ§ÔºÃû³Æ²»ÖØ¸´µÄÊı¾İ
+	 * å¾—åˆ°æ•°æ®å­—å…¸ä¸­ å­¦é™¢åç§°ä¸é‡å¤çš„æ•°æ®
 	 * 
 	 * @return
 	 */
@@ -123,7 +123,7 @@ public class DictionaryDao {
 	}
 
 	/**
-	 * µÃµ½Êı¾İ×ÖµäÖĞ Ñ§ÔºÃû³Æ²»ÖØ¸´µÄÊı¾İ
+	 * å¾—åˆ°æ•°æ®å­—å…¸ä¸­ å­¦é™¢åç§°ä¸é‡å¤çš„æ•°æ®
 	 * 
 	 * @return
 	 */
@@ -212,19 +212,19 @@ public class DictionaryDao {
 	}
 
 	/**
-	 * ²éÑ¯È«²¿µÄ°à¼¶
+	 * æŸ¥è¯¢å…¨éƒ¨çš„ç­çº§
 	 * 
 	 * @return
 	 */
 	public Map<String, Dictionary> getBJAll() {
-		// mapÊÇ¼üÖµ¶Ô¼¯ºÏ
+		// mapæ˜¯é”®å€¼å¯¹é›†åˆ
 		Map<String, Dictionary> map = new HashMap<String, Dictionary>();
 		String sql = "select * from dictionary";
 		ResultSet rs = db.query(sql);
 
 		try {
 			while (rs.next()) {
-				// Ò»Ìõ¼ÇÂ¼¶ÔÓ¦Ò»¸öjavaÀà¶ÔÏó
+				// ä¸€æ¡è®°å½•å¯¹åº”ä¸€ä¸ªjavaç±»å¯¹è±¡
 				Dictionary d = new Dictionary();
 				d.setDbjname(rs.getString("dbjname"));
 				d.setDnjname(rs.getString("dnjname"));
@@ -247,7 +247,7 @@ public class DictionaryDao {
 		List<Object[]> list = new ArrayList<Object[]>();
 
 		try {
-			String sql = "SELECT	CONCAT(d.dnjname,'¼¶',d.dbjname),	count(s.sno) FROM	student s,	dictionary d where 	s.classno=d.did group by 	d.dnjname,d.dbjname";
+			String sql = "SELECT	CONCAT(d.dnjname,'çº§',d.dbjname),	count(s.sno) FROM	student s,	dictionary d where 	s.classno=d.did group by 	d.dnjname,d.dbjname";
 			ResultSet rs = db.query(sql);
 			while (rs.next()) {
 

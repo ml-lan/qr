@@ -65,14 +65,14 @@ public class RepassServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	
-		//ÒªÊä³öÖĞÎÄ£¬±ØĞëÉèÖÃ±àÂë¸ñÊ½
+		//è¦è¾“å‡ºä¸­æ–‡ï¼Œå¿…é¡»è®¾ç½®ç¼–ç æ ¼å¼
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");   
 		
 		
-		// ¾ÍÊÇĞŞ¸ÄÃÜÂë
-		// ÃÜÂëÈçºÎĞŞ¸ÄÄØ£¿
-		// È¡Öµ
+		// å°±æ˜¯ä¿®æ”¹å¯†ç 
+		// å¯†ç å¦‚ä½•ä¿®æ”¹å‘¢ï¼Ÿ
+		// å–å€¼
 		String phoneno = request.getParameter("phoneno");
 		String pass1 = request.getParameter("pass1");
 		String pass2 = request.getParameter("pass2");
@@ -84,7 +84,7 @@ public class RepassServlet extends HttpServlet {
 		AccountService as = new AccountService();
 		try {
 			as.repass(phoneno, pass1, pass2);
-			pw.print("ĞŞ¸ÄÃÜÂë³É¹¦");
+			pw.print("ä¿®æ”¹å¯†ç æˆåŠŸ");
 		} catch (Exception e) {
 			pw.print(e.getMessage());
 		}

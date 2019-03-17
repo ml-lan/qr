@@ -74,7 +74,7 @@ public class GetClassStuCountServlet extends HttpServlet {
 		List<Object[]> list = ds.getClassStuCount();
 
 		List<Data> list2 = new ArrayList<Data>();
-		// ½«ÈçÉÏµÄObject×ª»»ÎªÒ»¸ö¶ÔÏó
+		// å°†å¦‚ä¸Šçš„Objectè½¬æ¢ä¸ºä¸€ä¸ªå¯¹è±¡
 		for (int i = 0; i < list.size(); i++) {
 			Data d = new Data();
 			d.setDid(i);

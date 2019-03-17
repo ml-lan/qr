@@ -68,7 +68,7 @@ public class GetTeacherClassServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// ÉèÖÃ±àÂë½â¾öÂÒÂëÎÊÌâ
+		// è®¾ç½®ç¼–ç è§£å†³ä¹±ç é—®é¢˜
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		int teacherId=Integer.parseInt(request.getParameter("teacherId"));

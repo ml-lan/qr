@@ -17,31 +17,31 @@ public class QDRecordService {
 	
 	public void saveRecord(QDRecord q, int classNo) {
 
-		// ½øĞĞÒ»ÏµÁĞµÄĞ£ÑéÂß¼­
+		// è¿›è¡Œä¸€ç³»åˆ—çš„æ ¡éªŒé€»è¾‘
 
-		// Õâ¸öÑ§ÉúÊÇ·ñ´æÔÚ
+		// è¿™ä¸ªå­¦ç”Ÿæ˜¯å¦å­˜åœ¨
 		int sno = q.getStudentno();
 
 		Student dbs = sdao.queryBySNO(sno);
-		if (dbs == null) {// ¸ù¾İÑ§ÉúµÄ±àºÅÕÒ²»µ½Ñ§Éú
-			throw new RuntimeException("Ñ§ÉúĞÅÏ¢²»´æÔÚ");
+		if (dbs == null) {// æ ¹æ®å­¦ç”Ÿçš„ç¼–å·æ‰¾ä¸åˆ°å­¦ç”Ÿ
+			throw new RuntimeException("å­¦ç”Ÿä¿¡æ¯ä¸å­˜åœ¨");
 		}
 
-		// Ñ§ÉúÊÇ·ñÊôÓÚµ±Ç°¿¼ÇÚµÄ°à¼¶
-		// Ñ§ÉúµÄ°à¼¶Êı¾İ == µ±Ç°¿¼ÇÚµÄ°à¼¶µÄ±àºÅ
-		int dbclassno = dbs.getClassno();// Í¨¹ıÑ§Éú±àºÅ»ñÈ¡µ½µÄÑ§ÉúÔÚÊı¾İ¿âÖĞµÄ ¹éÊô°à¼¶±àºÅ
+		// å­¦ç”Ÿæ˜¯å¦å±äºå½“å‰è€ƒå‹¤çš„ç­çº§
+		// å­¦ç”Ÿçš„ç­çº§æ•°æ® == å½“å‰è€ƒå‹¤çš„ç­çº§çš„ç¼–å·
+		int dbclassno = dbs.getClassno();// é€šè¿‡å­¦ç”Ÿç¼–å·è·å–åˆ°çš„å­¦ç”Ÿåœ¨æ•°æ®åº“ä¸­çš„ å½’å±ç­çº§ç¼–å·
 		if (dbclassno != classNo) {
-			throw new RuntimeException("´ËÑ§Éú²»ÊôÓÚµ±Ç°Ç©µ½°à¼¶");
+			throw new RuntimeException("æ­¤å­¦ç”Ÿä¸å±äºå½“å‰ç­¾åˆ°ç­çº§");
 		}
 
-		// ¡¾
-		// Ö»¿ÉÒÔÇ©µ½Ò»´Î¡¾µ±Ç°Ç©µ½Ê±¼ä > ½ñÌì×îºóÒ»´ÎÇ©µ½Ê±¼ä Á½¸öĞ¡Ê±¡¿
-		// ¡¿
+		// ã€
+		// åªå¯ä»¥ç­¾åˆ°ä¸€æ¬¡ã€å½“å‰ç­¾åˆ°æ—¶é—´ > ä»Šå¤©æœ€åä¸€æ¬¡ç­¾åˆ°æ—¶é—´ ä¸¤ä¸ªå°æ—¶ã€‘
+		// ã€‘
 
 		boolean result = qddao.getQDData(q.getStudentno(), q.getQdate1(), q
 				.getQstarttime1());
 		if (result == true) {
-			throw new RuntimeException("µ±ÌÃ¿ÎÒÑ³É¹¦Ç©µ½,ÇëÎğÖØ¸´Ç©µ½");  
+			throw new RuntimeException("å½“å ‚è¯¾å·²æˆåŠŸç­¾åˆ°,è¯·å‹¿é‡å¤ç­¾åˆ°");  
 		}
 
 		SimpleDateFormat f1 = new SimpleDateFormat("yyyyMMdd");

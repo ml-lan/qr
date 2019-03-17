@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * db½Ğ×ö database Ò²¾ÍÊÇÊı¾İ¿â·ÃÎÊ¹ÜÀí¶ÔÏó Õâ¸öÀàÖ÷ÒªÓÃÓÚºÍÊı¾İ¿â½øĞĞ½»»¥¡¾CRUD¡¿¡¾ÔöÉ¾¸Ä²é¡¿ ³ÌĞòµÄÁé»ê¾ÍÊÇ Êı¾İ Êı¾İµÄ²Ù×÷¾ÍÊÇÔöÉ¾¸Ä²é
+ * dbå«åš database ä¹Ÿå°±æ˜¯æ•°æ®åº“è®¿é—®ç®¡ç†å¯¹è±¡ è¿™ä¸ªç±»ä¸»è¦ç”¨äºå’Œæ•°æ®åº“è¿›è¡Œäº¤äº’ã€CRUDã€‘ã€å¢åˆ æ”¹æŸ¥ã€‘ ç¨‹åºçš„çµé­‚å°±æ˜¯ æ•°æ® æ•°æ®çš„æ“ä½œå°±æ˜¯å¢åˆ æ”¹æŸ¥
  * 
  * @author Administrator
  * 
@@ -18,9 +18,9 @@ public class DBManager {
 	//private static final String URL = "jdbc:mysql://118.89.150.221:3306/QRcode?useUnicode=true&characterEncoding=UTF-8";
 	//private static final String URL = "jdbc:mysql://104.128.82.220:3306/erwei?useUnicode=true&characterEncoding=UTF-8";
 	
-	private static final String URL = "jdbc:mysql://127.0.0.1:3306/erwei?useUnicode=true&characterEncoding=UTF-8";
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/erwei?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
 	private static final String NAME = "root";
-	private static final String PASS = "root";
+	private static final String PASS = "123456";
 	
 	
 	//private static final String NAME = "myuser";
@@ -40,7 +40,7 @@ public class DBManager {
 	}
 
 	/**
-	 * Íê³ÉÊı¾İµÄ¸üĞÂ²Ù×÷
+	 * å®Œæˆæ•°æ®çš„æ›´æ–°æ“ä½œ
 	 */
 	public void update(String sql) {
 
@@ -55,7 +55,7 @@ public class DBManager {
 
 	}
 	/**
-	 * Íê³ÉÊı¾İµÄ²éÑ¯²Ù×÷
+	 * å®Œæˆæ•°æ®çš„æŸ¥è¯¢æ“ä½œ
 	 */
 	public ResultSet query(String sql) {
 		try {
@@ -64,7 +64,7 @@ public class DBManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// ´Ë´¦connection²»¿ÉÒÔ¹Ø±Õ£¬ÒòÎªresultsetµÄ½âÎöÒªÇóconnection´¦ÓÚÁ¬½Ó×´Ì¬
+		// æ­¤å¤„connectionä¸å¯ä»¥å…³é—­ï¼Œå› ä¸ºresultsetçš„è§£æè¦æ±‚connectionå¤„äºè¿æ¥çŠ¶æ€
 		return null;
 
 	}

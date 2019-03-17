@@ -65,17 +65,17 @@ public class AddDictionaryServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// ÉèÖÃÇëÇóºÍÏìÓ¦µÄ±àÂë¸ñÊ½
+		// è®¾ç½®è¯·æ±‚å’Œå“åº”çš„ç¼–ç æ ¼å¼
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 
-		// »ñÈ¡µ½Òª±£´æË­
+		// è·å–åˆ°è¦ä¿å­˜è°
 		String select_xy = request.getParameter("select_xy");
 		String select_x = request.getParameter("select_x");
 		String select_zy = request.getParameter("select_zy");
 		String select_nj = request.getParameter("select_nj");
 		String select_bj = request.getParameter("select_bj");
-		// ĞèÒªµ÷ÓÃservlet½øĞĞÒµÎñÂß¼­µÄ´¦Àí
+		// éœ€è¦è°ƒç”¨servletè¿›è¡Œä¸šåŠ¡é€»è¾‘çš„å¤„ç†
 
 		Dictionary d = new Dictionary();
 		d.setDbjname(select_bj);
@@ -87,21 +87,21 @@ public class AddDictionaryServlet extends HttpServlet {
 		DictionaryService ds = new DictionaryService();
 		try {
 			ds.saveDictionary(d);
-			request.setAttribute("msg", "Ìí¼ÓÊı¾İ³É¹¦");
+			request.setAttribute("msg", "æ·»åŠ æ•°æ®æˆåŠŸ");
 
 		} catch (Exception e) {
 			request.setAttribute("msg", e.getMessage());
 
 		}
 		
-		//µ÷ÓÃ ×ÖµäÒµÎñÂß¼­Àà ÖĞ²éÑ¯µÄ·½·¨
+		//è°ƒç”¨ å­—å…¸ä¸šåŠ¡é€»è¾‘ç±» ä¸­æŸ¥è¯¢çš„æ–¹æ³•
  		java.util.List<Dictionary> list= ds.queryAll();
-		//²¢ÇÒ½«²éÑ¯µÄ½á¹û´æ·ÅÔÚÄ³Ò»¸ö·¶Î§ÖĞ
+		//å¹¶ä¸”å°†æŸ¥è¯¢çš„ç»“æœå­˜æ”¾åœ¨æŸä¸€ä¸ªèŒƒå›´ä¸­
 		request.setAttribute("data", list);
 		request.setAttribute("flag", 3);  
 		
-		//·µ»Ø½á¹û
-		// ´Ë´¦µÄ/¾Í±íÊ¾Ó¦ÓÃ³ÌĞòµÄ¸ùÄ¿Â¼ http://localhost:8080/e/
+		//è¿”å›ç»“æœ
+		// æ­¤å¤„çš„/å°±è¡¨ç¤ºåº”ç”¨ç¨‹åºçš„æ ¹ç›®å½• http://localhost:8080/e/
 		request.getRequestDispatcher("/leader.jsp").forward(request, response);
 
 	}

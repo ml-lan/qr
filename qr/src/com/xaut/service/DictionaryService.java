@@ -15,16 +15,16 @@ public class DictionaryService {
 	}
 
 	/**
-	 * ±£´æ×ÖµäÊı¾İ
+	 * ä¿å­˜å­—å…¸æ•°æ®
 	 * 
 	 * @param d
 	 */
 	public void saveDictionary(Dictionary d) {
-		// Ê×ÏÈ½øĞĞÒ»Ğ©ÅĞ¶Ï
-		// Èç¹ûÒÑ¾­ÓĞÏàÍ¬µÄÊı¾İÁË£¬Ôò²»ÄÜ¹»±£´æ
+		// é¦–å…ˆè¿›è¡Œä¸€äº›åˆ¤æ–­
+		// å¦‚æœå·²ç»æœ‰ç›¸åŒçš„æ•°æ®äº†ï¼Œåˆ™ä¸èƒ½å¤Ÿä¿å­˜
 		boolean result = ddao.queryByParam(d);
 		if (result == true) {
-			throw new RuntimeException("ÒÑ¾­ÖØ¸´µÄÊı¾İÇëÎğÖØ¸´Ìí¼Ó");
+			throw new RuntimeException("å·²ç»é‡å¤çš„æ•°æ®è¯·å‹¿é‡å¤æ·»åŠ ");
 		}
 
 		ddao.save(d);

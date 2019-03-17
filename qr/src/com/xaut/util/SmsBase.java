@@ -10,26 +10,26 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 /**
- * ·¢ËÍ¶ÌĞÅ»ù´¡Àà
+ * å‘é€çŸ­ä¿¡åŸºç¡€ç±»
  * 
  * @author administration
  * 
  */
-// ÎªÁËÄãµÄ²âÊÔ·½±ãÊÕµ½¶ÌĞÅ£¡Çë¶ÌĞÅÄÚÈİ±à¼­Îª£ºÄãµÄÑéÖ¤ÂëÎª£º123456¡¾ÖĞÕıÔÆÍ¨ĞÅ¡¿
+// ä¸ºäº†ä½ çš„æµ‹è¯•æ–¹ä¾¿æ”¶åˆ°çŸ­ä¿¡ï¼è¯·çŸ­ä¿¡å†…å®¹ç¼–è¾‘ä¸ºï¼šä½ çš„éªŒè¯ç ä¸ºï¼š123456ã€ä¸­æ­£äº‘é€šä¿¡ã€‘
 public class SmsBase {
 	private String x_id = "llgongda";
 	private String x_pwd = "llgongda";
 
 	public String SendSms(String mobile, String content)
 			throws UnsupportedEncodingException {
-		// Integer x_ac = 10;// ·¢ËÍĞÅÏ¢
+		// Integer x_ac = 10;// å‘é€ä¿¡æ¯
 		HttpURLConnection httpconn = null;
 		String result = "Error";
 		StringBuilder sb = new StringBuilder();
 		sb.append("http://service.winic.org:8009/sys_port/gateway/index.asp?");
 
-		// ÒÔÏÂÊÇ²ÎÊı
-		// ÎªÁËÄãµÄ²âÊÔ·½±ãÊÕµ½¶ÌĞÅ£¡Çë¶ÌĞÅÄÚÈİ±à¼­Îª£ºÄãµÄÑéÖ¤ÂëÎª£º123456¡¾ÖĞÕıÔÆÍ¨ĞÅ¡¿
+		// ä»¥ä¸‹æ˜¯å‚æ•°
+		// ä¸ºäº†ä½ çš„æµ‹è¯•æ–¹ä¾¿æ”¶åˆ°çŸ­ä¿¡ï¼è¯·çŸ­ä¿¡å†…å®¹ç¼–è¾‘ä¸ºï¼šä½ çš„éªŒè¯ç ä¸ºï¼š123456ã€ä¸­æ­£äº‘é€šä¿¡ã€‘
 		sb.append("id=").append(URLEncoder.encode(x_id, "gb2312"));
 		sb.append("&pwd=").append(x_pwd);
 		sb.append("&to=").append(mobile);
@@ -59,7 +59,7 @@ public class SmsBase {
 	public static void main(String[] args) {
 		SmsBase s = new SmsBase();
 		try {
-			System.out.println(s.SendSms("18502999188", "123456¡¾ÖĞÕıÔÆÍ¨ĞÅ¡¿"));
+			System.out.println(s.SendSms("18502999188", "123456ã€ä¸­æ­£äº‘é€šä¿¡ã€‘"));
 
 		} catch (Exception e) {
 			e.printStackTrace();

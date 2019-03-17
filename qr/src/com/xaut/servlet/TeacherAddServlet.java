@@ -70,7 +70,7 @@ public class TeacherAddServlet extends HttpServlet {
 
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		// È¡µÃÓÃ»§ÊäÈëµÄÖµ
+		// å–å¾—ç”¨æˆ·è¾“å…¥çš„å€¼
 		String tname = request.getParameter("tname");
 		String tsex = request.getParameter("tsex");
 		String tphone = request.getParameter("tphone");
@@ -87,14 +87,14 @@ public class TeacherAddServlet extends HttpServlet {
 		TeacherService ts = new TeacherService();
 		ts.saveTeacher(t, tclass);
 
-		request.setAttribute("msg", "Ìí¼ÓÀÏÊ¦³É¹¦");
+		request.setAttribute("msg", "æ·»åŠ è€å¸ˆæˆåŠŸ");
 		request.setAttribute("flag", "2");
 
-		// ĞèÒªÔÚ×ªÏòµ½leader.jspÒ³ÃæÖ®Ç°£¬Ê×ÏÈ°Ñleader.jspÒ³ÃæÖĞĞèÒª²éÑ¯µÄÊı¾İ²éÑ¯³öÀ´
-		// µ÷ÓÃ ×ÖµäÒµÎñÂß¼­Àà ÖĞ²éÑ¯µÄ·½·¨
+		// éœ€è¦åœ¨è½¬å‘åˆ°leader.jspé¡µé¢ä¹‹å‰ï¼Œé¦–å…ˆæŠŠleader.jspé¡µé¢ä¸­éœ€è¦æŸ¥è¯¢çš„æ•°æ®æŸ¥è¯¢å‡ºæ¥
+		// è°ƒç”¨ å­—å…¸ä¸šåŠ¡é€»è¾‘ç±» ä¸­æŸ¥è¯¢çš„æ–¹æ³•
 		DictionaryService ds = new DictionaryService();
 		java.util.List<Dictionary> list = ds.queryAll();
-		// ²¢ÇÒ½«²éÑ¯µÄ½á¹û´æ·ÅÔÚÄ³Ò»¸ö·¶Î§ÖĞ
+		// å¹¶ä¸”å°†æŸ¥è¯¢çš„ç»“æœå­˜æ”¾åœ¨æŸä¸€ä¸ªèŒƒå›´ä¸­
 		request.setAttribute("data", list);
 
 		request.getRequestDispatcher("/leader.jsp").forward(request, response);

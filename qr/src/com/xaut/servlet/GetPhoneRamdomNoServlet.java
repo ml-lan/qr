@@ -45,7 +45,7 @@ public class GetPhoneRamdomNoServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// ´¦ÀíµÄÊÇÓÃ»§get·½Ê½Ìá½»µÄÊı¾İ
+		// å¤„ç†çš„æ˜¯ç”¨æˆ·getæ–¹å¼æäº¤çš„æ•°æ®
 		this.doPost(request, response);
 	}
 
@@ -67,10 +67,10 @@ public class GetPhoneRamdomNoServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// »ñÈ¡ÓÃ»§ÊäÈëµÄÊÖ»úºÅÂë
+		// è·å–ç”¨æˆ·è¾“å…¥çš„æ‰‹æœºå·ç 
 		String phoneno = request.getParameter("phoneno");
-		System.out.println("ÒÑ¾­»ñÈ¡µ½ÊÖ»úºÅÂë:" + phoneno);
-		String result;// ±íÊ¾·şÎñÆ÷·µ»ØµÄ½á¹û
+		System.out.println("å·²ç»è·å–åˆ°æ‰‹æœºå·ç :" + phoneno);
+		String result;// è¡¨ç¤ºæœåŠ¡å™¨è¿”å›çš„ç»“æœ
 		if (phoneno.length() != 11) {
 			result = "01";
 			response.getWriter().print(result);
@@ -78,20 +78,20 @@ public class GetPhoneRamdomNoServlet extends HttpServlet {
 		}
 
 		try {
-			Long.parseLong(phoneno);// ½«×Ö·û´®×ª»»Îª ³¤ÕûĞÎ £¬Èç¹ûÎŞ·¨×ª»»Ôò»áÒı·¢Òì³££¬±íÊ¾²»ÊÇÊı×Ö
+			Long.parseLong(phoneno);// å°†å­—ç¬¦ä¸²è½¬æ¢ä¸º é•¿æ•´å½¢ ï¼Œå¦‚æœæ— æ³•è½¬æ¢åˆ™ä¼šå¼•å‘å¼‚å¸¸ï¼Œè¡¨ç¤ºä¸æ˜¯æ•°å­—
 		} catch (Exception e) {
 			result = "01";
 			response.getWriter().print(result);
 			return;
 		}
-		// ½ÓÏÂÀ´¾Íµ½ÁË£¬ĞèÒª²éÑ¯Êı¾İ¿âÖĞÊÇ·ñ´æÔÚÕâ¸öÊÖ»úºÅÂëµÄ Ğ£ÑéÁË
+		// æ¥ä¸‹æ¥å°±åˆ°äº†ï¼Œéœ€è¦æŸ¥è¯¢æ•°æ®åº“ä¸­æ˜¯å¦å­˜åœ¨è¿™ä¸ªæ‰‹æœºå·ç çš„ æ ¡éªŒäº†
 		AccountDao ad = new AccountDao();
 		boolean resultp = ad.existPhone(phoneno);
 		if (resultp) {
 			result = "03";
-			//ĞèÒªÏò´ËÊÖ»úºÅÂë·¢ËÍ¶ÌĞÅ
+			//éœ€è¦å‘æ­¤æ‰‹æœºå·ç å‘é€çŸ­ä¿¡
 			SmsBase sms=new SmsBase();
-			sms.SendSms(phoneno, "±¾´ÎÑéÖ¤ÂëÊÇ:0268,Àí¹¤´ó²»»áÒÔÈÎºÎÀíÓÉÑ¯ÎÊÄãµÄÑéÖ¤Âë,ÇëÎğ¸æÖªËûÈË");
+			sms.SendSms(phoneno, "æœ¬æ¬¡éªŒè¯ç æ˜¯:0268,ç†å·¥å¤§ä¸ä¼šä»¥ä»»ä½•ç†ç”±è¯¢é—®ä½ çš„éªŒè¯ç ,è¯·å‹¿å‘ŠçŸ¥ä»–äºº");
 		} else {
 			result = "02";
 		}

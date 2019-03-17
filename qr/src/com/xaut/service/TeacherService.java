@@ -1,6 +1,5 @@
 package com.xaut.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.xaut.dao.TeacherClassDao;
@@ -9,7 +8,7 @@ import com.xaut.entity.Teacher;
 import com.xaut.entity.Teacherclass;
 
 /**
- * ½ÌÊ¦ÒµÎñÂß¼­Àà
+ * æ•™å¸ˆä¸šåŠ¡é€»è¾‘ç±»
  * 
  * @author Administrator
  * 
@@ -20,7 +19,7 @@ public class TeacherService {
 	private TeacherClassDao tcdao = new TeacherClassDao();
 
 	/**
-	 * ÀÏÊ¦µÇÂ¼µÄÂß¼­
+	 * è€å¸ˆç™»å½•çš„é€»è¾‘
 	 * 
 	 * @param tname
 	 * @param tpass
@@ -30,13 +29,13 @@ public class TeacherService {
 
 		Teacher t = tdao.queryByTeacherPhone(tname);
 
-		if (t == null) {// Èç¹ûÀÏÊ¦Ã»ÓĞÕÒµ½
-			throw new RuntimeException("²éÎŞ´ËÈË");// javaÇ¿´óµÄÒì³£´¦Àí»úÖÆ
+		if (t == null) {// å¦‚æœè€å¸ˆæ²¡æœ‰æ‰¾åˆ°
+			throw new RuntimeException("æŸ¥æ— æ­¤äºº");// javaå¼ºå¤§çš„å¼‚å¸¸å¤„ç†æœºåˆ¶
 		}
 
-		// ±íÊ¾Êı¾İ¿âµÄÃÜÂëºÍÊäÈëµÄÃÜÂë²»Ò»ÖÂ
+		// è¡¨ç¤ºæ•°æ®åº“çš„å¯†ç å’Œè¾“å…¥çš„å¯†ç ä¸ä¸€è‡´
 		if (!t.getTpassword().equals(tpass)) {
-			throw new RuntimeException("ÓÃ»§Ãû»òÕßÃÜÂë´íÎó");// javaÇ¿´óµÄÒì³£´¦Àí»úÖÆ
+			throw new RuntimeException("ç”¨æˆ·åæˆ–è€…å¯†ç é”™è¯¯");// javaå¼ºå¤§çš„å¼‚å¸¸å¤„ç†æœºåˆ¶
 		}
 
 		return t;
@@ -44,7 +43,7 @@ public class TeacherService {
 	}
 
 	/**
-	 * ²éÑ¯ÀÏÊ¦ËùÓĞµÄÊı¾İ
+	 * æŸ¥è¯¢è€å¸ˆæ‰€æœ‰çš„æ•°æ®
 	 * 
 	 * @return
 	 */
@@ -55,16 +54,16 @@ public class TeacherService {
 	}
 
 	/**
-	 * ±£´æÀÏÊ¦ĞÅÏ¢
+	 * ä¿å­˜è€å¸ˆä¿¡æ¯
 	 * 
 	 * @param t
 	 * @param classid
-	 *            Ò»¸öÀÏÊ¦¶ÔÓ¦¶à¸ö°à¼¶
+	 *            ä¸€ä¸ªè€å¸ˆå¯¹åº”å¤šä¸ªç­çº§
 	 */
 	public void saveTeacher(Teacher t, String classid[]) {
-		// Ê×ÏÈÒª±£´æteacher
+		// é¦–å…ˆè¦ä¿å­˜teacher
 		int tid = tdao.saveTeacher(t);
-		// ±£´æÀÏÊ¦¶ÔÓ¦µÄ°à¼¶
+		// ä¿å­˜è€å¸ˆå¯¹åº”çš„ç­çº§
 		for (String cid : classid) {
 			Teacherclass tc = new Teacherclass();
 			tc.setDictionaryid(Integer.parseInt(cid));
@@ -78,7 +77,7 @@ public class TeacherService {
 	public List<Teacher> queryClassTeacher(String sno) {
 		return tdao.queryClassTeacher(sno);
 	}
-	//ĞŞ¸ÄÀÏÊ¦ÃÜÂë
+	//ä¿®æ”¹è€å¸ˆå¯†ç 
 	public int modifyPasswd(int teacherid,String ModifyPasswd){
 		return tdao.modifyPasswd(teacherid,ModifyPasswd);
 	}

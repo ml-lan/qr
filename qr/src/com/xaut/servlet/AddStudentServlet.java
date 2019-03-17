@@ -72,23 +72,23 @@ public class AddStudentServlet extends HttpServlet {
 		String sname = request.getParameter("sname");
 		String ssex = request.getParameter("ssex");
 		String spass = request.getParameter("spass");
-		// ÔÚ´Ë´¦Ê¡ÂÔÁË·şÎñÆ÷¶ËÊı¾İµÄ½ÌÑĞ
+		// åœ¨æ­¤å¤„çœç•¥äº†æœåŠ¡å™¨ç«¯æ•°æ®çš„æ•™ç ”
 		
 		StudentService ss = new StudentService();
 
-		// ¿ÉÒÔ´ÓsessionÖĞ»ñÈ¡µ½ °à¼¶µÄ±àºÅ£¬Ò²¾ÍÊÇ¶şÎ¬ÂëÖĞÒş²ØµÄ±àºÅ
+		// å¯ä»¥ä»sessionä¸­è·å–åˆ° ç­çº§çš„ç¼–å·ï¼Œä¹Ÿå°±æ˜¯äºŒç»´ç ä¸­éšè—çš„ç¼–å·
 		String did = request.getSession().getAttribute("sessionClassID")
 				.toString();
 
 		Student s = new Student();
-		s.setClassno(Integer.parseInt(did));// °à¼¶±àºÅ
+		s.setClassno(Integer.parseInt(did));// ç­çº§ç¼–å·
 		s.setSname(sname);
 		s.setSpassword(spass);
 		s.setSphone(sphone);
 		s.setSsex(Integer.parseInt(ssex));
 		try {
 			ss.save(s);
-			response.getWriter().print("Â¼ÈëĞÅÏ¢³É¹¦ÁË");
+			response.getWriter().print("å½•å…¥ä¿¡æ¯æˆåŠŸäº†");
 		} catch (Exception e) {
 			e.printStackTrace();       
 			response.getWriter().print(e.getMessage());

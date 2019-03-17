@@ -43,18 +43,18 @@ public class StudentLoginServlet extends HttpServlet {
 
 		String sphone = request.getParameter("sphone");
 		String spass = request.getParameter("spass");
-		// µÇÂ¼µÄ²Ù×÷ÁË
+		// ç™»å½•çš„æ“ä½œäº†
 		StudentService ss = new StudentService();
 		Student dbstudent;
 		try {
 			dbstudent = ss.studentLogin(sphone, spass);
-			// Ó¦¸Ã½«Ñ§ÉúµÄĞÅÏ¢´¢´æÔÚsession¡¢ÖĞ£¬ÒÔ±ãÓÚºóĞøµÄ»á»°¸ú×Ù
+			// åº”è¯¥å°†å­¦ç”Ÿçš„ä¿¡æ¯å‚¨å­˜åœ¨sessionã€ä¸­ï¼Œä»¥ä¾¿äºåç»­çš„ä¼šè¯è·Ÿè¸ª
 			request.setAttribute("dbstudent", dbstudent);
-			request.setAttribute("msg", "µÇÂ¼³É¹¦");
+			request.setAttribute("msg", "ç™»å½•æˆåŠŸ");
 
-			// µ±Ñ§ÉúÕıÈ·µÇÂ¼ÁËÖ®ºó£¬ĞèÒª¸øÇ°¶ËÏÂ·¢Ò»¸öÊı¾İ
-			// ÓÃÒÔ±íÊ¾Ñ§ÉúÒÑ¾­µÇÂ¼£¬ÒÔºó²»ĞèÒªµÇÂ¼
-			// »á»°¸ú×Ù cookie
+			// å½“å­¦ç”Ÿæ­£ç¡®ç™»å½•äº†ä¹‹åï¼Œéœ€è¦ç»™å‰ç«¯ä¸‹å‘ä¸€ä¸ªæ•°æ®
+			// ç”¨ä»¥è¡¨ç¤ºå­¦ç”Ÿå·²ç»ç™»å½•ï¼Œä»¥åä¸éœ€è¦ç™»å½•
+			// ä¼šè¯è·Ÿè¸ª cookie
 			Cookie c1 = new Cookie("islogin", "true");
 			Cookie c2 = new Cookie("sphone", sphone);
 			Cookie c3 = new Cookie("sno", dbstudent.getSno()+"");
@@ -70,18 +70,18 @@ public class StudentLoginServlet extends HttpServlet {
 			
 			   
 			
-			// ½«·şÎñÆ÷¶ËÄÚ´æÖĞµÄ¶ÔÏóÏÂ·¢µ½¿Í»§¶ËÖĞ
+			// å°†æœåŠ¡å™¨ç«¯å†…å­˜ä¸­çš„å¯¹è±¡ä¸‹å‘åˆ°å®¢æˆ·ç«¯ä¸­
 			response.addCookie(c1);
 			response.addCookie(c2);
 			response.addCookie(c3);
 
 			/*request.getRequestDispatcher("/studentPhone.jsp?date="+new Date()).forward(request,
 					response);*/
-			//´Ë´¦²»¿ÉÒÔÊ¹ÓÃÇëÇó×ª·¢
-			//ÒòÎªcookieÔÚ´Ë´¦ÓÉ·şÎñÆ÷ÏÂ·¢¸ø¿Í»§¶Ë
-			//µ±Ê¹ÓÃÇëÇó×ª·¢µÄÊ±ºò£¬±íÊ¾ÓÉ·şÎñÆ÷ ´ø×Å¿Í»§¶ËµÄÇëÇó²ÎÊı¼ÌĞøÇëÇóÏÂÒ»¸öÒ³Ãæ£¬È»¶øcookie»¹Ã»ÓĞ±»ÕæÕıµÄÏÂ·¢µ½¿Í»§¶Ë
-			//ËùÒÔÎŞ·¨»ñÈ¡
-			//µ«ÖØ¶¨Ïò²»Ò»ÑùÒòÎªÖØ¶¨Ïò¿Í»§¶Ë»áÇëÇó·şÎñÆ÷Á½´Î
+			//æ­¤å¤„ä¸å¯ä»¥ä½¿ç”¨è¯·æ±‚è½¬å‘
+			//å› ä¸ºcookieåœ¨æ­¤å¤„ç”±æœåŠ¡å™¨ä¸‹å‘ç»™å®¢æˆ·ç«¯
+			//å½“ä½¿ç”¨è¯·æ±‚è½¬å‘çš„æ—¶å€™ï¼Œè¡¨ç¤ºç”±æœåŠ¡å™¨ å¸¦ç€å®¢æˆ·ç«¯çš„è¯·æ±‚å‚æ•°ç»§ç»­è¯·æ±‚ä¸‹ä¸€ä¸ªé¡µé¢ï¼Œç„¶è€Œcookieè¿˜æ²¡æœ‰è¢«çœŸæ­£çš„ä¸‹å‘åˆ°å®¢æˆ·ç«¯
+			//æ‰€ä»¥æ— æ³•è·å–
+			//ä½†é‡å®šå‘ä¸ä¸€æ ·å› ä¸ºé‡å®šå‘å®¢æˆ·ç«¯ä¼šè¯·æ±‚æœåŠ¡å™¨ä¸¤æ¬¡
 			response.sendRedirect("../studentPhone.jsp");  
 			
 		} catch (Exception e) {

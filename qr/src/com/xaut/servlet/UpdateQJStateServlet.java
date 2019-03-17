@@ -68,13 +68,13 @@ public class UpdateQJStateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 
-		// 获取前台传递的参数
+		// 鑾峰彇鍓嶅彴浼犻�掔殑鍙傛暟
 		String qjid = request.getParameter("qjid");
 		String state = request.getParameter("state");
 
 		QJRecordService qs = new QJRecordService();
 		qs.update(qjid, state);
-		response.getWriter().println("已经成功处理");
+		response.getWriter().println("宸茬粡鎴愬姛澶勭悊");
 
 	}
 

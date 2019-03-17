@@ -14,7 +14,7 @@ import com.xaut.service.DictionaryService;
 import com.xaut.service.TeacherService;
 
 /**
- * ÓÃ»§µÇÂ¼servlet
+ * ç”¨æˆ·ç™»å½•servlet
  * 
  * @author Administrator
  * 
@@ -74,37 +74,37 @@ public class UserLoginServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// ÒªÊä³öÖĞÎÄ£¬±ØĞëÉèÖÃ±àÂë¸ñÊ½
+		// è¦è¾“å‡ºä¸­æ–‡ï¼Œå¿…é¡»è®¾ç½®ç¼–ç æ ¼å¼
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 
-		System.out.println("ÓĞÈËÒªµÇÂ½ÁË");
+		System.out.println("æœ‰äººè¦ç™»é™†äº†");
 		String sname = request.getParameter("sname");
 		String spass = request.getParameter("spass");
 		String sf = request.getParameter("sf");
 
-		// µÇÂ½µÄÅĞ¶Ï
+		// ç™»é™†çš„åˆ¤æ–­
 		if (sf.equals("gly")) {
-			// ¹ÜÀíÔ±ĞèÒª½»¸ø¹ÜÀíÔ±ÒµÎñÂß¼­´¦Àí
+			// ç®¡ç†å‘˜éœ€è¦äº¤ç»™ç®¡ç†å‘˜ä¸šåŠ¡é€»è¾‘å¤„ç†
 			AccountService as = new AccountService();
-			// ÏÖÔÚÎÒÃÇ²ÉÓÃµÄÄ£Ê½ÊÇ html--¡·Í¨¹ı±íµ¥Ìá½»¸øÁË servlet -->servlet ĞèÒª·µ»ØµÄ²»ÊÇÒ»¸ö×Ö·û´®£¬¶øÊÇÒ»¸öÒ³Ãæ
+			// ç°åœ¨æˆ‘ä»¬é‡‡ç”¨çš„æ¨¡å¼æ˜¯ html--ã€‹é€šè¿‡è¡¨å•æäº¤ç»™äº† servlet -->servlet éœ€è¦è¿”å›çš„ä¸æ˜¯ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œè€Œæ˜¯ä¸€ä¸ªé¡µé¢
 			try {
 				as.login(sname, spass);
-				//ĞèÒªÔÚ×ªÏòµ½leader.jspÒ³ÃæÖ®Ç°£¬Ê×ÏÈ°Ñleader.jspÒ³ÃæÖĞĞèÒª²éÑ¯µÄÊı¾İ²éÑ¯³öÀ´
-				//µ÷ÓÃ ×ÖµäÒµÎñÂß¼­Àà ÖĞ²éÑ¯µÄ·½·¨
+				//éœ€è¦åœ¨è½¬å‘åˆ°leader.jspé¡µé¢ä¹‹å‰ï¼Œé¦–å…ˆæŠŠleader.jspé¡µé¢ä¸­éœ€è¦æŸ¥è¯¢çš„æ•°æ®æŸ¥è¯¢å‡ºæ¥
+				//è°ƒç”¨ å­—å…¸ä¸šåŠ¡é€»è¾‘ç±» ä¸­æŸ¥è¯¢çš„æ–¹æ³•
 				DictionaryService ds=new DictionaryService();
 				java.util.List<Dictionary> list= ds.queryAll();
-				//²¢ÇÒ½«²éÑ¯µÄ½á¹û´æ·ÅÔÚÄ³Ò»¸ö·¶Î§ÖĞ
+				//å¹¶ä¸”å°†æŸ¥è¯¢çš„ç»“æœå­˜æ”¾åœ¨æŸä¸€ä¸ªèŒƒå›´ä¸­
 				request.setAttribute("data", list);
-				//ÇëÇó×ª·¢»òÕßÖØ¶¨Ïòµ½leader.jspÒ³ÃæÉÏ
-				//ÇëÇó×ª·¢²Å¿ÉÒÔ»ñÈ¡request·¶Î§ÖĞµÄÖµ
+				//è¯·æ±‚è½¬å‘æˆ–è€…é‡å®šå‘åˆ°leader.jspé¡µé¢ä¸Š
+				//è¯·æ±‚è½¬å‘æ‰å¯ä»¥è·å–requestèŒƒå›´ä¸­çš„å€¼
 				request.getRequestDispatcher("/leader.jsp").forward(request, response);
 				
 				//response.sendRedirect("../leader.html");
 			} catch (Exception e) {
 
-				// ĞèÒª½«´íÎóµÄÏûÏ¢·´À¡¸ø ¿Í»§¶Ë
-				// Ê×ÏÈ½«ÏûÏ¢´¢´æÔÚÄ³Ò»¸ö·¶Î§ÖĞ request
+				// éœ€è¦å°†é”™è¯¯çš„æ¶ˆæ¯åé¦ˆç»™ å®¢æˆ·ç«¯
+				// é¦–å…ˆå°†æ¶ˆæ¯å‚¨å­˜åœ¨æŸä¸€ä¸ªèŒƒå›´ä¸­ request
 				request.setAttribute("msg", e.getMessage());
 
 				// response.sendRedirect("../index.html");
@@ -113,18 +113,18 @@ public class UserLoginServlet extends HttpServlet {
 			}
 
 		} else {
-			// ÀÏÊ¦µÇÂ½ĞèÒª½»¸øÀÏÊ¦ÒµÎñÂß¼­´¦Àí
-			// ½øĞĞÀÏÊ¦µÇÂ¼µÄÅĞ¶Ï
+			// è€å¸ˆç™»é™†éœ€è¦äº¤ç»™è€å¸ˆä¸šåŠ¡é€»è¾‘å¤„ç†
+			// è¿›è¡Œè€å¸ˆç™»å½•çš„åˆ¤æ–­
 			TeacherService ts=new TeacherService();
 			try {
 				ts.teacherLogin(sname, spass);
 				request.setAttribute("teacherId", ts.teacherLogin(sname, spass).getTid());
-				//×ª·¢µ½»¶Ó­ÀÏÊ¦µÇÂ¼µÄ½çÃæ
+				//è½¬å‘åˆ°æ¬¢è¿è€å¸ˆç™»å½•çš„ç•Œé¢
 				request.getRequestDispatcher("/teacher.jsp").forward(request,
 						response);
 			} catch (Exception e) {
-				// ĞèÒª½«´íÎóµÄÏûÏ¢·´À¡¸ø ¿Í»§¶Ë
-				// Ê×ÏÈ½«ÏûÏ¢´¢´æÔÚÄ³Ò»¸ö·¶Î§ÖĞ request
+				// éœ€è¦å°†é”™è¯¯çš„æ¶ˆæ¯åé¦ˆç»™ å®¢æˆ·ç«¯
+				// é¦–å…ˆå°†æ¶ˆæ¯å‚¨å­˜åœ¨æŸä¸€ä¸ªèŒƒå›´ä¸­ request
 				request.setAttribute("msg", e.getMessage());
 
 				// response.sendRedirect("../index.html");

@@ -3,7 +3,7 @@ package com.xaut.service;
 import com.xaut.dao.AccountDao;
 
 /**
- * ºÍÕËºÅÏà¹ØµÄÒµÎñÂß¼­´¦ÀíµÄ
+ * å’Œè´¦å·ç›¸å…³çš„ä¸šåŠ¡é€»è¾‘å¤„ç†çš„
  * 
  * @author Administrator
  * 
@@ -13,7 +13,7 @@ public class AccountService {
 	AccountDao adao = new AccountDao();
 
 	/**
-	 * ĞŞ¸ÄÓÃ»§ÃÜÂëÒµÎñÂß¼­´¦Àí
+	 * ä¿®æ”¹ç”¨æˆ·å¯†ç ä¸šåŠ¡é€»è¾‘å¤„ç†
 	 * 
 	 * @param phoneNo
 	 * @param pass1
@@ -21,30 +21,30 @@ public class AccountService {
 	 */
 	public void repass(String phoneNo, String pass1, String pass2) {
 
-		// ÅĞ¶Ï
+		// åˆ¤æ–­
 		if (!pass1.equals(pass2)) {
-			throw new RuntimeException("Á½´ÎÃÜÂë²»Ò»ÖÂ");
+			throw new RuntimeException("ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´");
 		}
 
 		String dbpass = adao.getPassByPhoneNo(phoneNo);
 
 		if (dbpass.equals(pass1)) {
-			throw new RuntimeException("ĞÂÃÜÂë²»ÄÜ¹»ºÍÀÏÃÜÂëÒ»Ñù");
+			throw new RuntimeException("æ–°å¯†ç ä¸èƒ½å¤Ÿå’Œè€å¯†ç ä¸€æ ·");
 		}
 
-		// ĞŞ¸ÄÃÜÂë
+		// ä¿®æ”¹å¯†ç 
 		adao.repass(phoneNo, pass1);
 
 	}
 
 	public void login(String name, String pass) {
 		String dbpass = adao.getPassByPhoneNo(name);
-		if (dbpass == null) {// Èç¹ûÓÃ»§Ãû²»´æÔÚ
-			throw new RuntimeException("ÓÃ»§Ãû²»´æÔÚ");
+		if (dbpass == null) {// å¦‚æœç”¨æˆ·åä¸å­˜åœ¨
+			throw new RuntimeException("ç”¨æˆ·åä¸å­˜åœ¨");
 		}
 
 		if (!dbpass.equals(pass)) {
-			throw new RuntimeException("ÓÃ»§Ãû»òÃÜÂë´íÎó");
+			throw new RuntimeException("ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯");
 		}
 
 	}

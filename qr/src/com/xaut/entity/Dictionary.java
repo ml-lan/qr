@@ -8,7 +8,7 @@ public class Dictionary {
 	private String dnjname;// ` varchar(255) DEFAULT NULL,
 	private String dbjname;// ` varchar(255) DEFAULT NULL,
 
-	// ¿ì½İ¼ü
+	// å¿«æ·é”®
 	// alt+shift+s
 	
 	
